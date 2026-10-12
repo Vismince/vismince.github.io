@@ -49,6 +49,7 @@ svg{shape-rendering:crispEdges}
 .bar{width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
   border:3px solid var(--frame);border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.28);
   background:linear-gradient(var(--title-a),var(--title-b))}
+.bar .sep{flex:none;align-self:center;width:3px;height:1.1em;background:rgba(255,255,255,.75)}
 .bar .ttl{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 24px;min-width:0}
 .bar .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .bar .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
@@ -61,11 +62,13 @@ svg{shape-rendering:crispEdges}
 body.hdr-img{--stick-h:calc(var(--k) * (var(--th) - var(--t2)) * 1px)}
 body.hdr-img .bar{position:sticky;top:calc(var(--k) * var(--t2) * -1px);z-index:100;width:100%;height:calc(var(--k) * var(--th) * 1px);
   margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none}
+.bar .cap{z-index:1}
 .bar .cap,.bar .fill{position:absolute;top:0;bottom:0;background-image:var(--hdr-img);background-repeat:no-repeat}
 .bar .cap.l{left:0;width:calc(var(--k) * var(--tl) * 1px);background-position:left top;background-size:calc(var(--k) * var(--tw) * 1px) 100%}
 .bar .cap.r{right:0;width:calc(var(--k) * var(--tr) * 1px);background-position:right top;background-size:calc(var(--k) * var(--tw) * 1px) 100%}
-.bar .fill{left:calc(var(--k) * var(--tl) * 1px);right:calc(var(--k) * var(--tr) * 1px);
+.bar .fill{left:0;right:0;z-index:0;
   background-size:calc(var(--k) * var(--tw) * 10px) 100%;background-position:calc(var(--k) * var(--tx) * -10px) 0}   /* stretches a flat part of your image */
+body.hdr-img .bar .sep{width:calc(var(--k) * 9px);height:calc(var(--k) * (var(--t2) - var(--t1)) * .56px);background:#bfbfbf}
 body.hdr-img .bar .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:center;gap:0 .7em;
   left:calc(var(--k) * var(--tl) * 1px + 14px);right:calc(var(--k) * var(--tr) * 1px + 6px);
   top:calc(var(--k) * var(--t1) * 1px);height:calc(var(--k) * (var(--t2) - var(--t1)) * 1px)}
@@ -81,9 +84,13 @@ body.hdr-img.scrolled .bar .menu{background:#000080;left:calc(var(--k) * var(--t
 body.hdr-img.scrolled .bar .menu a{color:#fff}
 body.hdr-img.scrolled .bar .menu a:hover{background:#fff;color:#000080}
 body.hdr-img.scrolled .bar .menu a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
-body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame{image-rendering:pixelated}
-.frame{width:100%}
-body.frm-img .frame{border-style:solid;border-width:0 var(--frm-bw);border-image:var(--frm-img) 0 var(--frm-slice) / 0 var(--frm-bw) repeat}
+body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame::before,body.sharp .frame::after{image-rendering:pixelated}
+.frame{position:relative;width:100%}
+body.frm-img .frame{padding-inline:var(--frm-bw)}
+body.frm-img .frame::before,body.frm-img .frame::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);pointer-events:none;
+  background-image:var(--frm-img);background-repeat:repeat-y;background-size:calc(var(--fw) * var(--k) * 1px) auto}
+body.frm-img .frame::before{left:0;background-position:left top}
+body.frm-img .frame::after{right:0;background-position:right top}
 /* the dark inner edge of the window continues along the bottom of the bar, so top and sides join up */
 body.hdr-img.frm-img .bar::after{content:'';position:absolute;z-index:3;pointer-events:none;left:calc(var(--k) * (var(--frm-slice) - 9) * 1px);right:calc(var(--k) * (var(--frm-slice) - 9) * 1px);
   bottom:calc(var(--k) * -9px);height:calc(var(--k) * 9px);background:#000}
@@ -481,15 +488,17 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   }
   root.style.setProperty('--name-font', `'${f}','Pixelify Sans','Tahoma',monospace`);
   root.style.setProperty('--hdr-ink', SITE.headerInk || '#fff');
-  $('#top').innerHTML = `<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><p class="rl">${esc(SITE.role)}</p></div>
+  $('#top').innerHTML = `<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>
     <nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
 
   const setScale = () => {
-    const k = (innerWidth < 700 ? SITE.pixelSizeSmall : SITE.pixelSize) / SITE.sourcePixel;
-    root.style.setProperty('--k', k);                                              // full precision, so edges land on whole pixels
-    if (SITE._inset) root.style.setProperty('--frm-bw', Math.round(SITE._inset * k) + 'px');
+    const dpr = window.devicePixelRatio || 1, want = innerWidth < 700 ? SITE.pixelSizeSmall : SITE.pixelSize;
+    const n = Math.max(3, 3 * Math.round(want * dpr / 3));                         // screen pixels per art pixel: always a multiple of 3
+    const k = n / dpr / SITE.sourcePixel;                                          // CSS pixels per file pixel
+    root.style.setProperty('--k', k);
+    if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * k * dpr) / dpr) + 'px');
   };
   setScale(); addEventListener('resize', setScale);
 
@@ -518,6 +527,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
       } catch (e) {}
       root.style.setProperty('--frm-img', `url("${SITE.sideImage}")`);
       root.style.setProperty('--frm-slice', inset);
+      root.style.setProperty('--fw', im.naturalWidth);
       SITE._inset = inset; setScale();
       body.classList.add('frm-img');
     };
