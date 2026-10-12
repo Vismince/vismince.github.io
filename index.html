@@ -119,6 +119,7 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 
 /* ---------- 1. showreel ---------- */
 .stage{width:100%;aspect-ratio:16/9;max-height:var(--vmax,none);margin:0;background:#000;position:relative}
+.stage video.auto{pointer-events:none}
 .stage video,.stage iframe{width:100%;height:100%;border:0;display:block;background:#000;object-fit:contain}
 .stage .poster{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#000}
 .stage .poster img{width:100%;height:100%;object-fit:cover;display:block;opacity:.9}
@@ -228,6 +229,8 @@ const SITE = {
   pixelSize: 3,                                    // screen pixels per pixel of your art. Bigger = chunkier frame
   pixelSizeSmall: 2,                               // same, for phones and small windows
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
+  showreelAutoplay: true,                          // the video starts by itself, silent, with no controls (browsers only allow silent autoplay)
+  showreelLoop: true,                              // repeat the video
   showreelMaxHeight: 0,                            // 0 = video fills the full width. Or a number like 85 to cap it at 85% of the screen height (black bars appear at the sides)
   topFrame: { leftCap: 33, rightCap: 33, fillAt: 2000, title: [33, 177] },
                                                    // measurements of frame-top.png in file pixels: left edge width, right part
@@ -376,10 +379,18 @@ function showVideo(i, play){
   document.querySelectorAll('.vthumb').forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-pressed', j === i); });
   if ($('#vcap')) $('#vcap').innerHTML = `<strong>${esc(v.title)}</strong>${v.caption ? ' · ' + esc(v.caption) : ''}`;
   if (v.src){
-    st.innerHTML = `<video controls playsinline preload="metadata"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`;
+    const auto = SITE.showreelAutoplay !== false && !matchMedia('(prefers-reduced-motion: reduce)').matches;   // plays by itself, silent, no controls
+    st.innerHTML = auto
+      ? `<video class="auto" autoplay muted${SITE.showreelLoop === false ? '' : ' loop'} playsinline disablepictureinpicture disableremoteplayback tabindex="-1" controlslist="nodownload noplaybackrate nofullscreen" preload="auto"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`
+      : `<video controls playsinline preload="metadata"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`;
     const vid = st.firstElementChild;
+    if (auto){
+      vid.muted = true;                                                            // browsers only allow autoplay when the video is silent
+      vid.play().catch(() => { vid.classList.remove('auto'); vid.controls = true; });   // if a browser still blocks it, show a play button so the video isn't stuck
+      vid.addEventListener('contextmenu', e => e.preventDefault());
+    }
     vid.addEventListener('error', () => { st.innerHTML = `<div class="ph vph"><div>${ic('video')}<br>Video could not be loaded:<br><code>${esc(v.src)}</code><br>Check the file name, that it is in the videos folder, and that it is an H.264 MP4.</div></div>`; }, true);
-    if (play) vid.play().catch(() => {});
+    if (play && !auto) vid.play().catch(() => {});
   } else if (v.youtube){
     if (play){
       st.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?autoplay=1&rel=0" title="${esc(v.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
