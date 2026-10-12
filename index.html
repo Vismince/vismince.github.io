@@ -46,7 +46,7 @@ svg{shape-rendering:crispEdges}
 #page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 28px;display:flex;flex-direction:column;gap:32px}
 
 /* ---------- title bar: solid, at the very top, with your name and role (plain blue bar until images/frame-title.png loads) ---------- */
-.title{position:relative;z-index:3;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
+.title{display:flex;align-items:center;gap:14px;position:relative;z-index:120;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
   border:3px solid var(--frame);border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.28);
   background:linear-gradient(var(--title-a),var(--title-b))}
 .title .face{flex:none;align-self:center;display:block;height:44px;width:auto;margin-right:2px}
@@ -85,6 +85,10 @@ svg{shape-rendering:crispEdges}
   .chat{width:100%;margin-left:0;padding:24px 18px 18px}
   .chat::before{left:auto;right:56px;bottom:auto;top:-24px;border-width:0 12px 21px 12px;border-bottom-color:#000;border-right-color:transparent}
   .chat::after{left:auto;right:59px;bottom:auto;top:-18px;border-width:0 9px 17px 9px;border-bottom-color:#fff;border-right-color:transparent}
+  body .menubar .menu a{padding:1px 6px;font-size:14px}
+}
+@media (max-width:380px){
+  body .menubar .menu a{padding:1px 4px;font-size:13px}
 }
 @media (prefers-reduced-motion:reduce){.chat .reveal{opacity:1;transform:none}.chat .say.typing .t::after{animation:none}}
 body.ttl-img .title{width:100%;height:calc(var(--k) * var(--wh) * 1px);margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none}
@@ -93,7 +97,11 @@ body.ttl-img .title{width:100%;height:calc(var(--k) * var(--wh) * 1px);margin:0;
 .title .cap.l{left:0;width:calc(var(--ks) * var(--wl) * 1px);background-position:left top;background-size:calc(var(--ks) * var(--ww) * 1px) calc(var(--k) * var(--wh) * 1px)}
 .title .cap.r{right:0;width:calc(var(--ks) * var(--wr) * 1px);background-position:right top;background-size:calc(var(--ks) * var(--ww) * 1px) calc(var(--k) * var(--wh) * 1px)}
 .title .fill{left:0;right:0;z-index:0;background-size:calc(var(--k) * var(--ww) * 10px) calc(var(--k) * var(--wh) * 1px);background-position:calc(var(--k) * var(--wx) * -10px) 0}   /* stretches a flat part of your image */
-body.ttl-img .title .face{height:calc(var(--k) * (var(--w2) - var(--w1)) * var(--face-scale, 1) * 1px)}
+body.ttl-img{--face-h:calc(var(--k) * (var(--w2) - var(--w1)) * var(--face-scale, 1) * 1px);--face-w:calc(var(--face-h) * var(--face-ar, 1));--face-x:calc(var(--ks) * var(--wl) * 1px + 8px)}
+body.ttl-img .title .face{position:absolute;z-index:5;left:var(--face-x);top:calc(var(--k) * 9px);height:var(--face-h);width:var(--face-w);margin:0}
+body.ttl-img.has-face .title .ttl{left:calc(var(--face-x) + var(--face-w) + 14px)}
+body.ttl-img.has-face .menubar .menu{left:calc(var(--face-x) + var(--face-w) - var(--frm-bw, 0px) + 8px)}
+body.pinned.ttl-img.has-face .menubar .menu{left:8px}
 body.ttl-img .title .sep{width:calc(var(--k) * 9px);height:calc(var(--k) * (var(--w2) - var(--w1)) * .6px);background:#bfbfbf}
 body.ttl-img .title .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:center;gap:0 .7em;
   left:calc(var(--ks) * var(--wl) * 1px + 14px);right:calc(var(--ks) * var(--wr) * 1px + 6px);
@@ -107,7 +115,7 @@ body{--stick-h:var(--mh)}
 .menubar::before{content:'';position:absolute;inset:0;background:#bfbfbf;box-shadow:inset 0 calc(var(--k) * -9px) #818181;opacity:var(--bar-op,.5)}
 body.mb-img .menubar::before{background-color:transparent;box-shadow:none;background-image:var(--hdr-img);background-repeat:no-repeat;
   background-size:calc(var(--k) * var(--tw) * 10px) calc(var(--k) * var(--th) * 1px);background-position:calc(var(--k) * var(--tx) * -10px) calc(var(--k) * var(--m0) * -1px)}
-.menubar .menu{position:absolute;z-index:1;left:8px;right:8px;top:0;height:var(--mtext);display:flex;align-items:center;gap:0 2px;overflow:hidden}
+.menubar .menu{transition:left .2s;position:absolute;z-index:1;left:8px;right:8px;top:0;height:var(--mtext);display:flex;align-items:center;gap:0 2px;overflow:hidden}
 .menubar .menu a{color:#000;text-decoration:none;white-space:nowrap;padding:1px 10px;font:400 max(15px, calc(var(--mtext) * .5)) var(--name-font);text-shadow:0 0 3px rgba(255,255,255,.85)}
 .menubar .menu a:hover{background:#000080;color:#fff;text-shadow:none}
 .menubar .menu a.act{box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
@@ -305,7 +313,8 @@ const SITE = {
   sharp: true,                                     // keep the frame crisp (pixel art)
   nameFont: 'Pixelify Sans',                       // Pixelify Sans, Silkscreen, Press Start 2P, VT323, Jersey 10, Tiny5, DotGothic16
   titlePortrait: 'images/portrait-mascot.png',     // small portrait of your character at the left of the title bar, before your name. Missing file = nothing shown
-  titlePortraitSize: 1.35,                         // 1 = as tall as the navy bar. 1.35 lets it stand out of the bar a little. Up to about 1.4 fits
+  titlePortraitSize: 2.1,                          // height of the portrait compared with the navy bar. 2.1 lets it overlap the menu bar below; 1 stays inside the navy bar
+  titlePortraitSizeSmall: 1.5,                     // same, for phones
   titlePortraitPixelated: false,                   // true if the portrait is pixel art and should stay crisp
   portrait: 'images/me.png',                       // optional photo or pixel avatar. Missing file = a placeholder
   location: 'Breda, Netherlands',
@@ -614,8 +623,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--vfit', SITE.showreelFit || 'cover');
   root.style.setProperty('--bar-op', SITE.barOpacity);
   $('#top').classList.toggle('px', !!SITE.titlePortraitPixelated);
-  root.style.setProperty('--face-scale', SITE.titlePortraitSize || 1);
-  $('#top').innerHTML = `<div class="ttl">${SITE.titlePortrait ? `<img class="face" src="${esc(SITE.titlePortrait)}" alt="" onerror="this.remove()">` : ''}<h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
+  $('#top').innerHTML = `${SITE.titlePortrait ? `<img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face');document.documentElement.style.setProperty('--face-ar',this.naturalWidth/this.naturalHeight)" onerror="this.remove()">` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
   $('#menubar').innerHTML = `<nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
@@ -627,6 +635,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     const k = nBar / dpr / SITE.sourcePixel, ks = nSide / dpr / SITE.sourcePixel;
     root.style.setProperty('--k', k);
     root.style.setProperty('--ks', ks);
+    root.style.setProperty('--face-scale', innerWidth < 400 ? Math.min(SITE.titlePortraitSizeSmall, 1.2) : small ? SITE.titlePortraitSizeSmall : SITE.titlePortraitSize);
     if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * ks * dpr) / dpr) + 'px');
     document.querySelectorAll('.floor.show').forEach(el => {                  // each closing bar is as tall as its image, at the side frame's scale
       const fh = +el.dataset.fh; if (fh) el.style.setProperty('--flh', (Math.round(fh * ks * dpr) / dpr) + 'px');
