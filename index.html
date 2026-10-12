@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
-<script>try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}</script>
 <style>
 :root{
   color-scheme:light;
@@ -17,29 +16,28 @@
   --chrome:#ece9d8; --chrome-line:#aca899; --paper:#fff; --paper-line:#7f9db9; --ink:#1b1b1b; --muted:#555; --link:#0033cc;
   --meta-bg:#f5f4ea; --meta-line:#d6d2c2; --chip-bg:#e8f0fc; --chip-line:#9db9eb; --ph-bg:#f5f8ff; --ph-ink:#506080;
   --btn-bg:#f1efe6; --btn-hover:#e6e3d6; --btn-active:#d8d0c4; --btn-line:#003c74; --accent:#fff6c9; --accent-line:#d9b93a;
-  --bar:#245edb; --task:#3c81f3; --task-act:#1e52b7; --task-line:#1a43a8; --tray:#1a56c4; --menu-bg:#fff;
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
   --k:.3333; --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
-  --taskbar:32px;
   --px:'Pixelify Sans','Tahoma',monospace;
   --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
-}
-:root[data-theme="dark"]{
-  color-scheme:dark;
-  --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23fff' fill-opacity='0.28'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
-  --desk:#14181f; --frame:#2b4f9c; --title-a:#2f5cb8; --title-b:#233f80; --tb:#35539a;
-  --chrome:#2a2d33; --chrome-line:#434852; --paper:#1a1d22; --paper-line:#3a4150; --ink:#e6e8ec; --muted:#9aa3b2; --link:#80b2ff;
-  --meta-bg:#22262d; --meta-line:#343a44; --chip-bg:#1f2b44; --chip-line:#34507f; --ph-bg:#1f242c; --ph-ink:#8d98ab;
-  --btn-bg:#333843; --btn-hover:#3d4350; --btn-active:#2a2e37; --btn-line:#6b7686; --accent:#3a3419; --accent-line:#8a7a2c;
-  --bar:#1b2740; --task:#2c4a85; --task-act:#1a2d55; --task-line:#3b5a99; --tray:#16213a; --menu-bg:#22262d;
 }
 *{box-sizing:border-box}
 @media (pointer:fine){ *,*::before,*::after,html,body{cursor:var(--cursor)!important} }   /* pixel arrow with pixel shadow */
 html{scroll-behavior:smooth}
+/* Windows 95 style scrollbars (Chrome, Edge, Safari) */
+::-webkit-scrollbar{width:20px;height:20px;background:#fff}
+::-webkit-scrollbar-track{background:repeating-conic-gradient(#fff 0 25%, #c0c0c0 0 50%) 0 0 / 4px 4px}
+::-webkit-scrollbar-thumb,::-webkit-scrollbar-button:single-button{background-color:#c0c0c0;box-shadow:inset -2px -2px #000, inset 2px 2px #fff, inset -4px -4px #818181, inset 4px 4px #dfdfdf}
+::-webkit-scrollbar-button:single-button{display:block;width:20px;height:20px;background-repeat:no-repeat;background-position:center}
+::-webkit-scrollbar-button:single-button:active{box-shadow:inset 2px 2px #000, inset -2px -2px #fff, inset 4px 4px #818181}
+::-webkit-scrollbar-button:vertical:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 7 4' shape-rendering='crispEdges'%3E%3Cpath d='M3 0h1v1h-1z M2 1h3v1h-3z M1 2h5v1h-5z M0 3h7v1h-7z'/%3E%3C/svg%3E")}
+::-webkit-scrollbar-button:vertical:increment{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='8' viewBox='0 0 7 4' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h7v1h-7z M1 1h5v1h-5z M2 2h3v1h-3z M3 3h1v1h-1z'/%3E%3C/svg%3E")}
+::-webkit-scrollbar-button:horizontal:decrement{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Cpath d='M0 3h1v1h-1z M1 2h1v3h-1z M2 1h1v5h-1z M3 0h1v7h-1z'/%3E%3C/svg%3E")}
+::-webkit-scrollbar-button:horizontal:increment{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14' viewBox='0 0 4 7' shape-rendering='crispEdges'%3E%3Cpath d='M3 3h1v1h-1z M2 2h1v3h-1z M1 1h1v5h-1z M0 0h1v7h-1z'/%3E%3C/svg%3E")}
+::-webkit-scrollbar-corner{background:#c0c0c0}
+@supports not selector(::-webkit-scrollbar){ html{scrollbar-color:#c0c0c0 #e4e4e4} }   /* Firefox: colours only */
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{position:relative;margin:0;min-height:100vh;background:var(--desk);font:15px/1.6 var(--ui);color:var(--ink);padding-bottom:calc(var(--taskbar) + 40px)}
-body.no-taskbar{padding-bottom:40px}
-body.no-taskbar #taskbar,body.no-taskbar #menu{display:none}
+body{position:relative;margin:0;min-height:100vh;background:var(--desk);font:15px/1.6 var(--ui);color:var(--ink);padding-bottom:40px}
 button{font:inherit;color:inherit}
 a{color:var(--link)}
 :focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
@@ -57,9 +55,6 @@ svg{shape-rendering:crispEdges}
 .bar .menu{display:flex;align-items:center;flex-wrap:wrap;gap:2px 4px;margin-top:12px}
 .bar .menu a{color:#fff;text-decoration:none;padding:2px 10px;font:400 16px var(--name-font)}
 .bar .menu a:hover,.bar .menu a.act{background:rgba(255,255,255,.22)}
-.themebtn{display:flex;align-items:center;background:none;border:0;padding:4px;border-radius:3px;margin-left:auto}
-.themebtn svg{width:16px;height:16px}
-.themebtn:hover{background:rgba(255,255,255,.18)}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
 
 /* with your frame-top image: a real window title bar and menu bar, sticky so the menu stays in reach */
@@ -81,16 +76,17 @@ body.hdr-img .bar .menu{position:absolute;z-index:2;margin:0;flex-wrap:nowrap;ov
 body.hdr-img .bar .menu a{color:#000;padding:1px 10px;font-size:max(15px, calc(var(--k) * (var(--m2) - var(--t2)) * .36px))}
 body.hdr-img .bar .menu a:hover{background:#000080;color:#fff}
 body.hdr-img .bar .menu a.act{background:none;box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
-body.hdr-img .bar .themebtn{background:#1b2740;border:1px solid #000;border-radius:0}
 body.hdr-img .bar .menu{transition:background-color .15s}
 body.hdr-img.scrolled .bar .menu{background:#000080;left:calc(var(--k) * var(--tl) * 1px);right:calc(var(--k) * var(--tr) * 1px);padding:0 0 0 8px}
 body.hdr-img.scrolled .bar .menu a{color:#fff}
 body.hdr-img.scrolled .bar .menu a:hover{background:#fff;color:#000080}
 body.hdr-img.scrolled .bar .menu a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
-body.hdr-img.scrolled .bar .themebtn{border-color:#fff}
 body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame{image-rendering:pixelated}
 .frame{width:100%}
-body.frm-img .frame{border-style:solid;border-width:0 calc(var(--k) * var(--frm-slice) * 1px);border-image:var(--frm-img) 0 var(--frm-slice) / 0 calc(var(--k) * var(--frm-slice) * 1px) repeat}
+body.frm-img .frame{border-style:solid;border-width:0 var(--frm-bw);border-image:var(--frm-img) 0 var(--frm-slice) / 0 var(--frm-bw) repeat}
+/* the dark inner edge of the window continues along the bottom of the bar, so top and sides join up */
+body.hdr-img.frm-img .bar::after{content:'';position:absolute;z-index:3;pointer-events:none;left:calc(var(--k) * (var(--frm-slice) - 9) * 1px);right:calc(var(--k) * (var(--frm-slice) - 9) * 1px);
+  bottom:calc(var(--k) * -9px);height:calc(var(--k) * 9px);background:#000}
 
 /* ---------- window frame (used by every section) ---------- */
 .win{background:var(--chrome);border:3px solid var(--frame);border-top:0;border-radius:9px 9px 0 0;box-shadow:0 2px 10px rgba(0,0,0,.28);scroll-margin-top:calc(var(--stick-h,0px) + 20px);min-width:0}
@@ -179,27 +175,6 @@ dialog.win > .body{overflow:auto;flex:1}
 .shot img{display:block;max-width:100%;border:2px solid var(--paper-line)}
 .shot figcaption{font-size:13px;color:var(--muted);margin-top:4px}
 
-/* ---------- taskbar + start menu ---------- */
-#taskbar{position:fixed;left:0;right:0;bottom:0;height:var(--taskbar);z-index:1000;display:flex;align-items:stretch;padding-bottom:env(safe-area-inset-bottom,0);background:var(--bar)}
-#start{display:flex;align-items:center;gap:6px;padding:0 18px 0 10px;border:0;border-radius:0 12px 12px 0;color:#fff;font:italic 700 18px var(--ui);background:#3c9a2f}
-#start svg{width:20px;height:20px}
-#start.on{filter:brightness(.88)}
-#tasks{flex:1;display:flex;gap:3px;padding:3px 6px;overflow:hidden;min-width:0}
-.task{display:flex;align-items:center;gap:6px;flex:0 1 150px;min-width:40px;padding:0 8px;color:#fff;border:1px solid var(--task-line);border-radius:3px;background:var(--task);font-size:12px;overflow:hidden;white-space:nowrap}
-.task svg{width:16px;height:16px;flex:none}
-.task span{overflow:hidden;text-overflow:ellipsis}
-.task.act{background:var(--task-act);box-shadow:inset 1px 1px 3px rgba(0,0,0,.5)}
-#tray{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:12px;background:var(--tray);gap:4px}
-#menu{position:fixed;left:0;bottom:var(--taskbar);width:min(250px,100%);z-index:999;display:none;border:2px solid var(--frame);border-radius:8px 8px 0 0;overflow:hidden;box-shadow:0 -2px 8px rgba(0,0,0,.25);background:var(--menu-bg);color:var(--ink)}
-#menu.open{display:block}
-#menu .top{display:flex;align-items:center;gap:10px;padding:8px 10px;color:#fff;font:18px var(--px);background:var(--title-b)}
-#menu .top svg{width:34px;height:34px;border:2px solid #fff;border-radius:4px;background:#fff}
-#menu .list{padding:6px 0}
-#menu button,#menu a{display:flex;align-items:center;gap:8px;width:100%;padding:7px 12px;border:0;background:none;text-align:left;font-size:14px;color:inherit;text-decoration:none}
-#menu svg{width:26px;height:26px;flex:none}
-#menu button:hover,#menu a:hover,#menu button:focus-visible,#menu a:focus-visible{background:#316ac5;color:#fff}
-#menu hr{border:0;border-top:1px solid var(--paper-line);margin:4px 8px}
-
 @media (max-width:760px){
   body{font-size:16px}
   h1,.h1{font-size:28px}
@@ -211,8 +186,6 @@ dialog.win > .body{overflow:auto;flex:1}
   .card.feat .ct{font-size:24px}
   .row2{grid-template-columns:1fr}
   .vthumb{width:calc(50% - 5px)}
-  .task.perm span{display:none}
-  .task.perm{flex:0 0 40px;justify-content:center;padding:0}
 }
 </style>
 </head>
@@ -221,12 +194,6 @@ dialog.win > .body{overflow:auto;flex:1}
 <header class="bar" id="top"></header>
 <div class="frame"><main id="page"></main></div>
 <dialog id="case" class="win" aria-label="Project case study"></dialog>
-<div id="menu" role="menu" aria-label="Start menu"></div>
-<div id="taskbar">
-  <button id="start" aria-haspopup="true" aria-expanded="false"></button>
-  <nav id="tasks" aria-label="Sections"></nav>
-  <div id="tray"><button class="themebtn"></button><span id="clock"></span></div>
-</div>
 
 <script>
 /* =====================================================================
@@ -244,7 +211,6 @@ const SITE = {
     'Voxel games are my favourite playground: chunky readable shapes make flow, landmarks, and sightlines easy to judge, and they reward tidy modular thinking.',
     'Small teams are where I do my best work, so I like owning a level from paper map to final pass.'
   ],
-  taskbar: false,                                  // true brings back the Start button and taskbar at the bottom
   headerImage: 'images/frame-top.png',             // title bar + menu bar. Missing file = a plain blue bar
   sideImage: 'images/frame-side.png',              // left and right edges of the window, repeats down the page. Missing file = no edges
   headerInk: '',                                   // colour of your name in the title bar. '' = automatic (white)
@@ -276,8 +242,7 @@ const SITE = {
   wallpaper: 'image',                              // 'image' (your PNG, repeats downward), 'checker' (drawn in code) or 'solid'
   wallpaperImage: 'images/background.png',
   wallpaperFit: '100% auto',                       // full width, repeats vertically
-  wallpaperDarken: 0,                              // dims the background in dark theme (0 = none, 1 = black)
-  wallpaperColor: '#3a6ea5', wallpaperColorDark: '#14181f',
+  wallpaperColor: '#3a6ea5',
   checkerSize: 96, checkerLight: '#c8c8c6', checkerDark: '#ababab', checkerFade: 0.19,
   cursorImage: 'images/cursor.png',                // your own PNG cursor (32x32 or smaller). Missing file = built-in pixel arrow
   cursorImage2x: '',
@@ -357,8 +322,6 @@ const ICONS = {
   video:`<svg viewBox="0 0 32 32">${R(2,5,28,20,'#3a3f4a')}${R(4,7,24,16,'#1b3a6b')}<polygon points="13,10 13,20 22,15" fill="#fff"/>${R(11,26,10,2,'#3a3f4a')}</svg>`,
   tools:`<svg viewBox="0 0 32 32">${R(4,4,24,24,'#d8d4c4')}${R(4,4,24,3,'#2a6fdb')}${R(8,11,6,6,'#3f9d34')}${R(16,11,8,2,'#444')}${R(16,15,8,2,'#444')}${R(8,20,16,2,'#444')}${R(8,24,10,2,'#444')}</svg>`,
   win:`<svg viewBox="0 0 32 32">${R(3,5,12,10,'#e8502a')}${R(17,3,12,12,'#6cc04a')}${R(3,17,12,10,'#2a8cf0')}${R(17,17,12,12,'#f5c800')}</svg>`,
-  sun:`<svg viewBox="0 0 32 32">${R(11,11,10,10,'#ffd23f')}${R(15,3,2,5,'#ffd23f')}${R(15,24,2,5,'#ffd23f')}${R(3,15,5,2,'#ffd23f')}${R(24,15,5,2,'#ffd23f')}${R(6,6,3,3,'#ffd23f')}${R(23,6,3,3,'#ffd23f')}${R(6,23,3,3,'#ffd23f')}${R(23,23,3,3,'#ffd23f')}</svg>`,
-  moon:`<svg viewBox="0 0 32 32">${R(13,5,6,2,'#ffe9a8')}${R(10,7,6,2,'#ffe9a8')}${R(8,9,6,2,'#ffe9a8')}${R(7,11,5,10,'#ffe9a8')}${R(8,21,6,2,'#ffe9a8')}${R(10,23,6,2,'#ffe9a8')}${R(13,25,6,2,'#ffe9a8')}${R(17,6,3,2,'#ffe9a8')}${R(18,24,4,2,'#ffe9a8')}</svg>`,
 };
 const ic = n => ICONS[n] || ICONS.doc;
 
@@ -481,24 +444,13 @@ dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[
 dlg.addEventListener('close', () => { if (dlg._from) dlg._from.focus(); });
 
 /* =====================================================================
-   4. Taskbar, start menu, clock
+   4. Menu bar navigation
    ===================================================================== */
 const NAV = [['showreel', 'Home', 'video'], ['about', 'About me', 'user'], ['projects', 'Projects', 'folder'], ['contact', 'Contact', 'mail']];
 const go = id => { if (id === 'showreel'){ scrollTo({ top: 0 }); return; } const el = document.getElementById(id); if (el){ if (el.classList.contains('collapsed')){ el.classList.remove('collapsed'); } el.scrollIntoView({ block: 'start' }); } };
-$('#tasks').innerHTML = NAV.map(([id, label, icon]) => `<button class="task perm" data-go="${id}" title="${label}">${ic(icon)}<span>${label}</span></button>`).join('');
-$('#start').innerHTML = `${ic('win')}<span>start</span>`;
-$('#menu').innerHTML = `<div class="top">${ic('user')}<span>${esc(SITE.name)}</span></div>
-  <div class="list">${NAV.map(([id, label, icon]) => `<button role="menuitem" data-go="${id}">${ic(icon)}${label}</button>`).join('')}
-    <hr><a role="menuitem" href="${esc(SITE.resume)}" target="_blank" rel="noopener">${ic('doc')}Resume (PDF)</a>
-    <a role="menuitem" href="mailto:${esc(SITE.email)}">${ic('mail')}Email me</a></div>`;
-const setMenu = v => { $('#menu').classList.toggle('open', v); $('#start').classList.toggle('on', v); $('#start').setAttribute('aria-expanded', v); };
-$('#start').onclick = e => { e.stopPropagation(); setMenu(!$('#menu').classList.contains('open')); };
-document.addEventListener('pointerdown', e => { if (!e.target.closest('#menu') && !e.target.closest('#start')) setMenu(false); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 document.addEventListener('click', e => {
-  const g = e.target.closest('[data-go]'); if (g){ e.preventDefault(); setMenu(false); go(g.dataset.go); }
+  const g = e.target.closest('[data-go]'); if (g){ e.preventDefault(); go(g.dataset.go); }
   const a = e.target.closest('a[href="#contact"],a[href="#top"]'); if (a){ e.preventDefault(); go(a.getAttribute('href').slice(1)); }
-  if (e.target.closest('#menu a')) setMenu(false);
 });
 /* highlight the tab for the section you are reading */
 let ticking = false;
@@ -509,16 +461,14 @@ function markActive(){
   let cur = NAV[0][0];
   NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
   if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = 'contact';
-  document.querySelectorAll('.task.perm, .menu a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
+  document.querySelectorAll('.menu a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
 }
 addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(markActive); } }, { passive: true });
 addEventListener('resize', markActive); markActive();
 
-const tick = () => $('#clock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-tick(); setInterval(tick, 15000);
 
 /* =====================================================================
-   5. Theme (light / dark), cursor, wallpaper
+   5. Cursor, wallpaper, header
    ===================================================================== */
 const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey 10', 'Tiny5', 'DotGothic16'];
 (function setupHeader(){
@@ -532,12 +482,15 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--name-font', `'${f}','Pixelify Sans','Tahoma',monospace`);
   root.style.setProperty('--hdr-ink', SITE.headerInk || '#fff');
   $('#top').innerHTML = `<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><p class="rl">${esc(SITE.role)}</p></div>
-    <nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}<button class="themebtn"></button></nav>`;
+    <nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
-  if (!SITE.taskbar) body.classList.add('no-taskbar');
 
-  const setScale = () => root.style.setProperty('--k', ((innerWidth < 700 ? SITE.pixelSizeSmall : SITE.pixelSize) / SITE.sourcePixel).toFixed(5));
+  const setScale = () => {
+    const k = (innerWidth < 700 ? SITE.pixelSizeSmall : SITE.pixelSize) / SITE.sourcePixel;
+    root.style.setProperty('--k', k);                                              // full precision, so edges land on whole pixels
+    if (SITE._inset) root.style.setProperty('--frm-bw', Math.round(SITE._inset * k) + 'px');
+  };
   setScale(); addEventListener('resize', setScale);
 
   if (SITE.headerImage){
@@ -565,19 +518,19 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
       } catch (e) {}
       root.style.setProperty('--frm-img', `url("${SITE.sideImage}")`);
       root.style.setProperty('--frm-slice', inset);
+      SITE._inset = inset; setScale();
       body.classList.add('frm-img');
     };
     im.src = SITE.sideImage;
   }
 })();
-function applyTheme(t, save){
-  const dark = t === 'dark', root = document.documentElement;
-  root.dataset.theme = t;
-  root.style.setProperty('--desk', dark ? SITE.wallpaperColorDark : SITE.wallpaperColor);
+function applyLook(){
+  const root = document.documentElement, st = document.body.style;
+  root.style.setProperty('--desk', SITE.wallpaperColor);
   if (SITE.cursorImage){
     const [hx, hy] = SITE.cursorHotspot || [0, 0];
     root.style.removeProperty('--cursor');
-    const fallback = getComputedStyle(root).getPropertyValue('--cursor').trim();      // built-in arrow for this theme
+    const fallback = getComputedStyle(root).getPropertyValue('--cursor').trim();      // built-in pixel arrow
     const src = SITE.cursorImage2x ? `image-set(url("${SITE.cursorImage}") 1x, url("${SITE.cursorImage2x}") 2x)` : `url("${SITE.cursorImage}")`;
     root.style.setProperty('--cursor', `${src} ${hx} ${hy}, ${fallback}`);
   }
@@ -585,39 +538,24 @@ function applyTheme(t, save){
     SITE._imgOk = null;
     const probe = new Image();
     probe.onload = () => { SITE._imgOk = true; };
-    probe.onerror = () => { SITE._imgOk = false; applyTheme(t, false); };
+    probe.onerror = () => { SITE._imgOk = false; applyLook(); };
     probe.src = SITE.wallpaperImage;
   }
   const useImage = SITE.wallpaper === 'image' && SITE._imgOk !== false;
   const useChecker = SITE.wallpaper === 'checker' || (SITE.wallpaper === 'image' && SITE._imgOk === false);
-  const d = SITE.wallpaperDarken, shade = `linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d}))`, st = document.body.style;
   if (useChecker){
     const q = SITE.checkerSize, f = SITE.checkerFade;
-    const layers = [
-      [`linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,${f}))`, 'auto'],
-      [`repeating-conic-gradient(${SITE.checkerDark} 0 25%, ${SITE.checkerLight} 0 50%)`, `${q * 2}px ${q * 2}px`]
-    ];
-    if (dark) layers.unshift([shade, 'auto']);
-    Object.assign(st, { backgroundImage: layers.map(l => l[0]).join(','), backgroundSize: layers.map(l => l[1]).join(','), backgroundPosition: 'center top', backgroundRepeat: 'repeat' });
-  } else if (useImage){
-    const img = `url("${SITE.wallpaperImage}")`;
     Object.assign(st, {
-      backgroundImage: dark ? `${shade}, ${img}` : img,
-      backgroundSize: dark ? `auto, ${SITE.wallpaperFit}` : SITE.wallpaperFit,
-      backgroundPosition: dark ? 'center, center top' : 'center top',
-      backgroundRepeat: dark ? 'repeat, repeat-y' : 'repeat-y'
+      backgroundImage: `linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,${f})), repeating-conic-gradient(${SITE.checkerDark} 0 25%, ${SITE.checkerLight} 0 50%)`,
+      backgroundSize: `auto, ${q * 2}px ${q * 2}px`, backgroundPosition: 'center top', backgroundRepeat: 'repeat'
     });
+  } else if (useImage){
+    Object.assign(st, { backgroundImage: `url("${SITE.wallpaperImage}")`, backgroundSize: SITE.wallpaperFit, backgroundPosition: 'center top', backgroundRepeat: 'repeat-y' });
   } else {
     Object.assign(st, { backgroundImage: 'none' });
   }
-  document.querySelectorAll('.themebtn').forEach(b => {
-    b.innerHTML = ICONS[dark ? 'sun' : 'moon'];
-    b.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme'); b.title = dark ? 'Light theme' : 'Dark theme';
-  });
-  if (save){ try { localStorage.setItem('theme', t); } catch (e) {} }
 }
-document.addEventListener('click', e => { if (e.target.closest('.themebtn')) applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true); });
-applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+applyLook();
 </script>
 </body>
 </html>
