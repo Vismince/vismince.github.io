@@ -54,6 +54,37 @@ svg{shape-rendering:crispEdges}
 .title .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .title .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
+/* quick hello: a character talking in a chat box */
+.hello{display:flex;align-items:flex-start;gap:34px;scroll-margin-top:calc(var(--stick-h) + 20px)}
+.hello .char{flex:none;display:flex;align-items:flex-end;margin-top:calc(var(--hang, 0px) * -1)}
+.hello .char img{display:block;height:var(--char-h,180px);width:auto;max-width:44vw}
+.hello.px .char img{image-rendering:pixelated}
+.hello.flip .char img{transform:scaleX(-1)}
+.hello .char .ph{width:calc(var(--char-h,180px) * .7);height:var(--char-h,180px);padding:8px;border:3px dashed #fff;background:rgba(0,0,0,.25);color:#fff;font-size:13px;text-shadow:1px 1px 0 #000}
+.chat{position:relative;flex:1;min-width:0;margin-bottom:12px;padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
+.chat::before,.chat::after{content:'';position:absolute;width:0;height:0;border:solid transparent}
+.chat::before{left:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 20px 12px 0;border-right-color:#000}    /* tail, outline */
+.chat::after{left:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 16px 9px 0;border-right-color:#fff}      /* tail, fill */
+.chat .who{position:absolute;left:14px;top:-17px;padding:2px 12px;background:#000080;color:#fff;border:2px solid #000;font:16px/1.3 var(--px)}
+.chat .say{margin:0 0 10px;font-size:1.2em;line-height:1.55;max-width:62ch}
+.chat .say:first-of-type{font-family:var(--px);font-size:1.5em}
+.chat .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.chat .say.typing .t::after{content:'\25AE';margin-left:2px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.chat .reveal{opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s}
+.chat.done .reveal{opacity:1;transform:none}
+.chat .seek{margin:12px 0 14px}
+.chat .choices{display:flex;flex-wrap:wrap;gap:6px 10px}
+.chat .choices a{display:inline-block;padding:4px 14px 4px 10px;color:#000;text-decoration:none;background:var(--btn-bg);border:1px solid var(--btn-line)}
+.chat .choices a::before{content:'\25B8';margin-right:6px}
+.chat .choices a:hover{background:#000080;color:#fff}
+@media (max-width:760px){
+  .hello{flex-direction:column;align-items:flex-start;gap:22px}
+  .chat{width:100%;margin-left:0;padding:24px 18px 18px}
+  .chat::before{left:auto;right:56px;bottom:auto;top:-24px;border-width:0 12px 21px 12px;border-bottom-color:#000;border-right-color:transparent}
+  .chat::after{left:auto;right:59px;bottom:auto;top:-18px;border-width:0 9px 17px 9px;border-bottom-color:#fff;border-right-color:transparent}
+}
+@media (prefers-reduced-motion:reduce){.chat .reveal{opacity:1;transform:none}.chat .say.typing .t::after{animation:none}}
 body.ttl-img .title{width:100%;height:calc(var(--k) * var(--wh) * 1px);margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none}
 .title .cap,.title .fill{position:absolute;top:0;bottom:0;background-image:var(--ttl-img);background-repeat:no-repeat}
 .title .cap{z-index:1}
@@ -233,6 +264,13 @@ const SITE = {
     headline: 'Looking for a level design internship in 2027',
     details: 'Interested in indie studios and small teams where I can work across level design, art and tools. Open to remote work or relocating (edit this line: dates, length, location).'
   },
+  intro: ['Hi, I\'m Jasmine!', 'I\'m a level designer who works across the editor and the art pipeline: blockouts, lighting, kitbashing and small tools. I love voxel worlds and small teams.'],   // what the character says (each line is typed out in turn)
+  character: 'images/hello-mascot.png',               // your character PNG, shown next to the chat box. Missing file = a dashed placeholder
+  characterHeight: 260,                            // height of the character in pixels
+  characterHang: 30,                               // how far the character reaches up into the bar above, so it hangs from it (0 = not at all)
+  characterPixelated: false,                       // true for pixel-art characters. Your illustrated one scales smoothly
+  characterFlip: false,                            // true if the character faces the wrong way
+  introTyping: true,                               // type the text out letter by letter (false = show it straight away)
   about: [
     'I design levels with one foot in the editor and the other in the art pipeline. I block out spaces, test them with real players, then push them through lighting, kitbashing, and small tools so they ship looking like the game.',
     'Voxel games are my favourite playground: chunky readable shapes make flow, landmarks, and sightlines easy to judge, and they reward tidy modular thinking.',
@@ -430,6 +468,34 @@ function showVideo(i, play){
 }
 
 /* 2. about */
+function introHTML(){
+  const lines = [].concat(SITE.intro);
+  return `<section class="hello${SITE.characterFlip ? ' flip' : ''}${SITE.characterPixelated ? ' px' : ''}" id="intro" aria-label="Introduction" style="--char-h:${SITE.characterHeight || 260}px;--hang:${SITE.characterHang || 0}px">
+    <div class="char"><img src="${esc(SITE.character)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'Add your character: ${esc(SITE.character)}'}))"></div>
+    <div class="chat" id="chat"><span class="who">${esc(SITE.name)}</span>
+      ${lines.map(l => `<p class="say"><span class="sr">${esc(l)}</span><span class="t" aria-hidden="true" data-full="${esc(l)}"></span></p>`).join('')}
+      <div class="seek reveal"><strong style="margin:0">${esc(SITE.lookingFor.headline)}</strong></div>
+      <div class="choices reveal"><a href="#projects" data-go="projects">See my projects</a><a href="#contact" data-go="contact">Contact me</a></div>
+    </div></section>`;
+}
+function startChat(){                      // types the lines out one after another when the box scrolls into view
+  const box = document.getElementById('chat'); if (!box) return;
+  const spans = [...box.querySelectorAll('.t')];
+  const instant = SITE.introTyping === false || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finish = () => { spans.forEach(t => { t.textContent = t.dataset.full; t.parentElement.classList.remove('typing'); }); box.classList.add('done'); };
+  if (instant) return finish();
+  let started = false;
+  const run = async () => {
+    if (started) return; started = true;
+    for (const t of spans){
+      t.parentElement.classList.add('typing');
+      for (let i = 1; i <= t.dataset.full.length; i++){ t.textContent = t.dataset.full.slice(0, i); await new Promise(r => setTimeout(r, SITE.introSpeed || 22)); }
+      t.parentElement.classList.remove('typing'); await new Promise(r => setTimeout(r, 250));
+    }
+    box.classList.add('done');
+  };
+  new IntersectionObserver((es, ob) => { if (es.some(e => e.isIntersecting)){ ob.disconnect(); run(); } }, { threshold: .35 }).observe(box);
+}
 function aboutHTML(){
   return winHTML('about', 'about.txt', 'user', `<div class="about">
     <div class="avatar"><img src="${esc(SITE.portrait)}" alt="Portrait of ${esc(SITE.name)}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:ICONS.user}))"></div>
@@ -479,10 +545,11 @@ function contactHTML(){
     <ul class="links">${SITE.links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>`);
 }
 $('#showreel').innerHTML = showreelHTML();
-$('#page').innerHTML = aboutHTML() + projectsHTML()
+$('#page').innerHTML = introHTML() + projectsHTML() + aboutHTML()
   + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
   + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
 showVideo(0, false);
+startChat();
 
 /* page interactions */
 document.addEventListener('click', e => {
@@ -501,7 +568,7 @@ dlg.addEventListener('close', () => { if (dlg._from) dlg._from.focus(); });
 /* =====================================================================
    4. Menu bar navigation
    ===================================================================== */
-const NAV = [['showreel', 'Home', 'video'], ['about', 'About me', 'user'], ['projects', 'Projects', 'folder'], ['contact', 'Contact', 'mail']];
+const NAV = [['showreel', 'Home', 'video'], ['projects', 'Projects', 'folder'], ['about', 'About me', 'user'], ['contact', 'Contact', 'mail']];
 const go = id => { if (id === 'showreel'){ scrollTo({ top: 0 }); return; } const el = document.getElementById(id); if (el){ if (el.classList.contains('collapsed')){ el.classList.remove('collapsed'); } el.scrollIntoView({ block: 'start' }); } };
 document.addEventListener('click', e => {
   const g = e.target.closest('[data-go]'); if (g){ e.preventDefault(); go(g.dataset.go); }
