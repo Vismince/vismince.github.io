@@ -17,7 +17,7 @@
   --meta-bg:#f5f4ea; --meta-line:#d6d2c2; --chip-bg:#e8f0fc; --chip-line:#9db9eb; --ph-bg:#f5f8ff; --ph-ink:#506080;
   --btn-bg:#f1efe6; --btn-hover:#e6e3d6; --btn-active:#d8d0c4; --btn-line:#003c74; --accent:#fff6c9; --accent-line:#d9b93a;
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
-  --k:.3333; --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
+  --k:.3333; --stick-h:calc(var(--k) * 159 * 1px); --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
   --px:'Pixelify Sans','Tahoma',monospace;
   --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
 }
@@ -45,23 +45,18 @@ svg{shape-rendering:crispEdges}
 
 #page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 0;display:flex;flex-direction:column;gap:32px}
 
-/* ---------- top bar: title + menu (plain blue bar until images/frame-top.png loads) ---------- */
-.bar{width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
+/* ---------- title bar: name + role (plain blue bar until images/frame-top.png loads) ---------- */
+.bar{position:relative;z-index:2;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
   border:3px solid var(--frame);border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.28);
   background:linear-gradient(var(--title-a),var(--title-b))}
 .bar .sep{flex:none;align-self:center;width:3px;height:1.1em;background:rgba(255,255,255,.75)}
 .bar .ttl{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 24px;min-width:0}
 .bar .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .bar .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
-.bar .menu{display:flex;align-items:center;flex-wrap:wrap;gap:2px 4px;margin-top:12px}
-.bar .menu a{color:#fff;text-decoration:none;padding:2px 10px;font:400 16px var(--name-font)}
-.bar .menu a:hover,.bar .menu a.act{background:rgba(255,255,255,.22)}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
 
-/* with your frame-top image: a real window title bar and menu bar, sticky so the menu stays in reach */
-body.hdr-img{--stick-h:calc(var(--k) * (var(--th) - var(--t2)) * 1px)}
-body.hdr-img .bar{position:sticky;top:calc(var(--k) * var(--t2) * -1px);z-index:100;width:100%;height:calc(var(--k) * var(--th) * 1px);
-  margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none}
+/* with your frame-top image: a real window title bar */
+body.hdr-img .bar{width:100%;height:calc(var(--k) * var(--th) * 1px);margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none}
 .bar .cap{z-index:1}
 .bar .cap,.bar .fill{position:absolute;top:0;bottom:0;background-image:var(--hdr-img);background-repeat:no-repeat}
 .bar .cap.l{left:0;width:calc(var(--k) * var(--tl) * 1px);background-position:left top;background-size:calc(var(--k) * var(--tw) * 1px) 100%}
@@ -74,18 +69,20 @@ body.hdr-img .bar .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:
   top:calc(var(--k) * var(--t1) * 1px);height:calc(var(--k) * (var(--t2) - var(--t1)) * 1px)}
 body.hdr-img .bar .nm{flex:none;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .6px);text-shadow:none;line-height:1}
 body.hdr-img .bar .rl{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .4px);text-shadow:none}
-body.hdr-img .bar .menu{position:absolute;z-index:2;margin:0;flex-wrap:nowrap;overflow:hidden;gap:0 2px;
-  left:calc(var(--k) * var(--tl) * 1px + 8px);right:10px;top:calc(var(--k) * var(--t2) * 1px);height:calc(var(--k) * (var(--m2) - var(--t2)) * 1px)}
-body.hdr-img .bar .menu a{color:#000;padding:1px 10px;font-size:max(15px, calc(var(--k) * (var(--m2) - var(--t2)) * .36px))}
-body.hdr-img .bar .menu a:hover{background:#000080;color:#fff}
-body.hdr-img .bar .menu a.act{background:none;box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
-body.hdr-img .bar .menu{transition:background-color .15s}
-body.hdr-img.scrolled .bar .menu{background:#000080;left:calc(var(--k) * var(--tl) * 1px);right:calc(var(--k) * var(--tr) * 1px);padding:0 0 0 8px}
-body.hdr-img.scrolled .bar .menu a{color:#fff}
-body.hdr-img.scrolled .bar .menu a:hover{background:#fff;color:#000080}
-body.hdr-img.scrolled .bar .menu a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
+
+/* tab bar: sits under the video, then pins to the top of the screen and turns blue while you scroll */
+.tabs{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:0 2px;height:var(--stick-h);padding:0 8px;overflow:hidden;
+  background:#bfbfbf;box-shadow:inset 0 calc(var(--k) * -9px) #818181;transition:background-color .15s}
+.tabs a{color:#000;text-decoration:none;padding:1px 10px;white-space:nowrap;font:400 max(15px, calc(var(--k) * 150 * .36px)) var(--name-font)}
+.tabs a:hover{background:#000080;color:#fff}
+.tabs a.act{box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
+body.pinned .tabs{background:#000080;box-shadow:none}
+body.pinned .tabs a{color:#fff}
+body.pinned .tabs a:hover{background:#fff;color:#000080}
+body.pinned .tabs a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
 body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame::before,body.sharp .frame::after{image-rendering:pixelated}
 .frame{position:relative;width:100%}
+body.hdr-img.frm-img .frame{padding-top:calc(var(--k) * 9px)}
 body.frm-img .frame{padding-inline:var(--frm-bw)}
 body.frm-img .frame::before,body.frm-img .frame::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);pointer-events:none;
   background-image:var(--frm-img);background-repeat:repeat-y;background-size:calc(var(--fw) * var(--k) * 1px) auto}
@@ -121,14 +118,16 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .ph svg{width:44px;height:44px}
 
 /* ---------- 1. showreel ---------- */
-.stage{width:min(100%, calc(68vh * 16 / 9));aspect-ratio:16/9;margin:0 auto;background:#000;position:relative;border:2px solid var(--paper-line)}
-.stage video,.stage iframe{width:100%;height:100%;border:0;display:block;background:#000}
+.stage{width:100%;aspect-ratio:16/9;max-height:var(--vmax,none);margin:0;background:#000;position:relative}
+.stage video,.stage iframe{width:100%;height:100%;border:0;display:block;background:#000;object-fit:contain}
 .stage .poster{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#000}
 .stage .poster img{width:100%;height:100%;object-fit:cover;display:block;opacity:.9}
 .stage .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;display:grid;place-items:center;
   background:var(--title-b);color:#fff;border:3px solid #fff;font-size:30px;padding-left:6px}
 .stage .vph{height:100%;border:0}
-.vcap{margin:12px 0 10px;text-align:center}
+.reelbar{background:#bfbfbf;padding:10px 12px 12px;box-shadow:inset 0 calc(var(--k) * -9px) #818181}
+.reelbar[hidden]{display:none}
+.vcap{margin:0 0 10px;text-align:center}
 .reel[hidden]{display:none}
 .reel{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .vthumb{width:170px;padding:4px;background:var(--btn-bg);border:2px solid var(--paper-line);text-align:left}
@@ -200,7 +199,11 @@ dialog.win > .body{overflow:auto;flex:1}
 <body>
 <noscript><p style="padding:24px;background:#fff;color:#111">This portfolio needs JavaScript. Contact: you@example.com</p></noscript>
 <header class="bar" id="top"></header>
-<div class="frame"><main id="page"></main></div>
+<div class="frame">
+  <section id="showreel" aria-label="Showreel"></section>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <main id="page"></main>
+</div>
 <dialog id="case" class="win" aria-label="Project case study"></dialog>
 
 <script>
@@ -225,7 +228,8 @@ const SITE = {
   pixelSize: 3,                                    // screen pixels per pixel of your art. Bigger = chunkier frame
   pixelSizeSmall: 2,                               // same, for phones and small windows
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
-  topFrame: { leftCap: 33, rightCap: 33, fillAt: 2000, title: [33, 177], menu: [177, 327] },
+  showreelMaxHeight: 0,                            // 0 = video fills the full width. Or a number like 85 to cap it at 85% of the screen height (black bars appear at the sides)
+  topFrame: { leftCap: 33, rightCap: 33, fillAt: 2000, title: [33, 177] },
                                                    // measurements of frame-top.png in file pixels: left edge width, right part
                                                    // (buttons) width, a flat spot to stretch, title bar top/bottom, menu bar top/bottom
   sharp: true,                                     // keep the frame crisp (pixel art)
@@ -357,19 +361,20 @@ function winHTML(id, title, icon, inner){
 
 /* 1. showreel */
 function showreelHTML(){
-  return winHTML('showreel', 'showreel.exe', 'video', `
-    <div class="stage" id="stage"></div>
-    <p class="vcap" id="vcap" style="margin-left:auto;margin-right:auto"></p>
-    <div class="reel"${VLIST.length < 2 ? ' hidden' : ''}>${VLIST.map((v,i) => {
-      const poster = v.poster || (v.youtube ? `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg` : '');
-      return `<button class="vthumb" data-v="${i}" aria-label="Show video: ${esc(v.title)}"><span class="vt">${
-        poster ? `<img src="${esc(poster)}" alt="" loading="lazy">` : `<span class="ph">${ic('video')}</span>`}</span><span class="vl">${esc(v.title)}</span></button>`;
-    }).join('')}</div>`);
+  return `<div class="stage" id="stage"></div>
+    <div class="reelbar"${VLIST.length < 2 ? ' hidden' : ''}>
+      <p class="vcap" id="vcap"></p>
+      <div class="reel">${VLIST.map((v,i) => {
+        const poster = v.poster || (v.youtube ? `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg` : '');
+        return `<button class="vthumb" data-v="${i}" aria-label="Show video: ${esc(v.title)}"><span class="vt">${
+          poster ? `<img src="${esc(poster)}" alt="" loading="lazy">` : `<span class="ph">${ic('video')}</span>`}</span><span class="vl">${esc(v.title)}</span></button>`;
+      }).join('')}</div>
+    </div>`;
 }
 function showVideo(i, play){
   const v = VLIST[i], st = $('#stage');
   document.querySelectorAll('.vthumb').forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-pressed', j === i); });
-  $('#vcap').innerHTML = `<strong>${esc(v.title)}</strong>${v.caption ? ' · ' + esc(v.caption) : ''}`;
+  if ($('#vcap')) $('#vcap').innerHTML = `<strong>${esc(v.title)}</strong>${v.caption ? ' · ' + esc(v.caption) : ''}`;
   if (v.src){
     st.innerHTML = `<video controls playsinline preload="metadata"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`;
     const vid = st.firstElementChild;
@@ -436,7 +441,8 @@ function contactHTML(){
     <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
     <ul class="links">${SITE.links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>`);
 }
-$('#page').innerHTML = showreelHTML() + aboutHTML() + projectsHTML()
+$('#showreel').innerHTML = showreelHTML();
+$('#page').innerHTML = aboutHTML() + projectsHTML()
   + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
   + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
 showVideo(0, false);
@@ -468,12 +474,12 @@ document.addEventListener('click', e => {
 let ticking = false;
 function markActive(){
   ticking = false;
-  const k = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--k')), pin = (k && SITE.topFrame) ? k * SITE.topFrame.title[1] - 1 : 60;
-  document.body.classList.toggle('scrolled', scrollY >= pin);          // once the menu bar is pinned, it turns blue
+  const tb = document.getElementById('tabs');
+  if (tb) document.body.classList.toggle('pinned', scrollY > 0 && tb.getBoundingClientRect().top <= 0.5);     // once the tab bar is pinned to the top, it turns blue
   let cur = NAV[0][0];
   NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
   if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = 'contact';
-  document.querySelectorAll('.menu a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
+  document.querySelectorAll('.tabs a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
 }
 addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(markActive); } }, { passive: true });
 addEventListener('resize', markActive); markActive();
@@ -493,8 +499,10 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   }
   root.style.setProperty('--name-font', `'${f}','Pixelify Sans','Tahoma',monospace`);
   root.style.setProperty('--hdr-ink', SITE.headerInk || '#fff');
+  root.style.setProperty('--vmax', SITE.showreelMaxHeight ? SITE.showreelMaxHeight + 'vh' : 'none');
   $('#top').innerHTML = `<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>
-    <nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
+`;
+  $('#tabs').innerHTML = NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('');
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
 
@@ -511,7 +519,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     const im = new Image();
     im.onload = () => {
       const tf = SITE.topFrame;
-      const v = { tw: im.naturalWidth, th: im.naturalHeight, tl: tf.leftCap, tr: tf.rightCap, tx: tf.fillAt, t1: tf.title[0], t2: tf.title[1], m2: tf.menu[1] };
+      const v = { tw: im.naturalWidth, th: im.naturalHeight, tl: tf.leftCap, tr: tf.rightCap, tx: tf.fillAt, t1: tf.title[0], t2: tf.title[1] };
       Object.entries(v).forEach(([n, x]) => root.style.setProperty('--' + n, x));
       root.style.setProperty('--hdr-img', `url("${SITE.headerImage}")`);
       ['cap l', 'fill', 'cap r'].reverse().forEach(c => { const e = document.createElement('span'); e.className = c; e.setAttribute('aria-hidden', 'true'); $('#top').prepend(e); });
