@@ -267,7 +267,7 @@ const SITE = {
   intro: ['Hi, I\'m Jasmine!', 'I\'m a level designer who works across the editor and the art pipeline: blockouts, lighting, kitbashing and small tools. I love voxel worlds and small teams.'],   // what the character says (each line is typed out in turn)
   character: 'images/hello-mascot.png',               // your character PNG, shown next to the chat box. Missing file = a dashed placeholder
   characterHeight: 260,                            // height of the character in pixels
-  characterHang: 30,                               // how far the character reaches up into the bar above, so it hangs from it (0 = not at all)
+  characterHang: 0,                                // how far the character reaches up into the bar above (30 = hangs from it, 0 = starts below it, -20 = lower still)
   characterPixelated: false,                       // true for pixel-art characters. Your illustrated one scales smoothly
   characterFlip: false,                            // true if the character faces the wrong way
   introTyping: true,                               // type the text out letter by letter (false = show it straight away)
@@ -291,8 +291,8 @@ const SITE = {
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
   showreelAutoplay: true,                          // the video starts by itself, silent, with no controls (browsers only allow silent autoplay)
   showreelLoop: true,                              // repeat the video
-  showreelAspect: '2 / 1',                         // shape of the video area. '16 / 9' is taller, '21 / 9' is a slimmer cinema strip
-  showreelMaxHeight: 80,                           // never taller than this % of the screen height (0 = no limit)
+  showreelAspect: '1.8 / 1',                       // shape of the video area. '16 / 9' is the tallest, '2 / 1' is shorter, '21 / 9' is a slim cinema strip
+  showreelMaxHeight: 88,                           // never taller than this % of the screen height (0 = no limit)
   showreelFit: 'cover',                            // 'cover' fills the width and crops the top and bottom; 'contain' shows the whole video with black bars
   barOpacity: 0.5,                                 // how solid the menu bar is over the video (1 = solid, 0.3 = very see-through). The title bar is always solid
   titleFrame: { leftCap: 33, rightCap: 33, fillAt: 2000, title: [33, 177] },     // measurements of frame-title.png in file pixels: edge widths, a flat spot to stretch, title row top and bottom
