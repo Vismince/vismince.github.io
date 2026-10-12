@@ -108,9 +108,9 @@ body.ttl-img .title{width:100%;height:calc(var(--k) * var(--wh) * 1px);margin:0;
 .title .cap.r{right:0;width:calc(var(--ks) * var(--wr) * 1px);background-position:right top;background-size:calc(var(--ks) * var(--ww) * 1px) calc(var(--k) * var(--wh) * 1px)}
 .title .fill{left:0;right:0;z-index:0;background-size:calc(var(--k) * var(--ww) * 10px) calc(var(--k) * var(--wh) * 1px);background-position:calc(var(--k) * var(--wx) * -10px) 0}   /* stretches a flat part of your image */
 body.ttl-img{--face-h:calc(var(--k) * (var(--w2) - var(--w1)) * var(--face-scale, 1) * 1px);--face-w:var(--face-h);--face-x:calc(var(--ks) * var(--wl) * 1px + 8px)}
-body.ttl-img .title .badge{position:absolute;z-index:5;left:var(--face-x);top:calc(var(--k) * 18px);width:var(--face-w);height:var(--face-h);margin:0}
+body.ttl-img .title .badge{position:absolute;z-index:5;left:var(--face-x);top:calc(var(--k) * var(--face-top, 36) * 1px);width:var(--face-w);height:var(--face-h);margin:0}
 body.ttl-img .title .badge .pic{width:100%;height:100%;border-width:calc(var(--k) * 9px);box-shadow:calc(var(--k) * 12px) calc(var(--k) * 12px) 0 rgba(0,0,0,.35)}
-body.ttl-img.has-face .title .ttl{left:calc(var(--face-x) + var(--face-w) + var(--face-gap, 28px) + 8px)}
+body.ttl-img.has-face .title .ttl{left:calc(var(--face-x) + var(--face-w) + var(--name-gap, 26px))}
 body.ttl-img.has-face .menubar .menu{left:calc(var(--face-x) + var(--face-w) - var(--frm-bw, 0px) + var(--face-gap, 28px))}
 body.pinned.ttl-img.has-face .menubar .menu{left:8px}
 body.ttl-img .title .sep{width:calc(var(--k) * 9px);height:calc(var(--k) * (var(--w2) - var(--w1)) * .6px);background:#bfbfbf}
@@ -352,7 +352,7 @@ const SITE = {
   barOpacity: 0.5,                                 // how solid the menu bar is over the video (1 = solid, 0.3 = very see-through). The title bar is always solid
   titleFrame: { leftCap: 51, rightCap: 51, fillAt: 2000, title: [33, 177] },     // measurements of frame-title.png in file pixels: edge widths, a flat spot to stretch, title row top and bottom
   pinImage: 'images/frame-pinned.png',             // grey bar shown once the menu is pinned to the top while you scroll. Missing file = a plain grey bar
-  pinTabs: { top: 30, height: 120 },               // where the blue current-section block sits in the pinned bar, in file pixels from the top: smaller height = shorter block, smaller top = higher up
+  pinTabs: { top: 48, height: 123 },               // where the blue current-section block sits in the pinned bar, in file pixels (divide by 3 for screen pixels). 48 and 123 centre it in the grey part of the bar; smaller top = higher, smaller height = shorter
   pinFrame: { leftCap: 51, rightCap: 51, fillAt: 2000 },   // measurements of frame-pinned.png in file pixels: end pieces and a flat spot to stretch
   menuFrame: { fillAt: 2000, rows: [177, 327] },                                  // measurements of frame-top.png: where its grey menu row starts and ends
                                                    // measurements of frame-top.png in file pixels: left edge width, right part
@@ -361,7 +361,9 @@ const SITE = {
   nameFont: 'Pixelify Sans',                       // Pixelify Sans, Silkscreen, Press Start 2P, VT323, Jersey 10, Tiny5, DotGothic16
   titlePortrait: 'images/portrait-mascot.png',     // small portrait of your character at the left of the title bar, before your name. Missing file = nothing shown
   titlePortraitSize: 2.4,                          // height of the corner badge compared with the blue title bar. 2.4 hangs down over the menu bar
-  titlePortraitGap: 28,                            // space between the badge and your name / tabs, in pixels
+  titlePortraitTop: 36,                            // how far the badge hangs below the top edge of the page, in file pixels (36 = about 12 screen pixels). Bigger = lower
+  titleTextGap: 26,                                // space between the badge and your name and role, in pixels (smaller = nearer the badge)
+  titlePortraitGap: 28,                            // space between the badge and the tabs, in pixels
   titlePortraitSizeSmall: 1.5,                     // same, for phones
   titlePortraitPixelated: false,                   // true if the portrait is pixel art and should stay crisp
   aboutPhotos: [                                   // pictures shown under your About text. Add as many as you like; missing files are left out
@@ -721,6 +723,8 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     const k = nBar / dpr / SITE.sourcePixel, ks = nSide / dpr / SITE.sourcePixel;
     root.style.setProperty('--k', k);
     root.style.setProperty('--ks', ks);
+    root.style.setProperty('--face-top', SITE.titlePortraitTop ?? 36);
+    root.style.setProperty('--name-gap', (small ? 22 : (SITE.titleTextGap ?? 26)) + 'px');
     root.style.setProperty('--face-gap', (small ? 14 : (SITE.titlePortraitGap ?? 28)) + 'px');
     root.style.setProperty('--face-scale', innerWidth < 400 ? Math.min(SITE.titlePortraitSizeSmall, 1.2) : small ? SITE.titlePortraitSizeSmall : SITE.titlePortraitSize);
     if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * ks * dpr) / dpr) + 'px');
