@@ -119,12 +119,29 @@ body.mb-img .menubar::before{background-color:transparent;box-shadow:none;backgr
 .menubar .menu a{color:#000;text-decoration:none;white-space:nowrap;padding:1px 10px;font:400 max(15px, calc(var(--mtext) * .5)) var(--name-font);text-shadow:0 0 3px rgba(255,255,255,.85)}
 .menubar .menu a:hover{background:var(--blue);color:#fff;text-shadow:none}
 .menubar .menu a.act{box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
-body.pinned .menubar{background:var(--blue)}
+/* once pinned: grey bar (your frame-pinned.png) with blue tab buttons; the tab for the page you have reached is pressed in */
+.menubar .pin{display:none}
+body.pinned .menubar{background:#bfbfbf;box-shadow:inset 0 calc(var(--k) * -9px) #818181}     /* plain grey bar until the image loads */
+body.pinned.pin-img .menubar{background:none;box-shadow:none}
 body.pinned .menubar::before{display:none}
-body.pinned .menubar .menu a{color:#fff;text-shadow:none}
-body.pinned .menubar .menu a:hover{background:#fff;color:var(--blue-dark)}
-body.pinned .menubar .menu a.act{background:var(--blue-dark);box-shadow:inset 1px 1px #6f9ff5, inset -1px -1px #0a2c78}
-body.sharp .title .cap,body.sharp .title .fill,body.sharp .menubar::before,body.sharp .frame::before,body.sharp .frame::after{image-rendering:pixelated}
+body.pinned.pin-img .menubar .pin{display:block;position:absolute;z-index:0;top:0;bottom:0;left:calc(var(--frm-bw, 0px) * -1);right:calc(var(--frm-bw, 0px) * -1)}
+.pin .cap,.pin .fill{position:absolute;top:0;bottom:0;background-image:var(--pin-img);background-repeat:no-repeat}
+.pin .cap{z-index:1}
+.pin .cap.l{left:0;width:calc(var(--ks) * var(--pl) * 1px);background-position:left calc(var(--k) * var(--pin-off, 0) * -1px);background-size:calc(var(--ks) * var(--pw) * 1px) calc(var(--k) * var(--ph) * 1px)}
+.pin .cap.r{right:0;width:calc(var(--ks) * var(--pr) * 1px);background-position:right calc(var(--k) * var(--pin-off, 0) * -1px);background-size:calc(var(--ks) * var(--pw) * 1px) calc(var(--k) * var(--ph) * 1px)}
+.pin .fill{left:0;right:0;background-size:calc(var(--k) * var(--pw) * 10px) calc(var(--k) * var(--ph) * 1px);background-position:calc(var(--k) * var(--px) * -10px) calc(var(--k) * var(--pin-off, 0) * -1px)}
+body.pinned .menubar .menu{gap:0 6px}
+body.pinned .menubar .menu a{padding:3px 14px;background:var(--blue);color:#fff;text-shadow:none;box-shadow:inset 1px 1px #6f9ff5, inset -1px -1px var(--blue-dark)}
+body.pinned .menubar .menu a:hover{background:#3b7bf2}
+body.pinned .menubar .menu a.act{background:var(--blue-dark);box-shadow:inset 1px 1px #0a2c78, inset -1px -1px #6f9ff5}
+@media (max-width:760px){
+  body.pinned .menubar .menu{gap:0 4px}
+  body.pinned .menubar .menu a{padding:3px 8px}
+}
+@media (max-width:380px){
+  body.pinned .menubar .menu a{padding:3px 5px}
+}
+body.sharp .title .cap,body.sharp .title .fill,body.sharp .pin .cap,body.sharp .pin .fill,body.sharp .menubar::before,body.sharp .frame::before,body.sharp .frame::after{image-rendering:pixelated}
 .frame{position:relative;width:100%}
 .sill{display:none}
 body.frm-img .sill{display:block;height:var(--frm-bw);background:var(--sill-img) 0 0 / 100% 100% no-repeat}   /* closes off the video, drawn from the side frame's own pixels */
@@ -321,6 +338,8 @@ const SITE = {
   showreelFit: 'cover',                            // 'cover' fills the width and crops the top and bottom; 'contain' shows the whole video with black bars
   barOpacity: 0.5,                                 // how solid the menu bar is over the video (1 = solid, 0.3 = very see-through). The title bar is always solid
   titleFrame: { leftCap: 51, rightCap: 51, fillAt: 2000, title: [33, 177] },     // measurements of frame-title.png in file pixels: edge widths, a flat spot to stretch, title row top and bottom
+  pinImage: 'images/frame-pinned.png',             // grey bar shown once the menu is pinned to the top while you scroll. Missing file = a plain grey bar
+  pinFrame: { leftCap: 51, rightCap: 51, fillAt: 2000 },   // measurements of frame-pinned.png in file pixels: end pieces and a flat spot to stretch
   menuFrame: { fillAt: 2000, rows: [177, 327] },                                  // measurements of frame-top.png: where its grey menu row starts and ends
                                                    // measurements of frame-top.png in file pixels: left edge width, right part
                                                    // (buttons) width, a flat spot to stretch, title bar top/bottom, menu bar top/bottom
@@ -670,7 +689,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--bar-op', SITE.barOpacity);
   $('#top').classList.toggle('px', !!SITE.titlePortraitPixelated);
   $('#top').innerHTML = `${SITE.titlePortrait ? `<img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face');document.documentElement.style.setProperty('--face-ar',this.naturalWidth/this.naturalHeight)" onerror="this.remove()">` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
-  $('#menubar').innerHTML = `<nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
+  $('#menubar').innerHTML = `<span class="pin" aria-hidden="true"><span class="cap l"></span><span class="fill"></span><span class="cap r"></span></span><nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
 
@@ -690,7 +709,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   setScale(); addEventListener('resize', setScale);
 
   /* the menu bar takes the rows of frame-top.png that start where the title bar image ends */
-  const info = { title: null, menu: null };
+  const info = { title: null, menu: null, pin: null };
   const layoutMenu = () => {
     const tf = SITE.titleFrame, mf = SITE.menuFrame;
     const m0 = Math.min(Math.max(info.title ? info.title.h : tf.title[1] + 33, mf.rows[0]), mf.rows[1] - 60);
@@ -698,6 +717,12 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     root.style.setProperty('--m0', m0);
     root.style.setProperty('--mrows', th - m0);
     root.style.setProperty('--mtr', mf.rows[1] - m0);
+    if (info.pin){                                                              // the pinned bar shows the bottom rows of frame-pinned.png
+      const pf = SITE.pinFrame, v = { pw: info.pin.w, ph: info.pin.h, pl: pf.leftCap, pr: pf.rightCap, px: pf.fillAt, 'pin-off': Math.max(0, info.pin.h - (th - m0)) };
+      Object.entries(v).forEach(([n, x]) => root.style.setProperty('--' + n, x));
+      root.style.setProperty('--pin-img', `url("${SITE.pinImage}")`);
+      body.classList.add('pin-img');
+    }
     if (info.menu && info.menu.h >= mf.rows[1] + 3){
       root.style.setProperty('--tw', info.menu.w); root.style.setProperty('--th', info.menu.h); root.style.setProperty('--tx', mf.fillAt);
       root.style.setProperty('--hdr-img', `url("${SITE.headerImage}")`);
@@ -716,6 +741,11 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
       info.title = { h: im.naturalHeight }; layoutMenu();
     };
     im.src = SITE.titleImage;
+  }
+  if (SITE.pinImage){
+    const im = new Image();
+    im.onload = () => { info.pin = { w: im.naturalWidth, h: im.naturalHeight }; layoutMenu(); };
+    im.src = SITE.pinImage;
   }
   if (SITE.headerImage){
     const im = new Image();
