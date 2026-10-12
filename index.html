@@ -89,14 +89,14 @@ body.frm-img .sill{display:block;height:var(--frm-bw);background:var(--sill-img)
 body.sharp .sill{image-rendering:pixelated}
 /* your frame-bottom.png: closes the frame under the video and at the very end of the page; its ends join the side frame */
 .floor{display:none}
-body.flr-img.frm-img .floor{display:block;position:relative;z-index:1;height:var(--frm-bw);margin-inline:calc(var(--frm-bw) * -1);
+body.frm-img .floor.show{display:block;position:relative;z-index:1;height:var(--frm-bw);margin-inline:calc(var(--frm-bw) * -1);
   background:var(--flr-img) calc(var(--ks) * var(--fx) * -10px) 0 / calc(var(--ks) * var(--fbw) * 10px) 100% no-repeat}
-body.flr-img.frm-img .floor::before,body.flr-img.frm-img .floor::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);
+body.frm-img .floor.show::before,body.frm-img .floor.show::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);
   background:var(--flr-img) 0 0 / calc(var(--ks) * var(--fbw) * 1px) 100% no-repeat}
-body.flr-img.frm-img .floor::before{left:0}
-body.flr-img.frm-img .floor::after{right:0;left:auto;background-position:right top}
-body.flr-img.frm-img .sill{display:none}
-body.flr-img{padding-bottom:0}
+body.frm-img .floor.show::before{left:0}
+body.frm-img .floor.show::after{right:0;left:auto;background-position:right top}
+body.no-sill.frm-img .sill{display:none}
+body.flr-end{padding-bottom:0}
 body.sharp .floor,body.sharp .floor::before,body.sharp .floor::after{image-rendering:pixelated}
 body.frm-img .frame{padding-inline:var(--frm-bw)}
 body.frm-img .frame::before,body.frm-img .frame::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);pointer-events:none;
@@ -216,9 +216,9 @@ dialog.win > .body{overflow:auto;flex:1}
   <div class="menubar" id="menubar"></div>
   <section id="showreel" aria-label="Showreel"></section>
   <div class="sill" aria-hidden="true"></div>
-  <div class="floor" aria-hidden="true"></div>
+  <div class="floor" data-floor="middle" aria-hidden="true"></div>
   <main id="page"></main>
-  <div class="floor" aria-hidden="true"></div>
+  <div class="floor" data-floor="bottom" aria-hidden="true"></div>
 </div>
 <dialog id="case" class="win" aria-label="Project case study"></dialog>
 
@@ -240,7 +240,9 @@ const SITE = {
   ],
   titleImage: 'images/frame-title.png',            // solid title bar at the very top of the page (your name and role sit on it). Missing file = a plain blue bar
   headerImage: 'images/frame-top.png',             // the see-through menu bar over the video (its grey menu row). Missing file = a plain grey bar
-  bottomImage: 'images/frame-bottom.png',          // bottom bar of the frame, used under the video and at the end of the page. Missing file = a simple bar under the video
+  middleImage: 'images/frame-middle.png',          // bar under the video. Missing file = frame-bottom.png is used there instead
+  middleFrame: { fillAt: 2000 },                   // a flat spot of frame-middle.png (in file pixels) that gets stretched across the middle
+  bottomImage: 'images/frame-bottom.png',          // bar that closes the frame at the very end of the page
   bottomFrame: { fillAt: 2000 },                   // a flat spot of frame-bottom.png (in file pixels) that gets stretched across the middle
   sideImage: 'images/frame-side.png',              // left and right edges of the window, repeats down the page. Missing file = no edges
   headerInk: '',                                   // colour of your name in the title bar. '' = automatic (white)
@@ -587,16 +589,24 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     im.onload = () => { info.menu = { w: im.naturalWidth, h: im.naturalHeight }; layoutMenu(); };
     im.src = SITE.headerImage;
   }
-  if (SITE.bottomImage){
+  /* bars that close the frame: frame-middle.png under the video, frame-bottom.png at the end of the page */
+  const showFloor = (which, src, fx) => {
     const im = new Image();
     im.onload = () => {
-      root.style.setProperty('--flr-img', `url("${SITE.bottomImage}")`);
-      root.style.setProperty('--fbw', im.naturalWidth);
-      root.style.setProperty('--fx', SITE.bottomFrame.fillAt);
-      body.classList.add('flr-img');
+      document.querySelectorAll(`.floor[data-floor="${which}"]`).forEach(el => {
+        el.style.setProperty('--flr-img', `url("${src}")`);
+        el.style.setProperty('--fbw', im.naturalWidth);
+        el.style.setProperty('--fx', fx);
+        el.classList.add('show');
+      });
+      if (which === 'middle') body.classList.add('no-sill'); else body.classList.add('flr-end');
     };
-    im.src = SITE.bottomImage;
-  }
+    im.onerror = () => { if (which === 'middle' && SITE.bottomImage && src !== SITE.bottomImage) showFloor('middle', SITE.bottomImage, SITE.bottomFrame.fillAt); };   // no middle image: use the bottom one there
+    im.src = src;
+  };
+  if (SITE.middleImage) showFloor('middle', SITE.middleImage, SITE.middleFrame.fillAt);
+  else if (SITE.bottomImage) showFloor('middle', SITE.bottomImage, SITE.bottomFrame.fillAt);
+  if (SITE.bottomImage) showFloor('bottom', SITE.bottomImage, SITE.bottomFrame.fillAt);
   if (SITE.sideImage){
     const im = new Image();
     im.onload = () => {
