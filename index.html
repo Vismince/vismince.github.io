@@ -187,7 +187,7 @@ const SITE = {
   cursorImage: 'images/cursor.png',                // your own PNG cursor (32x32 or smaller, transparent). Missing file = built-in pixel arrow
   cursorImage2x: '',                               // optional sharper 64x64 version for high-DPI screens, e.g. 'images/cursor@2x.png'
   cursorHotspot: [0, 0],                           // the click point inside the PNG, in pixels from the top-left (arrow tip = 0, 0)
-  wallpaperDarken: 0.6,                            // how much the image is dimmed in dark theme (0 to 1)
+  wallpaperDarken: 0,                              // dims the background in dark theme (0 = no dimming, 1 = black)
   wallpaperColor: '#3a6ea5',                       // desktop colour, light theme
   wallpaperColorDark: '#14181f',                   // desktop colour, dark theme
   location: 'Breda, Netherlands',                 // optional
@@ -349,7 +349,16 @@ function applyTheme(t, save){
     const src = SITE.cursorImage2x ? `image-set(url("${SITE.cursorImage}") 1x, url("${SITE.cursorImage2x}") 2x)` : `url("${SITE.cursorImage}")`;
     root.style.setProperty('--cursor', `${src} ${hx} ${hy}, ${fallback}`);
   }
-  if (SITE.wallpaper === 'checker'){
+  if (SITE.wallpaper === 'image' && SITE._imgOk === undefined){          // if the image can't load, fall back to the drawn checkerboard
+    SITE._imgOk = null;
+    const probe = new Image();
+    probe.onload = () => { SITE._imgOk = true; };
+    probe.onerror = () => { SITE._imgOk = false; applyTheme(t, false); };
+    probe.src = SITE.wallpaperImage;
+  }
+  const useImage = SITE.wallpaper === 'image' && SITE._imgOk !== false;
+  const useChecker = SITE.wallpaper === 'checker' || (SITE.wallpaper === 'image' && SITE._imgOk === false);
+  if (useChecker){
     const q = SITE.checkerSize, d = SITE.wallpaperDarken, f = SITE.checkerFade;
     const layers = [   // first layer is drawn on top
       [`linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,${f}))`, 'auto'],
@@ -361,7 +370,7 @@ function applyTheme(t, save){
       backgroundPosition: 'center', backgroundRepeat: 'repeat'
     });
   }
-  if (SITE.wallpaper === 'image'){
+  if (useImage){
     const img = `url("${SITE.wallpaperImage}")`, d = SITE.wallpaperDarken;
     const shade = `linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d}))`;
     Object.assign(document.body.style, {
