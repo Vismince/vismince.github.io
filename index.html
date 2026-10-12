@@ -17,7 +17,7 @@
   --meta-bg:#f5f4ea; --meta-line:#d6d2c2; --chip-bg:#e8f0fc; --chip-line:#9db9eb; --ph-bg:#f5f8ff; --ph-ink:#506080;
   --btn-bg:#f1efe6; --btn-hover:#e6e3d6; --btn-active:#d8d0c4; --btn-line:#003c74; --accent:#fff6c9; --accent-line:#d9b93a;
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
-  --k:.3333; --ks:.2222; --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
+  --k:.3333; --ks:.2222; --sill-img:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAzCAIAAADZxfV4AAAAKUlEQVR4nGPYv38/EwMDAz7M8P//f0JqmA4cOEBQDS586NAhgm4gAgAAngsKEbsL5GIAAAAASUVORK5CYII="); --mt:177; --ih:336; --th:336; --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
   --px:'Pixelify Sans','Tahoma',monospace;
   --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
 }
@@ -59,15 +59,15 @@ svg{shape-rendering:crispEdges}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
 
 /* with your frame-top image: a real title bar and menu bar laid over the video; the menu stays pinned while you scroll */
-body.hdr-img{--stick-h:calc(var(--k) * (var(--th) - var(--t2)) * 1px)}
-body.hdr-img .bar{position:sticky;top:calc(var(--k) * var(--t2) * -1px);z-index:100;width:100%;height:calc(var(--k) * var(--th) * 1px);
+body.hdr-img{--stick-h:calc(var(--k) * (var(--th) - var(--mt)) * 1px)}
+body.hdr-img .bar{position:sticky;top:calc(var(--k) * var(--mt) * -1px);z-index:100;width:100%;height:calc(var(--k) * var(--th) * 1px);
   margin:0 0 calc(var(--k) * var(--th) * -1px);padding:0;border:0;border-radius:0;box-shadow:none;background:none}
 .bar .cap{z-index:1}
 .bar .cap,.bar .fill{position:absolute;top:0;bottom:0;background-image:var(--hdr-img);background-repeat:no-repeat}
-.bar .cap.l{left:0;width:calc(var(--ks) * var(--tl) * 1px);background-position:left top;background-size:calc(var(--ks) * var(--tw) * 1px) calc(var(--k) * var(--th) * 1px)}
-.bar .cap.r{right:0;width:calc(var(--ks) * var(--tr) * 1px);background-position:right top;background-size:calc(var(--ks) * var(--tw) * 1px) calc(var(--k) * var(--th) * 1px)}
+.bar .cap.l{left:0;width:calc(var(--ks) * var(--tl) * 1px);background-position:left top;background-size:calc(var(--ks) * var(--tw) * 1px) calc(var(--k) * var(--ih) * 1px)}
+.bar .cap.r{right:0;width:calc(var(--ks) * var(--tr) * 1px);background-position:right top;background-size:calc(var(--ks) * var(--tw) * 1px) calc(var(--k) * var(--ih) * 1px)}
 .bar .fill{left:0;right:0;z-index:0;opacity:var(--bar-op,.85);
-  background-size:calc(var(--k) * var(--tw) * 10px) 100%;background-position:calc(var(--k) * var(--tx) * -10px) 0}   /* stretches a flat part of your image; slightly see-through */
+  background-size:calc(var(--k) * var(--tw) * 10px) calc(var(--k) * var(--ih) * 1px);background-position:calc(var(--k) * var(--tx) * -10px) 0}   /* stretches a flat part of your image; slightly see-through */
 body.hdr-img .bar .sep{width:calc(var(--k) * 9px);height:calc(var(--k) * (var(--t2) - var(--t1)) * .6px);background:#bfbfbf}
 body.hdr-img .bar .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:center;gap:0 .7em;
   left:calc(var(--ks) * var(--tl) * 1px + 14px);right:calc(var(--ks) * var(--tr) * 1px + 6px);
@@ -75,16 +75,22 @@ body.hdr-img .bar .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:
 body.hdr-img .bar .nm{flex:none;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .82px);text-shadow:none;line-height:1}
 body.hdr-img .bar .rl{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .5px);text-shadow:none}
 body.hdr-img .bar .menu{position:absolute;z-index:2;margin:0;flex-wrap:nowrap;overflow:hidden;gap:0 2px;transition:background-color .15s;
-  left:calc(var(--ks) * var(--tl) * 1px + 8px);right:8px;top:calc(var(--k) * var(--t2) * 1px);height:calc(var(--k) * (var(--m2) - var(--t2)) * 1px)}
-body.hdr-img .bar .menu a{color:#000;padding:1px 10px;font-size:max(15px, calc(var(--k) * (var(--m2) - var(--t2)) * .4px))}
+  left:calc(var(--ks) * var(--tl) * 1px + 8px);right:8px;top:calc(var(--k) * var(--mt) * 1px);height:calc(var(--k) * (var(--m2) - var(--mt)) * 1px)}
+body.hdr-img .bar .menu a{color:#000;padding:1px 10px;font-size:max(15px, calc(var(--k) * (var(--m2) - var(--mt)) * .4px))}
 body.hdr-img .bar .menu a:hover{background:#000080;color:#fff}
 body.hdr-img .bar .menu a.act{background:none;box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
 body.pinned.hdr-img .bar .menu{background:#000080;left:calc(var(--ks) * var(--tl) * 1px);right:calc(var(--ks) * var(--tr) * 1px);padding:0 0 0 8px}
 body.pinned.hdr-img .bar .menu a{color:#fff}
 body.pinned.hdr-img .bar .menu a:hover{background:#fff;color:#000080}
 body.pinned.hdr-img .bar .menu a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
+.bar .mrow{display:none}
+body.hdr-short .bar .mrow{display:block;position:absolute;z-index:0;left:calc(var(--ks) * var(--tl) * 1px);right:calc(var(--ks) * var(--tr) * 1px);top:calc(var(--k) * var(--ih) * 1px);bottom:0;
+  background:#bfbfbf;box-shadow:inset 0 calc(var(--k) * -9px) #818181;opacity:var(--bar-op,.85)}
 body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame::before,body.sharp .frame::after{image-rendering:pixelated}
 .frame{position:relative;width:100%}
+.sill{display:none}
+body.frm-img .sill{display:block;height:var(--frm-bw);background:var(--sill-img) 0 0 / 100% 100% no-repeat}   /* closes off the video, drawn from the side frame's own pixels */
+body.sharp .sill{image-rendering:pixelated}
 body.frm-img .frame{padding-inline:var(--frm-bw)}
 body.frm-img .frame::before,body.frm-img .frame::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);pointer-events:none;
   background-image:var(--frm-img);background-repeat:repeat-y;background-size:calc(var(--fw) * var(--ks) * 1px) auto}
@@ -201,6 +207,7 @@ dialog.win > .body{overflow:auto;flex:1}
 <header class="bar" id="top"></header>
 <div class="frame">
   <section id="showreel" aria-label="Showreel"></section>
+  <div class="sill" aria-hidden="true"></div>
   <main id="page"></main>
 </div>
 <dialog id="case" class="win" aria-label="Project case study"></dialog>
@@ -488,7 +495,7 @@ document.addEventListener('click', e => {
 let ticking = false;
 function markActive(){
   ticking = false;
-  const k = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--k')), pin = (k && SITE.topFrame) ? k * SITE.topFrame.title[1] - 1 : 60;
+  const cs = getComputedStyle(document.documentElement), k = parseFloat(cs.getPropertyValue('--k')), mt = parseFloat(cs.getPropertyValue('--mt')), pin = (k && mt) ? k * mt - 1 : 60;
   document.body.classList.toggle('pinned', scrollY >= pin);                   // once the menu bar is pinned to the top, it turns blue
   let cur = NAV[0][0];
   NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
@@ -536,8 +543,10 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   if (SITE.headerImage){
     const im = new Image();
     im.onload = () => {
-      const tf = SITE.topFrame;
-      const v = { tw: im.naturalWidth, th: im.naturalHeight, tl: tf.leftCap, tr: tf.rightCap, tx: tf.fillAt, t1: tf.title[0], t2: tf.title[1], m2: tf.menu[1] };
+      const tf = SITE.topFrame, nat = im.naturalHeight, short = nat < tf.menu[1] + 9 - 6;   // short = a title-only banner without the grey menu row
+      const mt = short ? nat : tf.title[1], m2 = short ? nat + (tf.menu[1] - tf.title[1]) : tf.menu[1];
+      const v = { tw: im.naturalWidth, ih: nat, th: m2 + 9, tl: tf.leftCap, tr: tf.rightCap, tx: tf.fillAt, t1: tf.title[0], t2: tf.title[1], mt, m2 };
+      if (short){ const r = document.createElement('div'); r.className = 'mrow'; r.setAttribute('aria-hidden', 'true'); $('#top').appendChild(r); body.classList.add('hdr-short'); }
       Object.entries(v).forEach(([n, x]) => root.style.setProperty('--' + n, x));
       root.style.setProperty('--hdr-img', `url("${SITE.headerImage}")`);
       ['cap l', 'fill', 'cap r'].reverse().forEach(c => { const e = document.createElement('span'); e.className = c; e.setAttribute('aria-hidden', 'true'); $('#top').prepend(e); });
@@ -555,6 +564,10 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
         const row = g.getImageData(0, Math.floor(c.height / 2), c.width, 1).data;
         let x = 0; while (x < c.width / 3 && row[x * 4 + 3] > 8) x++;
         if (x >= 4 && x < c.width / 3) inset = x;
+        const col = g.getImageData(c.width - inset, Math.floor(c.height / 2), inset, 1).data;      // right edge, left to right = bottom bar, top to bottom
+        const sc = document.createElement('canvas'); sc.width = 1; sc.height = inset; const sg = sc.getContext('2d');
+        for (let i = 0; i < inset; i++){ sg.fillStyle = `rgba(${col[i * 4]},${col[i * 4 + 1]},${col[i * 4 + 2]},${col[i * 4 + 3] / 255})`; sg.fillRect(0, i, 1, 1); }
+        root.style.setProperty('--sill-img', `url("${sc.toDataURL()}")`);
       } catch (e) {}
       root.style.setProperty('--frm-img', `url("${SITE.sideImage}")`);
       root.style.setProperty('--frm-slice', inset);
