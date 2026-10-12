@@ -178,11 +178,12 @@ const SITE = {
   role: 'Level Designer · Art/Tech Design',
   tagline: 'Hybrid level designer who builds the space, the tools, and the look. Voxel worlds, small teams, shipped games.',
   openOnLoad: ['projects'],                        // windows open at start; use [] for a fully empty desktop
-  wallpaper: 'checker',                            // 'checker' (drawn in code, fits any screen), 'image', 'solid' or 'hill'
+  wallpaper: 'image',                              // 'image' (your PNG, repeats downward), 'checker' (drawn in code), 'solid' or 'hill'
   checkerSize: 96,                                 // size of one checker square in pixels
   checkerLight: '#c8c8c6', checkerDark: '#ababab',
   checkerFade: 0.19,                               // darkens toward the right edge (0 = flat)
   wallpaperImage: 'images/background.png',
+  wallpaperFit: '100% auto',                       // full width, repeats vertically. Use e.g. 'max(100%, 1100px) auto' to stop squares getting tiny on phones
   cursorImage: 'images/cursor.png',                // your own PNG cursor (32x32 or smaller, transparent). Missing file = built-in pixel arrow
   cursorImage2x: '',                               // optional sharper 64x64 version for high-DPI screens, e.g. 'images/cursor@2x.png'
   cursorHotspot: [0, 0],                           // the click point inside the PNG, in pixels from the top-left (arrow tip = 0, 0)
@@ -362,9 +363,12 @@ function applyTheme(t, save){
   }
   if (SITE.wallpaper === 'image'){
     const img = `url("${SITE.wallpaperImage}")`, d = SITE.wallpaperDarken;
+    const shade = `linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d}))`;
     Object.assign(document.body.style, {
-      backgroundImage: dark ? `linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d})), ${img}` : img,
-      backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'
+      backgroundImage: dark ? `${shade}, ${img}` : img,
+      backgroundSize: dark ? `auto, ${SITE.wallpaperFit}` : SITE.wallpaperFit,
+      backgroundPosition: dark ? 'center, center top' : 'center top',
+      backgroundRepeat: dark ? 'repeat, repeat-y' : 'repeat-y'
     });
   }
   const b = document.getElementById('themebtn');
