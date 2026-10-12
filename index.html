@@ -327,11 +327,11 @@ const SITE = {
   titlePortraitSizeSmall: 1.5,                     // same, for phones
   titlePortraitPixelated: false,                   // true if the portrait is pixel art and should stay crisp
   aboutPhotos: [                                   // pictures shown under your About text. Add as many as you like; missing files are left out
-    { src: 'images/about-1.jpg', caption: 'Hi there!', alt: 'A smiling person in round sunglasses and headphones', pos: '50% 50%' },   // pos = which part of the picture stays visible in the small frame (use e.g. \'50% 30%\' to show more of the top)
-    { src: 'images/about-2.jpg', caption: 'Game jam weekend' },
+    { src: 'images/about-2.jpg', caption: 'Game jam weekend' },   // extra pictures for the row under your text. Missing files are left out
     { src: 'images/about-3.jpg', caption: 'My workspace' }
   ],
-  portrait: 'images/me.png',                       // optional photo or pixel avatar. Missing file = a placeholder
+  portrait: 'images/about-1.jpg',                  // the main picture next to your About text (it replaces the pixel placeholder). Missing file = the pixel placeholder
+  portraitPos: '50% 45%',                          // which part of the picture stays visible in the square frame (try '50% 30%' to show more of the top)
   location: 'Breda, Netherlands',
   email: 'you@example.com',
   resume: 'resume.pdf',                            // put your PDF next to index.html
@@ -541,7 +541,7 @@ function openPhoto(i){
 }
 function aboutHTML(){
   return winHTML('about', 'about.txt', 'user', `<div class="about">
-    <div class="avatar"><img src="${esc(SITE.portrait)}" alt="Portrait of ${esc(SITE.name)}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:ICONS.user}))"></div>
+    <div class="avatar"><img src="${esc(SITE.portrait)}" alt="Portrait of ${esc(SITE.name)}" style="object-position:${esc(SITE.portraitPos || 'center')}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:ICONS.user}))"></div>
     <div>
       <div class="h1">${esc(SITE.name)}</div>
       <p class="role">${esc(SITE.role)}${SITE.location ? ' · ' + esc(SITE.location) : ''}</p>
