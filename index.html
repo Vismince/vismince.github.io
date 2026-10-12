@@ -17,7 +17,7 @@
   --meta-bg:#f5f4ea; --meta-line:#d6d2c2; --chip-bg:#e8f0fc; --chip-line:#9db9eb; --ph-bg:#f5f8ff; --ph-ink:#506080;
   --btn-bg:#f1efe6; --btn-hover:#e6e3d6; --btn-active:#d8d0c4; --btn-line:#003c74; --accent:#fff6c9; --accent-line:#d9b93a;
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
-  --k:.3333; --stick-h:calc(var(--k) * 159 * 1px); --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
+  --k:.3333; --ks:.2222; --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
   --px:'Pixelify Sans','Tahoma',monospace;
   --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
 }
@@ -45,7 +45,7 @@ svg{shape-rendering:crispEdges}
 
 #page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 0;display:flex;flex-direction:column;gap:32px}
 
-/* ---------- title bar: name + role (plain blue bar until images/frame-top.png loads) ---------- */
+/* ---------- top bar: title + menu (plain blue bar until images/frame-top.png loads) ---------- */
 .bar{position:relative;z-index:2;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
   border:3px solid var(--frame);border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.28);
   background:linear-gradient(var(--title-a),var(--title-b))}
@@ -53,44 +53,43 @@ svg{shape-rendering:crispEdges}
 .bar .ttl{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 24px;min-width:0}
 .bar .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .bar .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
+.bar .menu{display:flex;align-items:center;flex-wrap:wrap;gap:2px 4px;margin-top:12px}
+.bar .menu a{color:#fff;text-decoration:none;padding:2px 10px;font:400 16px var(--name-font)}
+.bar .menu a:hover,.bar .menu a.act{background:rgba(255,255,255,.22)}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
 
-/* with your frame-top image: a real window title bar */
-body.hdr-img .bar{width:100%;height:calc(var(--k) * var(--th) * 1px);margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none}
+/* with your frame-top image: a real title bar and menu bar laid over the video; the menu stays pinned while you scroll */
+body.hdr-img{--stick-h:calc(var(--k) * (var(--th) - var(--t2)) * 1px)}
+body.hdr-img .bar{position:sticky;top:calc(var(--k) * var(--t2) * -1px);z-index:100;width:100%;height:calc(var(--k) * var(--th) * 1px);
+  margin:0 0 calc(var(--k) * var(--th) * -1px);padding:0;border:0;border-radius:0;box-shadow:none;background:none}
 .bar .cap{z-index:1}
 .bar .cap,.bar .fill{position:absolute;top:0;bottom:0;background-image:var(--hdr-img);background-repeat:no-repeat}
-.bar .cap.l{left:0;width:calc(var(--k) * var(--tl) * 1px);background-position:left top;background-size:calc(var(--k) * var(--tw) * 1px) 100%}
-.bar .cap.r{right:0;width:calc(var(--k) * var(--tr) * 1px);background-position:right top;background-size:calc(var(--k) * var(--tw) * 1px) 100%}
-.bar .fill{left:0;right:0;z-index:0;
-  background-size:calc(var(--k) * var(--tw) * 10px) 100%;background-position:calc(var(--k) * var(--tx) * -10px) 0}   /* stretches a flat part of your image */
-body.hdr-img .bar .sep{width:calc(var(--k) * 9px);height:calc(var(--k) * (var(--t2) - var(--t1)) * .56px);background:#bfbfbf}
+.bar .cap.l{left:0;width:calc(var(--ks) * var(--tl) * 1px);background-position:left top;background-size:calc(var(--ks) * var(--tw) * 1px) calc(var(--k) * var(--th) * 1px)}
+.bar .cap.r{right:0;width:calc(var(--ks) * var(--tr) * 1px);background-position:right top;background-size:calc(var(--ks) * var(--tw) * 1px) calc(var(--k) * var(--th) * 1px)}
+.bar .fill{left:0;right:0;z-index:0;opacity:var(--bar-op,.85);
+  background-size:calc(var(--k) * var(--tw) * 10px) 100%;background-position:calc(var(--k) * var(--tx) * -10px) 0}   /* stretches a flat part of your image; slightly see-through */
+body.hdr-img .bar .sep{width:calc(var(--k) * 9px);height:calc(var(--k) * (var(--t2) - var(--t1)) * .6px);background:#bfbfbf}
 body.hdr-img .bar .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:center;gap:0 .7em;
-  left:calc(var(--k) * var(--tl) * 1px + 14px);right:calc(var(--k) * var(--tr) * 1px + 6px);
+  left:calc(var(--ks) * var(--tl) * 1px + 14px);right:calc(var(--ks) * var(--tr) * 1px + 6px);
   top:calc(var(--k) * var(--t1) * 1px);height:calc(var(--k) * (var(--t2) - var(--t1)) * 1px)}
-body.hdr-img .bar .nm{flex:none;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .6px);text-shadow:none;line-height:1}
-body.hdr-img .bar .rl{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .4px);text-shadow:none}
-
-/* tab bar: sits under the video, then pins to the top of the screen and turns blue while you scroll */
-.tabs{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:0 2px;height:var(--stick-h);padding:0 8px;overflow:hidden;
-  background:#bfbfbf;box-shadow:inset 0 calc(var(--k) * -9px) #818181;transition:background-color .15s}
-.tabs a{color:#000;text-decoration:none;padding:1px 10px;white-space:nowrap;font:400 max(15px, calc(var(--k) * 150 * .36px)) var(--name-font)}
-.tabs a:hover{background:#000080;color:#fff}
-.tabs a.act{box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
-body.pinned .tabs{background:#000080;box-shadow:none}
-body.pinned .tabs a{color:#fff}
-body.pinned .tabs a:hover{background:#fff;color:#000080}
-body.pinned .tabs a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
+body.hdr-img .bar .nm{flex:none;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .82px);text-shadow:none;line-height:1}
+body.hdr-img .bar .rl{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .5px);text-shadow:none}
+body.hdr-img .bar .menu{position:absolute;z-index:2;margin:0;flex-wrap:nowrap;overflow:hidden;gap:0 2px;transition:background-color .15s;
+  left:calc(var(--ks) * var(--tl) * 1px + 8px);right:8px;top:calc(var(--k) * var(--t2) * 1px);height:calc(var(--k) * (var(--m2) - var(--t2)) * 1px)}
+body.hdr-img .bar .menu a{color:#000;padding:1px 10px;font-size:max(15px, calc(var(--k) * (var(--m2) - var(--t2)) * .4px))}
+body.hdr-img .bar .menu a:hover{background:#000080;color:#fff}
+body.hdr-img .bar .menu a.act{background:none;box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
+body.pinned.hdr-img .bar .menu{background:#000080;left:calc(var(--ks) * var(--tl) * 1px);right:calc(var(--ks) * var(--tr) * 1px);padding:0 0 0 8px}
+body.pinned.hdr-img .bar .menu a{color:#fff}
+body.pinned.hdr-img .bar .menu a:hover{background:#fff;color:#000080}
+body.pinned.hdr-img .bar .menu a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
 body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame::before,body.sharp .frame::after{image-rendering:pixelated}
 .frame{position:relative;width:100%}
-body.hdr-img.frm-img .frame{padding-top:calc(var(--k) * 9px)}
 body.frm-img .frame{padding-inline:var(--frm-bw)}
 body.frm-img .frame::before,body.frm-img .frame::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);pointer-events:none;
-  background-image:var(--frm-img);background-repeat:repeat-y;background-size:calc(var(--fw) * var(--k) * 1px) auto}
+  background-image:var(--frm-img);background-repeat:repeat-y;background-size:calc(var(--fw) * var(--ks) * 1px) auto}
 body.frm-img .frame::before{left:0;background-position:left top}
 body.frm-img .frame::after{right:0;background-position:right top}
-/* the dark inner edge of the window continues along the bottom of the bar, so top and sides join up */
-body.hdr-img.frm-img .bar::after{content:'';position:absolute;z-index:3;pointer-events:none;left:calc(var(--k) * (var(--frm-slice) - 9) * 1px);right:calc(var(--k) * (var(--frm-slice) - 9) * 1px);
-  bottom:calc(var(--k) * -9px);height:calc(var(--k) * 9px);background:#000}
 
 /* ---------- window frame (used by every section) ---------- */
 .win{background:var(--chrome);border:3px solid var(--frame);border-top:0;border-radius:9px 9px 0 0;box-shadow:0 2px 10px rgba(0,0,0,.28);scroll-margin-top:calc(var(--stick-h,0px) + 20px);min-width:0}
@@ -118,9 +117,9 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .ph svg{width:44px;height:44px}
 
 /* ---------- 1. showreel ---------- */
-.stage{width:100%;aspect-ratio:16/9;max-height:var(--vmax,none);margin:0;background:#000;position:relative}
+.stage{width:100%;aspect-ratio:var(--vasp,21/9);max-height:var(--vmax,none);margin:0;background:#000;position:relative}
 .stage video.auto{pointer-events:none}
-.stage video,.stage iframe{width:100%;height:100%;border:0;display:block;background:#000;object-fit:contain}
+.stage video,.stage iframe{width:100%;height:100%;border:0;display:block;background:#000;object-fit:var(--vfit,cover)}
 .stage .poster{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#000}
 .stage .poster img{width:100%;height:100%;object-fit:cover;display:block;opacity:.9}
 .stage .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;display:grid;place-items:center;
@@ -202,7 +201,6 @@ dialog.win > .body{overflow:auto;flex:1}
 <header class="bar" id="top"></header>
 <div class="frame">
   <section id="showreel" aria-label="Showreel"></section>
-  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
   <main id="page"></main>
 </div>
 <dialog id="case" class="win" aria-label="Project case study"></dialog>
@@ -227,12 +225,17 @@ const SITE = {
   sideImage: 'images/frame-side.png',              // left and right edges of the window, repeats down the page. Missing file = no edges
   headerInk: '',                                   // colour of your name in the title bar. '' = automatic (white)
   pixelSize: 3,                                    // screen pixels per pixel of your art. Bigger = chunkier frame
+  sideSize: 2,                                     // size of the side frame (screen pixels per art pixel). Smaller = thinner frame
+  sideSizeSmall: 1.5,                              // same, for phones
   pixelSizeSmall: 2,                               // same, for phones and small windows
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
   showreelAutoplay: true,                          // the video starts by itself, silent, with no controls (browsers only allow silent autoplay)
   showreelLoop: true,                              // repeat the video
-  showreelMaxHeight: 0,                            // 0 = video fills the full width. Or a number like 85 to cap it at 85% of the screen height (black bars appear at the sides)
-  topFrame: { leftCap: 33, rightCap: 33, fillAt: 2000, title: [33, 177] },
+  showreelAspect: '21 / 9',                        // shape of the video area. '16 / 9' is taller, '2.4 / 1' is a slimmer cinema strip
+  showreelMaxHeight: 75,                           // never taller than this % of the screen height (0 = no limit)
+  showreelFit: 'cover',                            // 'cover' fills the width and crops the top and bottom; 'contain' shows the whole video with black bars
+  barOpacity: 0.85,                                // how solid the title bar is over the video (1 = solid, 0.7 = clearly see-through)
+  topFrame: { leftCap: 51, rightCap: 51, fillAt: 2000, title: [33, 177], menu: [177, 327] },
                                                    // measurements of frame-top.png in file pixels: left edge width, right part
                                                    // (buttons) width, a flat spot to stretch, title bar top/bottom, menu bar top/bottom
   sharp: true,                                     // keep the frame crisp (pixel art)
@@ -485,12 +488,12 @@ document.addEventListener('click', e => {
 let ticking = false;
 function markActive(){
   ticking = false;
-  const tb = document.getElementById('tabs');
-  if (tb) document.body.classList.toggle('pinned', scrollY > 0 && tb.getBoundingClientRect().top <= 0.5);     // once the tab bar is pinned to the top, it turns blue
+  const k = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--k')), pin = (k && SITE.topFrame) ? k * SITE.topFrame.title[1] - 1 : 60;
+  document.body.classList.toggle('pinned', scrollY >= pin);                   // once the menu bar is pinned to the top, it turns blue
   let cur = NAV[0][0];
   NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
   if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = 'contact';
-  document.querySelectorAll('.tabs a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
+  document.querySelectorAll('.menu a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
 }
 addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(markActive); } }, { passive: true });
 addEventListener('resize', markActive); markActive();
@@ -511,18 +514,22 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--name-font', `'${f}','Pixelify Sans','Tahoma',monospace`);
   root.style.setProperty('--hdr-ink', SITE.headerInk || '#fff');
   root.style.setProperty('--vmax', SITE.showreelMaxHeight ? SITE.showreelMaxHeight + 'vh' : 'none');
+  root.style.setProperty('--vasp', SITE.showreelAspect || '16 / 9');
+  root.style.setProperty('--vfit', SITE.showreelFit || 'cover');
+  root.style.setProperty('--bar-op', SITE.barOpacity);
   $('#top').innerHTML = `<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>
-`;
-  $('#tabs').innerHTML = NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('');
+    <nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
 
   const setScale = () => {
-    const dpr = window.devicePixelRatio || 1, want = innerWidth < 700 ? SITE.pixelSizeSmall : SITE.pixelSize;
-    const n = Math.max(3, 3 * Math.round(want * dpr / 3));                         // screen pixels per art pixel: always a multiple of 3
-    const k = n / dpr / SITE.sourcePixel;                                          // CSS pixels per file pixel
+    const dpr = window.devicePixelRatio || 1, small = innerWidth < 700;
+    const nBar = Math.max(3, 3 * Math.round((small ? SITE.pixelSizeSmall : SITE.pixelSize) * dpr / 3));   // screen pixels per art pixel (bar): multiple of 3 keeps it crisp
+    const nSide = Math.max(2, Math.round((small ? SITE.sideSizeSmall : SITE.sideSize) * dpr));            // same for the side frame, which can be thinner
+    const k = nBar / dpr / SITE.sourcePixel, ks = nSide / dpr / SITE.sourcePixel;
     root.style.setProperty('--k', k);
-    if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * k * dpr) / dpr) + 'px');
+    root.style.setProperty('--ks', ks);
+    if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * ks * dpr) / dpr) + 'px');
   };
   setScale(); addEventListener('resize', setScale);
 
@@ -530,7 +537,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     const im = new Image();
     im.onload = () => {
       const tf = SITE.topFrame;
-      const v = { tw: im.naturalWidth, th: im.naturalHeight, tl: tf.leftCap, tr: tf.rightCap, tx: tf.fillAt, t1: tf.title[0], t2: tf.title[1] };
+      const v = { tw: im.naturalWidth, th: im.naturalHeight, tl: tf.leftCap, tr: tf.rightCap, tx: tf.fillAt, t1: tf.title[0], t2: tf.title[1], m2: tf.menu[1] };
       Object.entries(v).forEach(([n, x]) => root.style.setProperty('--' + n, x));
       root.style.setProperty('--hdr-img', `url("${SITE.headerImage}")`);
       ['cap l', 'fill', 'cap r'].reverse().forEach(c => { const e = document.createElement('span'); e.className = c; e.setAttribute('aria-hidden', 'true'); $('#top').prepend(e); });
