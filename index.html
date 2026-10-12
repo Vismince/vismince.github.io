@@ -49,8 +49,19 @@ svg{shape-rendering:crispEdges}
 .title{display:flex;align-items:center;gap:14px;position:relative;z-index:120;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
   border:3px solid var(--frame);border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.28);
   background:linear-gradient(var(--title-a),var(--title-b))}
-.title .face{flex:none;align-self:center;display:block;height:44px;width:auto;margin-right:2px}
-.title.px .face{image-rendering:pixelated}
+.title .badge{flex:none;position:relative;display:block;padding:0;border:0;background:none;color:inherit;animation:bob 2.6s steps(2) infinite}
+.title .badge .pic{display:block;width:44px;height:44px;overflow:hidden;border:2px solid #000;box-shadow:3px 3px 0 rgba(0,0,0,.35);
+  background:repeating-conic-gradient(#c8c8c6 0 25%, #ababab 0 50%) 0 0 / 14px 14px}
+.title .badge .face{display:block;width:100%;height:100%;object-fit:cover}
+.title.px .badge .face{image-rendering:pixelated}
+.title .badge .tag{display:none}
+.title .badge:hover,.title .badge.hop{animation:hop .4s steps(4) 1}
+.title .badge .heart{position:absolute;z-index:6;right:-6px;top:-10px;width:22px;height:20px;pointer-events:none;animation:rise .9s steps(6) forwards}
+.title .badge .heart svg{display:block;width:100%;height:100%}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-10px)}70%{transform:translateY(-4px)}100%{transform:translateY(0)}}
+@keyframes rise{from{transform:translateY(0);opacity:1}to{transform:translateY(-36px);opacity:0}}
+@media (prefers-reduced-motion:reduce){.title .badge{animation:none!important}.title .badge .heart{animation:none}}
 .title .sep{flex:none;align-self:center;width:3px;height:1.1em;background:rgba(255,255,255,.75)}
 .title .ttl{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 24px;min-width:0}
 .title .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
@@ -97,10 +108,12 @@ body.ttl-img .title{width:100%;height:calc(var(--k) * var(--wh) * 1px);margin:0;
 .title .cap.l{left:0;width:calc(var(--ks) * var(--wl) * 1px);background-position:left top;background-size:calc(var(--ks) * var(--ww) * 1px) calc(var(--k) * var(--wh) * 1px)}
 .title .cap.r{right:0;width:calc(var(--ks) * var(--wr) * 1px);background-position:right top;background-size:calc(var(--ks) * var(--ww) * 1px) calc(var(--k) * var(--wh) * 1px)}
 .title .fill{left:0;right:0;z-index:0;background-size:calc(var(--k) * var(--ww) * 10px) calc(var(--k) * var(--wh) * 1px);background-position:calc(var(--k) * var(--wx) * -10px) 0}   /* stretches a flat part of your image */
-body.ttl-img{--face-h:calc(var(--k) * (var(--w2) - var(--w1)) * var(--face-scale, 1) * 1px);--face-w:calc(var(--face-h) * var(--face-ar, 1));--face-x:calc(var(--ks) * var(--wl) * 1px + 8px)}
-body.ttl-img .title .face{position:absolute;z-index:5;left:var(--face-x);top:calc(var(--k) * 9px);height:var(--face-h);width:var(--face-w);margin:0}
-body.ttl-img.has-face .title .ttl{left:calc(var(--face-x) + var(--face-w) + 14px)}
-body.ttl-img.has-face .menubar .menu{left:calc(var(--face-x) + var(--face-w) - var(--frm-bw, 0px) + 8px)}
+body.ttl-img{--face-h:calc(var(--k) * (var(--w2) - var(--w1)) * var(--face-scale, 1) * 1px);--face-w:var(--face-h);--face-x:calc(var(--ks) * var(--wl) * 1px + 8px)}
+body.ttl-img .title .badge{position:absolute;z-index:5;left:var(--face-x);top:calc(var(--k) * 18px);width:var(--face-w);height:var(--face-h);margin:0}
+body.ttl-img .title .badge .pic{width:100%;height:100%;border-width:calc(var(--k) * 9px);box-shadow:calc(var(--k) * 12px) calc(var(--k) * 12px) 0 rgba(0,0,0,.35)}
+body.ttl-img .title .badge .tag{display:block;position:absolute;right:-9px;bottom:-11px;padding:0 6px;background:var(--blue);color:#fff;border:2px solid #000;font:700 14px/1.5 var(--px);box-shadow:2px 2px 0 rgba(0,0,0,.35)}
+body.ttl-img.has-face .title .ttl{left:calc(var(--face-x) + var(--face-w) + var(--face-gap, 28px) + 8px)}
+body.ttl-img.has-face .menubar .menu{left:calc(var(--face-x) + var(--face-w) - var(--frm-bw, 0px) + var(--face-gap, 28px))}
 body.pinned.ttl-img.has-face .menubar .menu{left:8px}
 body.ttl-img .title .sep{width:calc(var(--k) * 9px);height:calc(var(--k) * (var(--w2) - var(--w1)) * .6px);background:#bfbfbf}
 body.ttl-img .title .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:center;gap:0 .7em;
@@ -124,7 +137,7 @@ body.mb-img .menubar::before{background-color:transparent;box-shadow:none;backgr
 body.pinned .menubar{background:#bfbfbf;box-shadow:inset 0 calc(var(--k) * -9px) #818181}     /* plain grey bar until the image loads */
 body.pinned.pin-img .menubar{background:none;box-shadow:none;height:calc(var(--k) * var(--ph) * 1px);margin-bottom:calc(var(--k) * var(--ph) * -1px)}
 body.pin-img{--stick-h:calc(var(--k) * var(--ph) * 1px)}
-body.pinned.pin-img .menubar .menu{top:calc(var(--k) * 18px);height:calc(var(--k) * 182px)}
+body.pinned.pin-img .menubar .menu{top:calc(var(--k) * var(--w1, 33) * 1px);height:calc(var(--k) * (var(--w2, 177) - var(--w1, 33)) * 1px)}
 body.pinned .menubar::before{display:none}
 body.pinned.pin-img .menubar .pin{display:block;position:absolute;z-index:0;top:0;bottom:0;left:calc(var(--frm-bw, 0px) * -1);right:calc(var(--frm-bw, 0px) * -1)}
 .pin .cap,.pin .fill{position:absolute;top:0;bottom:0;background-image:var(--pin-img);background-repeat:no-repeat}
@@ -133,15 +146,16 @@ body.pinned.pin-img .menubar .pin{display:block;position:absolute;z-index:0;top:
 .pin .cap.r{right:0;width:calc(var(--ks) * var(--pr) * 1px);background-position:right calc(var(--k) * var(--pin-off, 0) * -1px);background-size:calc(var(--ks) * var(--pw) * 1px) calc(var(--k) * var(--ph) * 1px)}
 .pin .fill{left:0;right:0;background-size:calc(var(--k) * var(--pw) * 10px) calc(var(--k) * var(--ph) * 1px);background-position:calc(var(--k) * var(--px) * -10px) calc(var(--k) * var(--pin-off, 0) * -1px)}
 body.pinned .menubar .menu{gap:0 6px}
-body.pinned .menubar .menu a{padding:3px 14px;background:none;color:#000;text-shadow:none;box-shadow:none}
+body.pinned .menubar .menu a{display:flex;align-items:center;align-self:stretch;padding:0 18px;font-size:max(16px, calc(var(--k) * (var(--w2, 177) - var(--w1, 33)) * .4px));background:none;color:#000;text-shadow:none;box-shadow:none}
 body.pinned .menubar .menu a:hover{background:#dcdcdc;box-shadow:inset 1px 1px #fff, inset -1px -1px #818181}
 body.pinned .menubar .menu a.act,body.pinned .menubar .menu a.act:hover{background:var(--blue);color:#fff;box-shadow:inset 1px 1px #6f9ff5, inset -1px -1px var(--blue-dark)}
 @media (max-width:760px){
+  body.ttl-img .title .badge .tag{display:none}          /* too big for the small phone badge */
   body.pinned .menubar .menu{gap:0 4px}
-  body.pinned .menubar .menu a{padding:3px 8px}
+  body.pinned .menubar .menu a{padding:0 8px}
 }
 @media (max-width:380px){
-  body.pinned .menubar .menu a{padding:3px 5px}
+  body.pinned .menubar .menu a{padding:0 5px}
 }
 body.sharp .title .cap,body.sharp .title .fill,body.sharp .pin .cap,body.sharp .pin .fill,body.sharp .menubar::before,body.sharp .frame::before,body.sharp .frame::after{image-rendering:pixelated}
 .frame{position:relative;width:100%}
@@ -348,7 +362,9 @@ const SITE = {
   sharp: true,                                     // keep the frame crisp (pixel art)
   nameFont: 'Pixelify Sans',                       // Pixelify Sans, Silkscreen, Press Start 2P, VT323, Jersey 10, Tiny5, DotGothic16
   titlePortrait: 'images/portrait-mascot.png',     // small portrait of your character at the left of the title bar, before your name. Missing file = nothing shown
-  titlePortraitSize: 2.1,                          // height of the portrait compared with the navy bar. 2.1 lets it overlap the menu bar below; 1 stays inside the navy bar
+  titlePortraitSize: 2.4,                          // height of the corner badge compared with the blue title bar. 2.4 hangs down over the menu bar
+  titlePortraitGap: 28,                            // space between the badge and your name / tabs, in pixels
+  titleBadgeLabel: 'P1',                           // little game-style tag on the badge ('' for none). Click the badge for a surprise
   titlePortraitSizeSmall: 1.5,                     // same, for phones
   titlePortraitPixelated: false,                   // true if the portrait is pixel art and should stay crisp
   aboutPhotos: [                                   // pictures shown under your About text. Add as many as you like; missing files are left out
@@ -457,6 +473,7 @@ const ICONS = {
   mail:`<svg viewBox="0 0 32 32">${R(2,7,28,19,'#fff')}${R(2,7,28,1,'#6b7fa8')}${R(2,25,28,1,'#6b7fa8')}${R(2,7,1,19,'#6b7fa8')}${R(29,7,1,19,'#6b7fa8')}${R(4,9,3,2,'#6b7fa8')}${R(7,11,3,2,'#6b7fa8')}${R(10,13,3,2,'#6b7fa8')}${R(13,15,6,2,'#6b7fa8')}${R(19,13,3,2,'#6b7fa8')}${R(22,11,3,2,'#6b7fa8')}${R(25,9,3,2,'#6b7fa8')}</svg>`,
   user:`<svg viewBox="0 0 32 32">${R(2,2,28,28,'#a9d1ff')}${R(11,6,10,10,'#f4c28f')}${R(11,6,10,3,'#5a3a1a')}${R(7,19,18,11,'#2a6fdb')}${R(13,17,6,3,'#f4c28f')}</svg>`,
   cube:`<svg viewBox="0 0 32 32"><polygon points="16,2 29,9 16,16 3,9" fill="#8fe39a"/><polygon points="3,9 16,16 16,30 3,23" fill="#3f9d34"/><polygon points="29,9 16,16 16,30 29,23" fill="#2a7222"/><polygon points="16,2 29,9 16,16 3,9" fill="none" stroke="#1e5a18" stroke-width="1"/></svg>`,
+  heart:`<svg viewBox="0 0 9 8">${R(1,0,2,1,'#000')}${R(6,0,2,1,'#000')}${R(0,1,1,3,'#000')}${R(8,1,1,3,'#000')}${R(3,1,3,1,'#000')}${R(1,4,1,1,'#000')}${R(7,4,1,1,'#000')}${R(2,5,1,1,'#000')}${R(6,5,1,1,'#000')}${R(3,6,1,1,'#000')}${R(5,6,1,1,'#000')}${R(4,7,1,1,'#000')}${R(1,1,2,1,'#ff4d6d')}${R(6,1,2,1,'#ff4d6d')}${R(1,2,7,2,'#ff4d6d')}${R(2,4,5,1,'#ff4d6d')}${R(3,5,3,1,'#ff4d6d')}${R(4,6,1,1,'#ff4d6d')}${R(2,1,1,1,'#ffb3c1')}</svg>`,
   video:`<svg viewBox="0 0 32 32">${R(2,5,28,20,'#3a3f4a')}${R(4,7,24,16,'#1b3a6b')}<polygon points="13,10 13,20 22,15" fill="#fff"/>${R(11,26,10,2,'#3a3f4a')}</svg>`,
   tools:`<svg viewBox="0 0 32 32">${R(4,4,24,24,'#d8d4c4')}${R(4,4,24,3,'#2a6fdb')}${R(8,11,6,6,'#3f9d34')}${R(16,11,8,2,'#444')}${R(16,15,8,2,'#444')}${R(8,20,16,2,'#444')}${R(8,24,10,2,'#444')}</svg>`,
   win:`<svg viewBox="0 0 32 32">${R(3,5,12,10,'#e8502a')}${R(17,3,12,12,'#6cc04a')}${R(3,17,12,10,'#2a8cf0')}${R(17,17,12,12,'#f5c800')}</svg>`,
@@ -534,6 +551,10 @@ function introHTML(){
       <div class="seek reveal"><strong style="margin:0">${esc(SITE.lookingFor.headline)}</strong></div>
       <div class="choices reveal"><a href="#projects" data-go="projects">See my projects</a><a href="#contact" data-go="contact">Contact me</a></div>
     </div></section>`;
+}
+function waveBadge(b){            // little hop and a pixel heart when you click the corner badge
+  b.classList.remove('hop'); void b.offsetWidth; b.classList.add('hop');
+  const h = document.createElement('span'); h.className = 'heart'; h.innerHTML = ICONS.heart; b.appendChild(h); setTimeout(() => h.remove(), 1000);
 }
 function startChat(){                      // types the lines out one after another when the box scrolls into view
   const box = document.getElementById('chat'); if (!box) return;
@@ -635,6 +656,7 @@ document.addEventListener('click', e => {
   if (mn){ const w = mn.closest('.win'); const c = w.classList.toggle('collapsed'); mn.setAttribute('aria-expanded', !c); return; }
   const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
   if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
+  const bd = t.closest('.badge'); if (bd){ waveBadge(bd); return; }
   const card = t.closest('.card'); if (card){ openCase(card.dataset.p, card); return; }
   const mp = t.closest('[data-main]'); if (mp){ showPhoto({ src: SITE.portrait, caption: SITE.portraitCaption || SITE.name, alt: 'Portrait of ' + SITE.name }, mp); return; }
   const ph = t.closest('.photo'); if (ph){ openPhoto(+ph.dataset.photo); return; }
@@ -690,7 +712,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--vfit', SITE.showreelFit || 'cover');
   root.style.setProperty('--bar-op', SITE.barOpacity);
   $('#top').classList.toggle('px', !!SITE.titlePortraitPixelated);
-  $('#top').innerHTML = `${SITE.titlePortrait ? `<img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face');document.documentElement.style.setProperty('--face-ar',this.naturalWidth/this.naturalHeight)" onerror="this.remove()">` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
+  $('#top').innerHTML = `${SITE.titlePortrait ? `<button class="badge" type="button" aria-label="Wave at the mascot"><span class="pic"><img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face')" onerror="this.closest('.badge').remove()"></span>${SITE.titleBadgeLabel ? `<span class="tag">${esc(SITE.titleBadgeLabel)}</span>` : ''}</button>` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
   $('#menubar').innerHTML = `<span class="pin" aria-hidden="true"><span class="cap l"></span><span class="fill"></span><span class="cap r"></span></span><nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
@@ -702,6 +724,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     const k = nBar / dpr / SITE.sourcePixel, ks = nSide / dpr / SITE.sourcePixel;
     root.style.setProperty('--k', k);
     root.style.setProperty('--ks', ks);
+    root.style.setProperty('--face-gap', (small ? 14 : (SITE.titlePortraitGap ?? 28)) + 'px');
     root.style.setProperty('--face-scale', innerWidth < 400 ? Math.min(SITE.titlePortraitSizeSmall, 1.2) : small ? SITE.titlePortraitSizeSmall : SITE.titlePortraitSize);
     if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * ks * dpr) / dpr) + 'px');
     document.querySelectorAll('.floor.show').forEach(el => {                  // each closing bar is as tall as its image, at the side frame's scale
