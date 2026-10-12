@@ -43,7 +43,7 @@ a{color:var(--link)}
 :focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
 svg{shape-rendering:crispEdges}
 
-#page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 0;display:flex;flex-direction:column;gap:32px}
+#page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 28px;display:flex;flex-direction:column;gap:32px}
 
 /* ---------- title bar: solid, at the very top, with your name and role (plain blue bar until images/frame-title.png loads) ---------- */
 .title{position:relative;z-index:3;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
@@ -87,6 +87,17 @@ body.sharp .title .cap,body.sharp .title .fill,body.sharp .menubar::before,body.
 .sill{display:none}
 body.frm-img .sill{display:block;height:var(--frm-bw);background:var(--sill-img) 0 0 / 100% 100% no-repeat}   /* closes off the video, drawn from the side frame's own pixels */
 body.sharp .sill{image-rendering:pixelated}
+/* your frame-bottom.png: closes the frame under the video and at the very end of the page; its ends join the side frame */
+.floor{display:none}
+body.flr-img.frm-img .floor{display:block;position:relative;z-index:1;height:var(--frm-bw);margin-inline:calc(var(--frm-bw) * -1);
+  background:var(--flr-img) calc(var(--ks) * var(--fx) * -10px) 0 / calc(var(--ks) * var(--fbw) * 10px) 100% no-repeat}
+body.flr-img.frm-img .floor::before,body.flr-img.frm-img .floor::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);
+  background:var(--flr-img) 0 0 / calc(var(--ks) * var(--fbw) * 1px) 100% no-repeat}
+body.flr-img.frm-img .floor::before{left:0}
+body.flr-img.frm-img .floor::after{right:0;left:auto;background-position:right top}
+body.flr-img.frm-img .sill{display:none}
+body.flr-img{padding-bottom:0}
+body.sharp .floor,body.sharp .floor::before,body.sharp .floor::after{image-rendering:pixelated}
 body.frm-img .frame{padding-inline:var(--frm-bw)}
 body.frm-img .frame::before,body.frm-img .frame::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);pointer-events:none;
   background-image:var(--frm-img);background-repeat:repeat-y;background-size:calc(var(--fw) * var(--ks) * 1px) auto}
@@ -205,7 +216,9 @@ dialog.win > .body{overflow:auto;flex:1}
   <div class="menubar" id="menubar"></div>
   <section id="showreel" aria-label="Showreel"></section>
   <div class="sill" aria-hidden="true"></div>
+  <div class="floor" aria-hidden="true"></div>
   <main id="page"></main>
+  <div class="floor" aria-hidden="true"></div>
 </div>
 <dialog id="case" class="win" aria-label="Project case study"></dialog>
 
@@ -227,6 +240,8 @@ const SITE = {
   ],
   titleImage: 'images/frame-title.png',            // solid title bar at the very top of the page (your name and role sit on it). Missing file = a plain blue bar
   headerImage: 'images/frame-top.png',             // the see-through menu bar over the video (its grey menu row). Missing file = a plain grey bar
+  bottomImage: 'images/frame-bottom.png',          // bottom bar of the frame, used under the video and at the end of the page. Missing file = a simple bar under the video
+  bottomFrame: { fillAt: 2000 },                   // a flat spot of frame-bottom.png (in file pixels) that gets stretched across the middle
   sideImage: 'images/frame-side.png',              // left and right edges of the window, repeats down the page. Missing file = no edges
   headerInk: '',                                   // colour of your name in the title bar. '' = automatic (white)
   pixelSize: 3,                                    // screen pixels per pixel of your art. Bigger = chunkier frame
@@ -236,8 +251,8 @@ const SITE = {
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
   showreelAutoplay: true,                          // the video starts by itself, silent, with no controls (browsers only allow silent autoplay)
   showreelLoop: true,                              // repeat the video
-  showreelAspect: '21 / 9',                        // shape of the video area. '16 / 9' is taller, '2.4 / 1' is a slimmer cinema strip
-  showreelMaxHeight: 75,                           // never taller than this % of the screen height (0 = no limit)
+  showreelAspect: '2 / 1',                         // shape of the video area. '16 / 9' is taller, '21 / 9' is a slimmer cinema strip
+  showreelMaxHeight: 80,                           // never taller than this % of the screen height (0 = no limit)
   showreelFit: 'cover',                            // 'cover' fills the width and crops the top and bottom; 'contain' shows the whole video with black bars
   barOpacity: 0.5,                                 // how solid the menu bar is over the video (1 = solid, 0.3 = very see-through). The title bar is always solid
   titleFrame: { leftCap: 33, rightCap: 33, fillAt: 2000, title: [33, 177] },     // measurements of frame-title.png in file pixels: edge widths, a flat spot to stretch, title row top and bottom
@@ -571,6 +586,16 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     const im = new Image();
     im.onload = () => { info.menu = { w: im.naturalWidth, h: im.naturalHeight }; layoutMenu(); };
     im.src = SITE.headerImage;
+  }
+  if (SITE.bottomImage){
+    const im = new Image();
+    im.onload = () => {
+      root.style.setProperty('--flr-img', `url("${SITE.bottomImage}")`);
+      root.style.setProperty('--fbw', im.naturalWidth);
+      root.style.setProperty('--fx', SITE.bottomFrame.fillAt);
+      body.classList.add('flr-img');
+    };
+    im.src = SITE.bottomImage;
   }
   if (SITE.sideImage){
     const im = new Image();
