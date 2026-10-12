@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Name – Level Designer (Art/Tech)</title>
+<meta name="description" content="Portfolio of Your Name, a hybrid Art/Tech level designer focused on voxel games and indie teams.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,3 28,10 16,17 4,10' fill='%237fe08a'/%3E%3Cpolygon points='4,10 16,17 16,30 4,23' fill='%233c9a2f'/%3E%3Cpolygon points='28,10 16,17 16,30 28,23' fill='%23266d1d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --luna:#0054e3; --luna-dark:#003dd7; --tan:#ece9d8; --ink:#1b1b1b;
+  --link:#0033cc; --taskbar:32px;
+  --px:'Pixelify Sans','Tahoma',monospace;
+  --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#3a6ea5;font-family:var(--ui);font-size:13px;color:var(--ink);-webkit-user-select:none;user-select:none}
+#wall{position:fixed;inset:0;width:100%;height:100%;image-rendering:pixelated;z-index:0}
+button{font:inherit;color:inherit}
+a{color:var(--link)}
+:focus-visible{outline:2px dotted #000;outline-offset:1px}
+
+/* ---------- desktop icons ---------- */
+#icons{position:fixed;top:0;left:0;bottom:var(--taskbar);padding:10px;display:flex;flex-direction:column;flex-wrap:wrap;align-content:flex-start;gap:6px;z-index:1}
+.icon{width:84px;background:none;border:1px solid transparent;padding:4px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default;color:#fff;text-shadow:1px 1px 1px #000,0 0 3px #000}
+.icon svg{width:40px;height:40px;shape-rendering:crispEdges;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.4))}
+.icon span{font-size:12px;line-height:1.2;text-align:center;padding:0 2px}
+.icon.sel{background:rgba(49,106,197,.55);border:1px dotted #fff}
+.icon.sel span{background:#316ac5;text-shadow:none}
+
+/* ---------- windows ---------- */
+.win{position:absolute;display:flex;flex-direction:column;background:var(--tan);border:3px solid var(--luna);border-top:0;border-radius:9px 9px 0 0;box-shadow:3px 3px 0 rgba(0,0,0,.35);z-index:5;min-width:260px;min-height:140px}
+.win.hidden{display:none}
+.win.max{left:0!important;top:0!important;width:100%!important;height:calc(100% - var(--taskbar))!important;border-radius:0;border-width:0 3px 3px}
+.titlebar{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 6px;margin:0 -3px;border-radius:7px 7px 0 0;color:#fff;font-weight:bold;font-size:13px;text-shadow:1px 1px 0 #0b2a8a;cursor:default;touch-action:none;
+  background:linear-gradient(#0997ff,#0053ee 8%,#0050ee 40%,#06f 88%,#06f 93%,#005bff 95%,#003dd7)}
+.win:not(.focus) .titlebar{background:linear-gradient(#7697e7,#7e9ee3 8%,#7a96df 40%,#7a9aea 88%,#7a9aea 93%,#6f8fe0 95%,#5f7fd0);text-shadow:none}
+.titlebar svg{width:16px;height:16px;flex:none;shape-rendering:crispEdges}
+.titlebar .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--px);font-size:15px;font-weight:400;letter-spacing:.2px}
+.tb{width:22px;height:22px;border:1px solid #fff;border-radius:4px;padding:0;color:#fff;font:bold 12px/1 var(--ui);cursor:default;
+  background:radial-gradient(circle at 30% 25%,#5b9bff,#2860e0 70%)}
+.tb.x{background:radial-gradient(circle at 30% 25%,#ee9a80,#d4421c 70%)}
+.tb:active{filter:brightness(.85)}
+.menubar{display:flex;gap:2px;padding:2px 4px;border-bottom:1px solid #aca899;font-size:12px}
+.menubar span{padding:1px 6px}
+.body{flex:1;overflow:auto;background:#fff;margin:0;padding:14px 16px;border:1px solid #7f9db9;-webkit-user-select:text;user-select:text;line-height:1.5}
+.win .body{margin:0}
+.statusbar{padding:2px 8px;font-size:11px;border-top:1px solid #aca899;color:#444}
+.body h1,.body h2,.body h3{font-family:var(--px);font-weight:700;margin:0 0 6px;line-height:1.15}
+.body h1{font-size:26px}.body h2{font-size:20px;margin-top:18px}.body h3{font-size:16px}
+.body p{margin:0 0 10px;max-width:70ch}
+.meta{display:grid;grid-template-columns:max-content 1fr;gap:2px 14px;margin:8px 0 14px;padding:8px 10px;background:#f5f4ea;border:1px solid #d6d2c2}
+.meta dt{font-weight:bold}.meta dd{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px;padding:0;list-style:none}
+.chips li{padding:2px 8px;background:#e8f0fc;border:1px solid #9db9eb;border-radius:3px}
+.btn{display:inline-block;padding:4px 14px;min-width:75px;text-align:center;text-decoration:none;color:#000;background:linear-gradient(#fff,#ecebe5 85%,#d8d0c4);border:1px solid #003c74;border-radius:3px;cursor:default;margin:2px 6px 2px 0}
+.btn:hover{box-shadow:inset 0 -2px 0 #f8b636,inset 0 2px 0 #fff0cf}
+.btn:active{background:#d8d0c4}
+.shot{margin:8px 0 14px}
+.shot img{display:block;max-width:100%;image-rendering:pixelated;border:2px solid #7f9db9}
+.shot .ph{padding:26px 12px;text-align:center;border:2px dashed #9db9eb;background:#f5f8ff;color:#506080}
+.shot figcaption{font-size:11px;color:#555;margin-top:3px}
+
+/* explorer-style grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
+.grid .icon{width:auto;color:#000;text-shadow:none}
+.grid .icon svg{width:48px;height:48px;filter:none}
+.grid .icon.sel{color:#fff}
+.grid .icon small{font-size:11px;color:#555}
+.grid .icon.sel small{color:#dfe8ff}
+
+/* ---------- taskbar ---------- */
+#taskbar{position:fixed;left:0;right:0;bottom:0;height:var(--taskbar);z-index:1000;display:flex;align-items:stretch;padding-bottom:env(safe-area-inset-bottom,0);
+  background:linear-gradient(#3168d5,#4993e6 3%,#2157d7 10%,#245edb 85%,#1941a5 95%,#1941a5)}
+#start{display:flex;align-items:center;gap:6px;padding:0 18px 0 10px;border:0;border-radius:0 12px 12px 0;color:#fff;font:italic 700 18px var(--ui);text-shadow:1px 1px 2px #1a3a10;cursor:default;
+  background:linear-gradient(#5fbb4f,#3c9a2f 12%,#2f8a25 70%,#256f1c);box-shadow:inset -2px 0 3px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+#start svg{width:20px;height:20px;shape-rendering:crispEdges}
+#start.on{filter:brightness(.88)}
+#tasks{flex:1;display:flex;gap:3px;padding:3px 6px;overflow:hidden;min-width:0}
+.task{display:flex;align-items:center;gap:6px;flex:0 1 160px;min-width:40px;padding:0 8px;color:#fff;border:1px solid #1a43a8;border-radius:3px;background:#3c81f3;font-size:12px;overflow:hidden;white-space:nowrap;cursor:default}
+.task svg{width:16px;height:16px;flex:none;shape-rendering:crispEdges}
+.task span{overflow:hidden;text-overflow:ellipsis}
+.task.act{background:#1e52b7;box-shadow:inset 1px 1px 3px rgba(0,0,0,.5)}
+#tray{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:12px;border-left:1px solid #0c3a9c;background:linear-gradient(#0f9bf0,#1290e8 20%,#0b6fd0)}
+
+/* ---------- start menu ---------- */
+#menu{position:fixed;left:0;bottom:var(--taskbar);width:min(360px,100%);z-index:999;display:none;border:2px solid var(--luna-dark);border-radius:8px 8px 0 0;overflow:hidden;box-shadow:3px 0 0 rgba(0,0,0,.3);background:#fff}
+#menu.open{display:block}
+#menu .top{display:flex;align-items:center;gap:10px;padding:8px 10px;color:#fff;font-family:var(--px);font-size:18px;background:linear-gradient(#1868ce,#0e60cb 12%,#0e60cb 20%,#1164cf 72%,#0f5cc0)}
+#menu .top svg{width:36px;height:36px;border:2px solid #fff;border-radius:4px;background:#fff;shape-rendering:crispEdges}
+#menu .cols{display:grid;grid-template-columns:1fr 1fr}
+#menu .col{padding:6px 0}
+#menu .col.l{background:#fff}
+#menu .col.r{background:#d3e5fa;border-left:1px solid #95bdee}
+#menu button{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px;border:0;background:none;text-align:left;cursor:default;font-size:13px}
+#menu button svg{width:28px;height:28px;flex:none;shape-rendering:crispEdges}
+#menu .col.l button{font-weight:bold}
+#menu button:hover,#menu button:focus-visible{background:#316ac5;color:#fff}
+#menu .foot{display:flex;justify-content:flex-end;padding:6px 8px;background:linear-gradient(#4282d6,#3b78cf);}
+#menu .foot button{width:auto;color:#fff;padding:3px 8px}
+#menu .foot button:hover{background:rgba(255,255,255,.2)}
+
+/* ---------- plain view + shutdown ---------- */
+#plain{position:fixed;inset:0;z-index:2000;display:none;overflow:auto;background:#f4f4ef;color:#1b1b1b;padding:24px 18px 60px;-webkit-user-select:text;user-select:text}
+#plain.open{display:block}
+#plain .wrap{max-width:760px;margin:0 auto;line-height:1.55;font-size:16px}
+#plain h1,#plain h2{font-family:var(--px)}
+#plain article{border-top:2px solid #cfcfc4;padding:14px 0}
+#plain .back{position:sticky;top:0;margin-bottom:14px;font-size:14px}
+#off{position:fixed;inset:0;z-index:3000;display:none;background:#000;color:#ff9f2e;align-items:center;justify-content:center;text-align:center;font-family:var(--px);font-size:22px;padding:20px;cursor:pointer}
+#off.open{display:flex}
+dialog.xp{border:3px solid var(--luna);border-top:0;border-radius:9px 9px 0 0;padding:0;background:var(--tan);box-shadow:4px 4px 0 rgba(0,0,0,.4);width:min(340px,92vw)}
+dialog.xp::backdrop{background:rgba(0,0,0,.45)}
+dialog.xp .titlebar{margin:0 -3px}
+dialog.xp .inner{padding:16px;display:flex;flex-direction:column;gap:10px}
+noscript{position:fixed;inset:0;background:#fff;z-index:9999;padding:24px;font-size:16px;display:block}
+
+@media (max-width:700px){
+  #icons{padding:6px;gap:2px}
+  .icon{width:76px}
+  .win{left:0!important;top:0!important;width:100%!important;height:calc(100% - var(--taskbar))!important;border-radius:0;border-width:0 3px 3px}
+  .tb.mx{display:none}
+  .task{flex-basis:90px}
+  #tray .d{display:none}
+  #menu .cols{grid-template-columns:1fr}
+  #menu .col.r{border-left:0;border-top:1px solid #95bdee}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<noscript>This portfolio uses a Windows XP style desktop and needs JavaScript. Contact: you@example.com</noscript>
+
+<canvas id="wall" aria-hidden="true"></canvas>
+<nav id="icons" aria-label="Desktop"></nav>
+
+<div id="menu" role="menu" aria-label="Start menu"></div>
+<div id="taskbar">
+  <button id="start" aria-haspopup="true" aria-expanded="false"></button>
+  <div id="tasks" role="toolbar" aria-label="Open windows"></div>
+  <div id="tray"><span class="d" style="margin-right:10px">🔊</span><span id="clock"></span></div>
+</div>
+
+<div id="plain" role="dialog" aria-label="Plain text version"></div>
+<div id="off" role="button" tabindex="0">It is now safe to hire this designer.<br><br><span style="font-size:15px;color:#cfa060">Click anywhere to restart</span></div>
+
+<script>
+/* =====================================================================
+   1. EDIT THIS SECTION – all your content lives here
+   ===================================================================== */
+const SITE = {
+  name: 'Your Name',
+  role: 'Level Designer · Art/Tech Design',
+  tagline: 'Hybrid level designer who builds the space, the tools, and the look. Voxel worlds, small teams, shipped games.',
+  location: 'Breda, Netherlands',                 // optional
+  availability: 'Open to junior / mid roles at indie studios (remote or EU).',
+  email: 'you@example.com',
+  resume: 'resume.pdf',                            // put your PDF next to index.html
+  links: [
+    { label: 'itch.io',    url: 'https://itch.io/' },
+    { label: 'ArtStation', url: 'https://www.artstation.com/' },
+    { label: 'LinkedIn',   url: 'https://www.linkedin.com/' },
+    { label: 'GitHub',     url: 'https://github.com/' }
+  ],
+  about: [
+    'I design levels with one foot in the editor and the other in the art pipeline. I block out spaces, test them with real players, then push them through lighting, kitbashing, and small tools so they ship looking like the game.',
+    'Voxel games are my favourite playground: chunky readable shapes make flow, landmarks, and sightlines easy to judge, and they reward tidy modular thinking.',
+    'Small teams are where I do my best work, so I like owning a level from paper map to final pass.'
+  ],
+  skills: {
+    'Level design':  ['Paper maps', 'Greyboxing', 'Pacing and flow', 'Sightlines and landmarks', 'Playtesting', 'Encounter design'],
+    'Tech / art':    ['Modular kits', 'Lighting', 'Shaders (basic)', 'Level tools and scripting', 'Optimization', 'Procedural layouts'],
+    'Tools':         ['Unity', 'Godot', 'Unreal', 'MagicaVoxel', 'Blender', 'Git', 'Figma / Miro']   // keep only what you really use
+  }
+};
+
+const PROJECTS = [
+  {
+    id: 'proj1',
+    title: 'Project One',
+    blurb: 'Voxel dungeon crawler',
+    role: 'Level design, lighting, kit building',
+    team: 'Team of 4',
+    time: '3 months',
+    engine: 'Unity',
+    summary: 'One or two sentences: what the game is, what you owned, and the result (shipped, jam ranking, playtest count).',
+    sections: [
+      { h: 'Design goals', t: 'What should the player feel and do in this level? Name the pillars, e.g. readable routes, tension then relief, discovery rewarded.',
+        shots: [{ src: 'images/proj1-papermap.png', cap: 'Paper map and flow diagram' }] },
+      { h: 'Blockout and iteration', t: 'Show greybox versions side by side and say what playtests changed. Concrete numbers help: "6 testers, 4 got lost at the bridge, so I added a landmark."',
+        shots: [{ src: 'images/proj1-blockout.png', cap: 'Greybox v1 vs v3' }] },
+      { h: 'Art and tech pass', t: 'Modular voxel kit, lighting setup, any tool or script you built, and performance notes.',
+        shots: [{ src: 'images/proj1-final.png', cap: 'Final lit version' }] }
+    ],
+    links: [{ label: 'Play on itch.io', url: '#' }, { label: 'Watch walkthrough', url: '#' }]
+  },
+  {
+    id: 'proj2',
+    title: 'Project Two',
+    blurb: 'Game jam, 72 hours',
+    role: 'Level design, tools',
+    team: 'Solo',
+    time: '72 hours',
+    engine: 'Godot',
+    summary: 'A short project shows speed and ownership. Say what you shipped in the time limit.',
+    sections: [
+      { h: 'Constraints', t: 'Theme, time limit, scope cuts.', shots: [] },
+      { h: 'What I built', t: 'Levels, a small editor tool, a procedural layout helper, whatever applies.', shots: [{ src: 'images/proj2-main.png', cap: 'Top-down map' }] }
+    ],
+    links: [{ label: 'Play on itch.io', url: '#' }]
+  },
+  {
+    id: 'proj3',
+    title: 'Project Three',
+    blurb: 'Voxel scene and tooling',
+    role: 'Environment art, tech design',
+    team: 'Solo',
+    time: '6 weeks',
+    engine: 'MagicaVoxel + Blender',
+    summary: 'A voxel-focused piece that proves your passion: a diorama, a modular biome kit, or a procedural generator.',
+    sections: [
+      { h: 'Pipeline', t: 'MagicaVoxel to Blender to engine: export settings, palette handling, polycount and draw-call choices.', shots: [{ src: 'images/proj3-main.png', cap: 'Scene render' }] }
+    ],
+    links: [{ label: 'Artstation breakdown', url: '#' }]
+  }
+];
+
+/* =====================================================================
+   2. Pixel icons (inline SVG, 32x32 grid)
+   ===================================================================== */
+const R = (x,y,w,h,f)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"/>`;
+const ICONS = {
+  folder:`<svg viewBox="0 0 32 32">${R(2,7,13,5,'#d9a521')}${R(2,10,28,18,'#f7d354')}${R(2,10,28,2,'#fbe58a')}${R(2,26,28,2,'#c28f12')}</svg>`,
+  doc:`<svg viewBox="0 0 32 32">${R(6,2,20,28,'#fff')}${R(6,2,20,1,'#7f9db9')}${R(6,29,20,1,'#7f9db9')}${R(6,2,1,28,'#7f9db9')}${R(25,2,1,28,'#7f9db9')}${R(10,8,12,2,'#7f9db9')}${R(10,13,12,2,'#7f9db9')}${R(10,18,12,2,'#7f9db9')}${R(10,23,7,2,'#7f9db9')}</svg>`,
+  mail:`<svg viewBox="0 0 32 32">${R(2,7,28,19,'#fff')}${R(2,7,28,1,'#6b7fa8')}${R(2,25,28,1,'#6b7fa8')}${R(2,7,1,19,'#6b7fa8')}${R(29,7,1,19,'#6b7fa8')}${R(4,9,3,2,'#6b7fa8')}${R(7,11,3,2,'#6b7fa8')}${R(10,13,3,2,'#6b7fa8')}${R(13,15,6,2,'#6b7fa8')}${R(19,13,3,2,'#6b7fa8')}${R(22,11,3,2,'#6b7fa8')}${R(25,9,3,2,'#6b7fa8')}</svg>`,
+  user:`<svg viewBox="0 0 32 32">${R(2,2,28,28,'#a9d1ff')}${R(11,6,10,10,'#f4c28f')}${R(11,6,10,3,'#5a3a1a')}${R(7,19,18,11,'#2a6fdb')}${R(13,17,6,3,'#f4c28f')}</svg>`,
+  cube:`<svg viewBox="0 0 32 32"><polygon points="16,2 29,9 16,16 3,9" fill="#8fe39a"/><polygon points="3,9 16,16 16,30 3,23" fill="#3f9d34"/><polygon points="29,9 16,16 16,30 29,23" fill="#2a7222"/><polygon points="16,2 29,9 16,16 3,9" fill="none" stroke="#1e5a18" stroke-width="1"/></svg>`,
+  tools:`<svg viewBox="0 0 32 32">${R(4,4,24,24,'#d8d4c4')}${R(4,4,24,3,'#2a6fdb')}${R(8,11,6,6,'#3f9d34')}${R(16,11,8,2,'#444')}${R(16,15,8,2,'#444')}${R(8,20,16,2,'#444')}${R(8,24,10,2,'#444')}</svg>`,
+  globe:`<svg viewBox="0 0 32 32">${R(6,6,20,20,'#3a8cf5')}${R(10,4,12,24,'#3a8cf5')}${R(4,10,24,12,'#3a8cf5')}${R(10,10,6,5,'#4fb83f')}${R(16,17,6,6,'#4fb83f')}${R(8,18,4,3,'#4fb83f')}</svg>`,
+  power:`<svg viewBox="0 0 32 32">${R(4,4,24,24,'#d4421c')}${R(14,7,4,10,'#fff')}${R(9,12,3,9,'#fff')}${R(20,12,3,9,'#fff')}${R(11,20,10,3,'#fff')}</svg>`,
+  win:`<svg viewBox="0 0 32 32">${R(3,5,12,10,'#e8502a')}${R(17,3,12,12,'#6cc04a')}${R(3,17,12,10,'#2a8cf0')}${R(17,17,12,12,'#f5c800')}</svg>`,
+  text:`<svg viewBox="0 0 32 32">${R(5,3,22,26,'#fff')}${R(5,3,22,3,'#2a6fdb')}${R(8,10,16,2,'#555')}${R(8,15,16,2,'#555')}${R(8,20,10,2,'#555')}</svg>`
+};
+const ic = n => ICONS[n] || ICONS.doc;
+
+/* =====================================================================
+   3. Wallpaper: a voxel version of the classic green hill
+   ===================================================================== */
+const wall = document.getElementById('wall');
+function paintWall(){
+  const S = 5;                                   // CSS pixels per wallpaper pixel
+  const W = Math.ceil(innerWidth / S), H = Math.ceil(innerHeight / S);
+  wall.width = W; wall.height = H;
+  const g = wall.getContext('2d');
+  const hash = (a,b)=>{ let h = (a*374761393 + b*668265263) ^ 0x5bd1e995; h = (h ^ (h>>>13)) * 1274126177; return ((h ^ (h>>>16)) >>> 0) / 4294967295; };
+  // sky in hard bands
+  const sky = ['#1f5fd0','#2a6fdb','#3a80e4','#4d92ea','#63a4ef','#7db6f3','#97c7f6','#b2d7f9'];
+  const horizon = H * 0.66;
+  for (let y = 0; y < H; y++){
+    const i = Math.min(sky.length-1, Math.floor(y / horizon * sky.length));
+    g.fillStyle = sky[i]; g.fillRect(0, y, W, 1);
+  }
+  // blocky clouds
+  const cloud = (cx, cy, w)=>{
+    g.fillStyle = '#fff';
+    for (let i = 0; i < w; i += 2){
+      const hgt = 2 + Math.round(Math.sin(i / w * Math.PI) * 3);
+      g.fillRect(cx + i, cy - hgt, 2, hgt);
+    }
+    g.fillStyle = '#dbe9fb'; g.fillRect(cx, cy, w, 1);
+  };
+  cloud(Math.floor(W*.12), Math.floor(H*.2), 22);
+  cloud(Math.floor(W*.55), Math.floor(H*.12), 30);
+  cloud(Math.floor(W*.8),  Math.floor(H*.3), 18);
+  cloud(Math.floor(W*.33), Math.floor(H*.38), 14);
+  // voxel hill: columns quantised to 3px cubes, three greens + noise
+  const C = 3;
+  const greens = ['#6fcf4a','#5cbb3c','#4aa52f','#3b8e25'];
+  for (let x = 0; x < W; x += C){
+    const t = x / W;
+    const top = Math.round((H * (0.5 + 0.18 * Math.sin(t * 2.4 + 0.5) - 0.08 * t)) / C) * C;
+    for (let y = top; y < H; y += C){
+      const depth = (y - top) / (H - top + 1);
+      let k = Math.min(3, Math.floor(depth * 4 + hash(x, y) * 0.9));
+      if (y === top) k = 0;
+      g.fillStyle = greens[k]; g.fillRect(x, y, C, C);
+      g.fillStyle = 'rgba(0,0,0,.10)'; g.fillRect(x + C - 1, y, 1, C);    // cube edge
+      g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(x, y, C, 1);
+    }
+  }
+  // a few voxel flowers
+  for (let n = 0; n < 14; n++){
+    const x = Math.floor(hash(n, 7) * W / C) * C, y = Math.floor((H * 0.72 + hash(n, 9) * H * 0.24) / C) * C;
+    g.fillStyle = n % 2 ? '#ffe45c' : '#fff'; g.fillRect(x, y, C - 1, C - 1);
+  }
+}
+paintWall(); addEventListener('resize', paintWall);
+
+/* =====================================================================
+   4. Window manager
+   ===================================================================== */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const isMobile = () => matchMedia('(max-width:700px)').matches;
+const wins = {}; let zTop = 10, cascade = 0;
+
+function openWin(id, o){
+  if (wins[id]){ focusWin(id); return; }
+  const el = document.createElement('section');
+  el.className = 'win';
+  el.setAttribute('role','dialog'); el.setAttribute('aria-label', o.title);
+  const w = Math.min(o.w || 520, innerWidth - 20), h = Math.min(o.h || 400, innerHeight - 70);
+  el.style.width = w + 'px'; el.style.height = h + 'px';
+  const off = (cascade++ % 7) * 28;
+  el.style.left = Math.max(8, Math.min(innerWidth - w - 8, (o.x ?? 110) + off)) + 'px';
+  el.style.top  = Math.max(8, Math.min(innerHeight - h - 50, (o.y ?? 24) + off)) + 'px';
+  el.innerHTML = `
+    <div class="titlebar">${ic(o.icon)}<span class="t">${esc(o.title)}</span>
+      <button class="tb mn" aria-label="Minimize">_</button>
+      <button class="tb mx" aria-label="Maximize">□</button>
+      <button class="tb x" aria-label="Close">✕</button></div>
+    ${o.menu ? `<div class="menubar">${o.menu.map(m=>`<span>${m}</span>`).join('')}</div>` : ''}
+    <div class="body">${o.html}</div>
+    ${o.status ? `<div class="statusbar">${esc(o.status)}</div>` : ''}`;
+  document.body.appendChild(el);
+
+  const task = document.createElement('button');
+  task.className = 'task'; task.innerHTML = `${ic(o.icon)}<span>${esc(o.title)}</span>`;
+  $('#tasks').appendChild(task);
+
+  wins[id] = { el, task, min:false };
+  el.addEventListener('pointerdown', () => focusWin(id));
+  el.querySelector('.mn').onclick = () => minWin(id);
+  el.querySelector('.mx').onclick = () => el.classList.toggle('max');
+  el.querySelector('.x').onclick  = () => closeWin(id);
+  el.querySelector('.titlebar').addEventListener('dblclick', e => { if (!e.target.closest('button')) el.classList.toggle('max'); });
+  task.onclick = () => {
+    const s = wins[id];
+    if (s.min) focusWin(id);
+    else if (el.classList.contains('focus')) minWin(id);
+    else focusWin(id);
+  };
+  makeDraggable(el, el.querySelector('.titlebar'));
+  if (o.onMount) o.onMount(el);
+  focusWin(id);
+}
+function focusWin(id){
+  const s = wins[id]; if (!s) return;
+  s.min = false; s.el.classList.remove('hidden');
+  Object.values(wins).forEach(v => { v.el.classList.remove('focus'); v.task.classList.remove('act'); });
+  s.el.style.zIndex = ++zTop; s.el.classList.add('focus'); s.task.classList.add('act');
+}
+function minWin(id){
+  const s = wins[id]; s.min = true; s.el.classList.add('hidden'); s.el.classList.remove('focus'); s.task.classList.remove('act');
+}
+function closeWin(id){
+  const s = wins[id]; if (!s) return;
+  s.el.remove(); s.task.remove(); delete wins[id];
+  const next = Object.entries(wins).filter(([,v]) => !v.min).sort((a,b) => b[1].el.style.zIndex - a[1].el.style.zIndex)[0];
+  if (next) focusWin(next[0]);
+}
+function makeDraggable(el, bar){
+  let on = false, sx, sy, ox, oy;
+  bar.addEventListener('pointerdown', e => {
+    if (e.target.closest('button') || isMobile() || el.classList.contains('max')) return;
+    on = true; sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop; bar.setPointerCapture(e.pointerId);
+  });
+  bar.addEventListener('pointermove', e => {
+    if (!on) return;
+    el.style.left = Math.max(-el.offsetWidth + 90, Math.min(innerWidth - 90, ox + e.clientX - sx)) + 'px';
+    el.style.top  = Math.max(0, Math.min(innerHeight - 60, oy + e.clientY - sy)) + 'px';
+  });
+  const end = () => on = false;
+  bar.addEventListener('pointerup', end); bar.addEventListener('pointercancel', end);
+}
+
+/* =====================================================================
+   5. Window contents
+   ===================================================================== */
+const linkList = links => links.map(l => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+
+function winAbout(){
+  openWin('about', { title:'About Me.txt', icon:'user', w:520, h:420, x:130, y:30, menu:['File','Edit','View','Help'],
+    html:`<h1>${esc(SITE.name)}</h1>
+      <p><strong>${esc(SITE.role)}</strong>${SITE.location ? ' · ' + esc(SITE.location) : ''}</p>
+      <p>${esc(SITE.tagline)}</p>
+      ${SITE.about.map(p => `<p>${esc(p)}</p>`).join('')}
+      <p><strong>Status:</strong> ${esc(SITE.availability)}</p>
+      <p><button class="btn" data-open="projects">See my projects</button><button class="btn" data-open="contact">Contact</button></p>`,
+    status:'Ready' });
+}
+function winProjects(){
+  openWin('projects', { title:'My Projects', icon:'folder', w:560, h:380, x:200, y:70, menu:['File','Edit','View','Favorites','Help'],
+    html:`<div class="grid">${PROJECTS.map(p => `
+      <button class="icon" data-project="${p.id}" aria-label="Open ${esc(p.title)}">${ic('cube')}<span>${esc(p.title)}</span><small>${esc(p.blurb)}</small></button>`).join('')}</div>`,
+    status:`${PROJECTS.length} objects · double-click to open`,
+    onMount: bindIcons });
+}
+function winProject(p){
+  openWin('p:' + p.id, { title:p.title, icon:'cube', w:640, h:480, x:150, y:40,
+    html:`<h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
+      <dl class="meta"><dt>Role</dt><dd>${esc(p.role)}</dd><dt>Team</dt><dd>${esc(p.team)}</dd><dt>Time</dt><dd>${esc(p.time)}</dd><dt>Engine / tools</dt><dd>${esc(p.engine)}</dd></dl>
+      <p>${linkList(p.links)}</p>
+      ${p.sections.map(s => `<h2>${esc(s.h)}</h2><p>${esc(s.t)}</p>${(s.shots||[]).map(sh => `
+        <figure class="shot"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="this.outerHTML='<div class=ph>Add image: ${esc(sh.src)}</div>'"><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}`,
+    status:p.engine });
+}
+function winResume(){
+  openWin('resume', { title:'Resume', icon:'doc', w:540, h:430, x:170, y:50, menu:['File','Edit','View','Help'],
+    html:`<h1>Resume</h1>
+      <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Open PDF</a></p>
+      ${Object.entries(SITE.skills).map(([k,v]) => `<h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`).join('')}`,
+    status:'resume.pdf' });
+}
+function winContact(){
+  openWin('contact', { title:'Contact', icon:'mail', w:440, h:340, x:240, y:90,
+    html:`<h1>Say hello</h1>
+      <p>${esc(SITE.availability)}</p>
+      <p><a class="btn" href="mailto:${esc(SITE.email)}">Email me</a> <span>${esc(SITE.email)}</span></p>
+      <p>${linkList(SITE.links)}</p>`,
+    status:'1 new message' });
+}
+const APPS = {
+  about:    { label:'About Me',   icon:'user',   open:winAbout },
+  projects: { label:'My Projects',icon:'folder', open:winProjects },
+  resume:   { label:'Resume',     icon:'doc',    open:winResume },
+  contact:  { label:'Contact',    icon:'mail',   open:winContact }
+};
+
+/* ---------- icons, start menu, plain view, shutdown ---------- */
+function bindIcons(root = document){
+  root.querySelectorAll('.icon').forEach(b => {
+    if (b._b) return; b._b = true;
+    const go = () => {
+      if (b.dataset.app) APPS[b.dataset.app].open();
+      else if (b.dataset.project) winProject(PROJECTS.find(p => p.id === b.dataset.project));
+    };
+    b.addEventListener('click', () => {
+      root.querySelectorAll('.icon.sel').forEach(x => x.classList.remove('sel'));
+      b.classList.add('sel');
+      if (matchMedia('(pointer:coarse)').matches) go();
+    });
+    b.addEventListener('dblclick', go);
+    b.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+  });
+}
+$('#icons').innerHTML = Object.entries(APPS).map(([k,a]) => `<button class="icon" data-app="${k}">${ic(a.icon)}<span>${a.label}</span></button>`).join('')
+  + `<button class="icon" data-plain>${ic('text')}<span>Plain Version</span></button>`;
+$('#icons [data-plain]').addEventListener('click', e => { if (matchMedia('(pointer:coarse)').matches) openPlain(); });
+$('#icons [data-plain]').addEventListener('dblclick', openPlain);
+$('#icons [data-plain]').addEventListener('keydown', e => { if (e.key === 'Enter') openPlain(); });
+bindIcons($('#icons'));
+document.addEventListener('click', e => {
+  const o = e.target.closest('[data-open]'); if (o) APPS[o.dataset.open].open();
+  if (!e.target.closest('.icon')) document.querySelectorAll('.icon.sel').forEach(x => x.classList.remove('sel'));
+});
+
+$('#start').innerHTML = `${ic('win')}<span>start</span>`;
+$('#menu').innerHTML = `
+  <div class="top">${ic('user')}<span>${esc(SITE.name)}</span></div>
+  <div class="cols">
+    <div class="col l">${Object.entries(APPS).map(([k,a]) => `<button role="menuitem" data-app="${k}">${ic(a.icon)}${a.label}</button>`).join('')}</div>
+    <div class="col r">
+      <button role="menuitem" data-link="mailto:${esc(SITE.email)}">${ic('mail')}E-mail</button>
+      ${SITE.links.map(l => `<button role="menuitem" data-link="${esc(l.url)}">${ic('globe')}${esc(l.label)}</button>`).join('')}
+      <button role="menuitem" data-plain>${ic('text')}Plain version</button>
+    </div>
+  </div>
+  <div class="foot"><button id="shut">${ic('power')}Shut Down</button></div>`;
+const setMenu = v => { $('#menu').classList.toggle('open', v); $('#start').classList.toggle('on', v); $('#start').setAttribute('aria-expanded', v); };
+$('#start').onclick = e => { e.stopPropagation(); setMenu(!$('#menu').classList.contains('open')); };
+document.addEventListener('pointerdown', e => { if (!e.target.closest('#menu') && !e.target.closest('#start')) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { setMenu(false); $('#plain').classList.remove('open'); } });
+$('#menu').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  setMenu(false);
+  if (b.dataset.app) APPS[b.dataset.app].open();
+  else if (b.dataset.link) window.open(b.dataset.link, b.dataset.link.startsWith('mailto') ? '_self' : '_blank', 'noopener');
+  else if (b.hasAttribute('data-plain')) openPlain();
+  else if (b.id === 'shut') shutDialog();
+});
+
+function openPlain(){
+  $('#plain').innerHTML = `<div class="wrap">
+    <button class="btn back" id="back">Back to desktop</button>
+    <h1>${esc(SITE.name)}</h1><p><strong>${esc(SITE.role)}</strong></p><p>${esc(SITE.tagline)}</p>
+    <p><a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a> · ${SITE.links.map(l => `<a href="${esc(l.url)}">${esc(l.label)}</a>`).join(' · ')} · <a href="${esc(SITE.resume)}">Resume (PDF)</a></p>
+    <h2>Projects</h2>
+    ${PROJECTS.map(p => `<article><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p>
+      <p><em>${esc(p.role)} · ${esc(p.team)} · ${esc(p.time)} · ${esc(p.engine)}</em></p>
+      <p>${p.links.map(l => `<a href="${esc(l.url)}">${esc(l.label)}</a>`).join(' · ')}</p></article>`).join('')}
+    <h2>Skills</h2>${Object.entries(SITE.skills).map(([k,v]) => `<p><strong>${esc(k)}:</strong> ${v.map(esc).join(', ')}</p>`).join('')}
+    <h2>About</h2>${SITE.about.map(p => `<p>${esc(p)}</p>`).join('')}</div>`;
+  $('#plain').classList.add('open');
+  $('#back').onclick = () => $('#plain').classList.remove('open');
+  $('#back').focus();
+}
+function shutDialog(){
+  let d = $('#shutdlg');
+  if (!d){
+    d = document.createElement('dialog'); d.id = 'shutdlg'; d.className = 'xp';
+    d.innerHTML = `<div class="titlebar"><span class="t">Turn off computer</span><button class="tb x" aria-label="Close">✕</button></div>
+      <div class="inner"><p style="margin:0">What would you like to do?</p>
+      <button class="btn" data-a="mail">Hire me (send email)</button>
+      <button class="btn" data-a="off">Turn off</button>
+      <button class="btn" data-a="cancel">Cancel</button></div>`;
+    document.body.appendChild(d);
+    d.addEventListener('click', e => {
+      const a = e.target.closest('[data-a]')?.dataset.a;
+      if (e.target.closest('.tb') || a === 'cancel') d.close();
+      if (a === 'mail') { d.close(); location.href = 'mailto:' + SITE.email; }
+      if (a === 'off') { d.close(); $('#off').classList.add('open'); }
+    });
+  }
+  d.showModal();
+}
+$('#off').addEventListener('click', () => $('#off').classList.remove('open'));
+$('#off').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') $('#off').classList.remove('open'); });
+
+/* clock */
+const tick = () => $('#clock').textContent = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+tick(); setInterval(tick, 15000);
+
+/* =====================================================================
+   6. Boot: show the work immediately
+   ===================================================================== */
+if (isMobile()) winProjects();
+else { winAbout(); winProjects(); }
+</script>
+</body>
+</html>
