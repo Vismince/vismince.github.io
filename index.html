@@ -178,7 +178,10 @@ const SITE = {
   role: 'Level Designer · Art/Tech Design',
   tagline: 'Hybrid level designer who builds the space, the tools, and the look. Voxel worlds, small teams, shipped games.',
   openOnLoad: ['projects'],                        // windows open at start; use [] for a fully empty desktop
-  wallpaper: 'image',                              // 'image' (checkerboard), 'solid' (flat colour) or 'hill' (voxel hill)
+  wallpaper: 'checker',                            // 'checker' (drawn in code, fits any screen), 'image', 'solid' or 'hill'
+  checkerSize: 96,                                 // size of one checker square in pixels
+  checkerLight: '#c8c8c6', checkerDark: '#ababab',
+  checkerFade: 0.19,                               // darkens toward the right edge (0 = flat)
   wallpaperImage: 'images/background.png',
   cursorImage: 'images/cursor.png',                // your own PNG cursor (32x32 or smaller, transparent). Missing file = built-in pixel arrow
   cursorImage2x: '',                               // optional sharper 64x64 version for high-DPI screens, e.g. 'images/cursor@2x.png'
@@ -344,6 +347,18 @@ function applyTheme(t, save){
     const fallback = getComputedStyle(root).getPropertyValue('--cursor').trim();      // built-in arrow for this theme
     const src = SITE.cursorImage2x ? `image-set(url("${SITE.cursorImage}") 1x, url("${SITE.cursorImage2x}") 2x)` : `url("${SITE.cursorImage}")`;
     root.style.setProperty('--cursor', `${src} ${hx} ${hy}, ${fallback}`);
+  }
+  if (SITE.wallpaper === 'checker'){
+    const q = SITE.checkerSize, d = SITE.wallpaperDarken, f = SITE.checkerFade;
+    const layers = [   // first layer is drawn on top
+      [`linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,${f}))`, 'auto'],
+      [`repeating-conic-gradient(${SITE.checkerDark} 0 25%, ${SITE.checkerLight} 0 50%)`, `${q*2}px ${q*2}px`]
+    ];
+    if (dark) layers.unshift([`linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d}))`, 'auto']);
+    Object.assign(document.body.style, {
+      backgroundImage: layers.map(l => l[0]).join(','), backgroundSize: layers.map(l => l[1]).join(','),
+      backgroundPosition: 'center', backgroundRepeat: 'repeat'
+    });
   }
   if (SITE.wallpaper === 'image'){
     const img = `url("${SITE.wallpaperImage}")`, d = SITE.wallpaperDarken;
