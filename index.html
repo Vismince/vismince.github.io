@@ -19,7 +19,7 @@
   --btn-bg:#f1efe6; --btn-hover:#e6e3d6; --btn-active:#d8d0c4; --btn-line:#003c74; --accent:#fff6c9; --accent-line:#d9b93a;
   --bar:#245edb; --task:#3c81f3; --task-act:#1e52b7; --task-line:#1a43a8; --tray:#1a56c4; --menu-bg:#fff;
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
-  --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
+  --k:.3333; --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
   --taskbar:32px;
   --px:'Pixelify Sans','Tahoma',monospace;
   --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
@@ -38,6 +38,8 @@
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{position:relative;margin:0;min-height:100vh;background:var(--desk);font:15px/1.6 var(--ui);color:var(--ink);padding-bottom:calc(var(--taskbar) + 40px)}
+body.no-taskbar{padding-bottom:40px}
+body.no-taskbar #taskbar,body.no-taskbar #menu{display:none}
 button{font:inherit;color:inherit}
 a{color:var(--link)}
 :focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
@@ -45,26 +47,47 @@ svg{shape-rendering:crispEdges}
 
 #page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 0;display:flex;flex-direction:column;gap:32px}
 
-/* ---------- top bar: name + role (plain blue bar until images/header.png loads) ---------- */
-.bar{display:flex;align-items:center;flex-wrap:wrap;gap:6px 24px;min-height:clamp(88px,12vw,120px);padding:14px 28px;color:var(--hdr-ink);
-  width:min(1068px,calc(100% - 32px));margin:28px auto 0;
+/* ---------- top bar: title + menu (plain blue bar until images/frame-top.png loads) ---------- */
+.bar{width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
   border:3px solid var(--frame);border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.28);
   background:linear-gradient(var(--title-a),var(--title-b))}
-.bar .nm{margin:0;font:700 clamp(30px,5.2vw,54px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
-.bar .rl{margin:0;font:400 clamp(15px,2vw,22px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
+.bar .ttl{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 24px;min-width:0}
+.bar .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
+.bar .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
+.bar .menu{display:flex;align-items:center;flex-wrap:wrap;gap:2px 4px;margin-top:12px}
+.bar .menu a{color:#fff;text-decoration:none;padding:2px 10px;font:400 16px var(--name-font)}
+.bar .menu a:hover,.bar .menu a.act{background:rgba(255,255,255,.22)}
+.themebtn{display:flex;align-items:center;background:none;border:0;padding:4px;border-radius:3px;margin-left:auto}
+.themebtn svg{width:16px;height:16px}
+.themebtn:hover{background:rgba(255,255,255,.18)}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
-/* with your banner images: the whole page becomes one big window */
-body.hdr-img .bar{width:100%;margin:0;gap:2px 22px;padding:10px clamp(16px,3vw,40px) 8px;min-height:var(--hdr-min);
-  border-style:solid;border-width:var(--hdr-bw);border-radius:0;box-shadow:none;background:none;
-  border-image:var(--hdr-img) var(--hdr-slice) fill / var(--hdr-bw) stretch}
-body.hdr-img .bar .nm{font-size:clamp(24px,3vw,38px);text-shadow:1px 1px 0 #fff}
-body.hdr-img .bar .rl{font-size:clamp(14px,1.5vw,19px);text-shadow:1px 1px 0 #fff}
-body.sharp .bar,body.sharp .frame{image-rendering:pixelated}
+
+/* with your frame-top image: a real window title bar and menu bar, sticky so the menu stays in reach */
+body.hdr-img{--stick-h:calc(var(--k) * (var(--th) - var(--t2)) * 1px)}
+body.hdr-img .bar{position:sticky;top:calc(var(--k) * var(--t2) * -1px);z-index:100;width:100%;height:calc(var(--k) * var(--th) * 1px);
+  margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:none}
+.bar .cap,.bar .fill{position:absolute;top:0;bottom:0;background-image:var(--hdr-img);background-repeat:no-repeat}
+.bar .cap.l{left:0;width:calc(var(--k) * var(--tl) * 1px);background-position:left top;background-size:calc(var(--k) * var(--tw) * 1px) 100%}
+.bar .cap.r{right:0;width:calc(var(--k) * var(--tr) * 1px);background-position:right top;background-size:calc(var(--k) * var(--tw) * 1px) 100%}
+.bar .fill{left:calc(var(--k) * var(--tl) * 1px);right:calc(var(--k) * var(--tr) * 1px);
+  background-size:calc(var(--k) * var(--tw) * 10px) 100%;background-position:calc(var(--k) * var(--tx) * -10px) 0}   /* stretches a flat part of your image */
+body.hdr-img .bar .ttl{position:absolute;z-index:2;flex-wrap:nowrap;align-items:center;gap:0 .7em;
+  left:calc(var(--k) * var(--tl) * 1px + 14px);right:calc(var(--k) * var(--tr) * 1px + 6px);
+  top:calc(var(--k) * var(--t1) * 1px);height:calc(var(--k) * (var(--t2) - var(--t1)) * 1px)}
+body.hdr-img .bar .nm{flex:none;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .6px);text-shadow:none;line-height:1}
+body.hdr-img .bar .rl{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:calc(var(--k) * (var(--t2) - var(--t1)) * .4px);text-shadow:none}
+body.hdr-img .bar .menu{position:absolute;z-index:2;margin:0;flex-wrap:nowrap;overflow:hidden;gap:0 2px;
+  left:calc(var(--k) * var(--tl) * 1px + 8px);right:10px;top:calc(var(--k) * var(--t2) * 1px);height:calc(var(--k) * (var(--m2) - var(--t2)) * 1px)}
+body.hdr-img .bar .menu a{color:#000;padding:1px 10px;font-size:max(15px, calc(var(--k) * (var(--m2) - var(--t2)) * .36px))}
+body.hdr-img .bar .menu a:hover{background:#000080;color:#fff}
+body.hdr-img .bar .menu a.act{background:none;box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
+body.hdr-img .bar .themebtn{background:#1b2740;border:1px solid #000;border-radius:0}
+body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame{image-rendering:pixelated}
 .frame{width:100%}
-body.frm-img .frame{border-style:solid;border-width:0 var(--frm-bw);border-image:var(--frm-img) 0 var(--frm-slice) / 0 var(--frm-bw) repeat}
+body.frm-img .frame{border-style:solid;border-width:0 calc(var(--k) * var(--frm-slice) * 1px);border-image:var(--frm-img) 0 var(--frm-slice) / 0 calc(var(--k) * var(--frm-slice) * 1px) repeat}
 
 /* ---------- window frame (used by every section) ---------- */
-.win{background:var(--chrome);border:3px solid var(--frame);border-top:0;border-radius:9px 9px 0 0;box-shadow:0 2px 10px rgba(0,0,0,.28);scroll-margin-top:20px;min-width:0}
+.win{background:var(--chrome);border:3px solid var(--frame);border-top:0;border-radius:9px 9px 0 0;box-shadow:0 2px 10px rgba(0,0,0,.28);scroll-margin-top:calc(var(--stick-h,0px) + 20px);min-width:0}
 .titlebar{display:flex;align-items:center;gap:8px;padding:4px 4px 4px 8px;margin:0 -3px;border-radius:7px 7px 0 0;color:#fff;background:linear-gradient(var(--title-a),var(--title-b))}
 .titlebar svg{width:18px;height:18px;flex:none}
 .titlebar .t{flex:1;margin:0;font:400 16px/1.3 var(--px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -161,9 +184,6 @@ dialog.win > .body{overflow:auto;flex:1}
 .task span{overflow:hidden;text-overflow:ellipsis}
 .task.act{background:var(--task-act);box-shadow:inset 1px 1px 3px rgba(0,0,0,.5)}
 #tray{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:12px;background:var(--tray);gap:4px}
-#themebtn{display:flex;align-items:center;background:none;border:0;padding:4px;border-radius:3px}
-#themebtn svg{width:16px;height:16px}
-#themebtn:hover{background:rgba(255,255,255,.18)}
 #menu{position:fixed;left:0;bottom:var(--taskbar);width:min(250px,100%);z-index:999;display:none;border:2px solid var(--frame);border-radius:8px 8px 0 0;overflow:hidden;box-shadow:0 -2px 8px rgba(0,0,0,.25);background:var(--menu-bg);color:var(--ink)}
 #menu.open{display:block}
 #menu .top{display:flex;align-items:center;gap:10px;padding:8px 10px;color:#fff;font:18px var(--px);background:var(--title-b)}
@@ -199,7 +219,7 @@ dialog.win > .body{overflow:auto;flex:1}
 <div id="taskbar">
   <button id="start" aria-haspopup="true" aria-expanded="false"></button>
   <nav id="tasks" aria-label="Sections"></nav>
-  <div id="tray"><button id="themebtn"></button><span id="clock"></span></div>
+  <div id="tray"><button class="themebtn"></button><span id="clock"></span></div>
 </div>
 
 <script>
@@ -218,12 +238,16 @@ const SITE = {
     'Voxel games are my favourite playground: chunky readable shapes make flow, landmarks, and sightlines easy to judge, and they reward tidy modular thinking.',
     'Small teams are where I do my best work, so I like owning a level from paper map to final pass.'
   ],
-  headerImage: 'images/frame-top.png',             // top bar of the window. Missing file = a plain blue bar
-  sideImage: 'images/frame-side.png',               // left and right edges of the window, repeats down the page. Missing file = no edges
-  headerInk: '',                                   // text colour on the bar. '' = automatic (dark on your grey bar, white on the blue one)
-  pixelSize: 2,                                    // screen pixels per pixel of your art. Bigger = chunkier frame (try 3)
+  taskbar: false,                                  // true brings back the Start button and taskbar at the bottom
+  headerImage: 'images/frame-top.png',             // title bar + menu bar. Missing file = a plain blue bar
+  sideImage: 'images/frame-side.png',              // left and right edges of the window, repeats down the page. Missing file = no edges
+  headerInk: '',                                   // colour of your name in the title bar. '' = automatic (white)
+  pixelSize: 3,                                    // screen pixels per pixel of your art. Bigger = chunkier frame
+  pixelSizeSmall: 2,                               // same, for phones and small windows
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
-  headerSlice: [18, 18, 9, 18],                    // edge thickness of header.png in file pixels: top, right, bottom, left
+  topFrame: { leftCap: 33, rightCap: 456, fillAt: 2000, title: [33, 177], menu: [177, 327] },
+                                                   // measurements of frame-top.png in file pixels: left edge width, right part
+                                                   // (buttons) width, a flat spot to stretch, title bar top/bottom, menu bar top/bottom
   sharp: true,                                     // keep the frame crisp (pixel art)
   nameFont: 'Pixelify Sans',                       // Pixelify Sans, Silkscreen, Press Start 2P, VT323, Jersey 10, Tiny5, DotGothic16
   portrait: 'images/me.png',                       // optional photo or pixel avatar. Missing file = a placeholder
@@ -466,7 +490,7 @@ $('#start').onclick = e => { e.stopPropagation(); setMenu(!$('#menu').classList.
 document.addEventListener('pointerdown', e => { if (!e.target.closest('#menu') && !e.target.closest('#start')) setMenu(false); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 document.addEventListener('click', e => {
-  const g = e.target.closest('[data-go]'); if (g){ setMenu(false); go(g.dataset.go); }
+  const g = e.target.closest('[data-go]'); if (g){ e.preventDefault(); setMenu(false); go(g.dataset.go); }
   const a = e.target.closest('a[href="#contact"],a[href="#top"]'); if (a){ e.preventDefault(); go(a.getAttribute('href').slice(1)); }
   if (e.target.closest('#menu a')) setMenu(false);
 });
@@ -477,7 +501,7 @@ function markActive(){
   let cur = NAV[0][0];
   NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
   if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = 'contact';
-  document.querySelectorAll('.task.perm').forEach(t => t.classList.toggle('act', t.dataset.go === cur));
+  document.querySelectorAll('.task.perm, .menu a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
 }
 addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(markActive); } }, { passive: true });
 addEventListener('resize', markActive); markActive();
@@ -499,19 +523,22 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   }
   root.style.setProperty('--name-font', `'${f}','Pixelify Sans','Tahoma',monospace`);
   root.style.setProperty('--hdr-ink', SITE.headerInk || '#fff');
-  $('#top').innerHTML = `<h1 class="nm">${esc(SITE.name)}</h1><p class="rl">${esc(SITE.role)}</p>`;
-  const k = SITE.pixelSize / SITE.sourcePixel;                                    // screen pixels per file pixel
+  $('#top').innerHTML = `<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><p class="rl">${esc(SITE.role)}</p></div>
+    <nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}<button class="themebtn"></button></nav>`;
   if (SITE.sharp) body.classList.add('sharp');
+  if (!SITE.taskbar) body.classList.add('no-taskbar');
+
+  const setScale = () => root.style.setProperty('--k', ((innerWidth < 700 ? SITE.pixelSizeSmall : SITE.pixelSize) / SITE.sourcePixel).toFixed(5));
+  setScale(); addEventListener('resize', setScale);
 
   if (SITE.headerImage){
     const im = new Image();
     im.onload = () => {
-      const [t, r, b, l] = SITE.headerSlice, px = n => (n * k) + 'px';
+      const tf = SITE.topFrame;
+      const v = { tw: im.naturalWidth, th: im.naturalHeight, tl: tf.leftCap, tr: tf.rightCap, tx: tf.fillAt, t1: tf.title[0], t2: tf.title[1], m2: tf.menu[1] };
+      Object.entries(v).forEach(([n, x]) => root.style.setProperty('--' + n, x));
       root.style.setProperty('--hdr-img', `url("${SITE.headerImage}")`);
-      root.style.setProperty('--hdr-slice', `${t} ${r} ${b} ${l}`);
-      root.style.setProperty('--hdr-bw', `${px(t)} ${px(r)} ${px(b)} ${px(l)}`);
-      root.style.setProperty('--hdr-min', px(im.naturalHeight));
-      root.style.setProperty('--hdr-ink', SITE.headerInk || '#111');
+      ['cap l', 'fill', 'cap r'].reverse().forEach(c => { const e = document.createElement('span'); e.className = c; e.setAttribute('aria-hidden', 'true'); $('#top').prepend(e); });
       body.classList.add('hdr-img');
     };
     im.src = SITE.headerImage;
@@ -529,7 +556,6 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
       } catch (e) {}
       root.style.setProperty('--frm-img', `url("${SITE.sideImage}")`);
       root.style.setProperty('--frm-slice', inset);
-      root.style.setProperty('--frm-bw', (inset * k) + 'px');
       body.classList.add('frm-img');
     };
     im.src = SITE.sideImage;
@@ -575,12 +601,13 @@ function applyTheme(t, save){
   } else {
     Object.assign(st, { backgroundImage: 'none' });
   }
-  const b = $('#themebtn');
-  b.innerHTML = ICONS[dark ? 'sun' : 'moon'];
-  b.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme'); b.title = dark ? 'Light theme' : 'Dark theme';
+  document.querySelectorAll('.themebtn').forEach(b => {
+    b.innerHTML = ICONS[dark ? 'sun' : 'moon'];
+    b.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme'); b.title = dark ? 'Light theme' : 'Dark theme';
+  });
   if (save){ try { localStorage.setItem('theme', t); } catch (e) {} }
 }
-$('#themebtn').onclick = () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
+document.addEventListener('click', e => { if (e.target.closest('.themebtn')) applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true); });
 applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
 </script>
 </body>
