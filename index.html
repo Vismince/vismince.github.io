@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Jasmine Vis – Level Designer (Art/Tech)</title>
-<meta name="description" content="Portfolio of Jasmine Vis, a hybrid Art/Tech level designer focused on voxel games and indie teams.">
+<meta name="description" content="Portfolio of Jasmine Vis, a hybrid Art/Tech level designer focused on voxel games, looking for an internship in 2027.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolygon points='16,3 28,10 16,17 4,10' fill='%237fe08a'/%3E%3Cpolygon points='4,10 16,17 16,30 4,23' fill='%233c9a2f'/%3E%3Cpolygon points='28,10 16,17 16,30 28,23' fill='%23266d1d'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +13,13 @@
 <style>
 :root{
   color-scheme:light;
-  --desk:#3a6ea5; --frame:#0a4fd6; --title-a:#1a63e8; --title-b:#0a4fd6; --title-off:#7f9bd8; --tb:#2f6ee8;
+  --desk:#3a6ea5; --frame:#0a4fd6; --title-a:#1a63e8; --title-b:#0a4fd6; --tb:#2f6ee8;
   --chrome:#ece9d8; --chrome-line:#aca899; --paper:#fff; --paper-line:#7f9db9; --ink:#1b1b1b; --muted:#555; --link:#0033cc;
   --meta-bg:#f5f4ea; --meta-line:#d6d2c2; --chip-bg:#e8f0fc; --chip-line:#9db9eb; --ph-bg:#f5f8ff; --ph-ink:#506080;
-  --btn-bg:#f1efe6; --btn-hover:#e6e3d6; --btn-active:#d8d0c4; --btn-line:#003c74;
+  --btn-bg:#f1efe6; --btn-hover:#e6e3d6; --btn-active:#d8d0c4; --btn-line:#003c74; --accent:#fff6c9; --accent-line:#d9b93a;
   --bar:#245edb; --task:#3c81f3; --task-act:#1e52b7; --task-line:#1a43a8; --tray:#1a56c4; --menu-bg:#fff;
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
+  --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
   --taskbar:32px;
   --px:'Pixelify Sans','Tahoma',monospace;
   --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
@@ -26,148 +27,180 @@
 :root[data-theme="dark"]{
   color-scheme:dark;
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23fff' fill-opacity='0.28'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
-  --desk:#14181f; --frame:#2b4f9c; --title-a:#2f5cb8; --title-b:#233f80; --title-off:#3b4559; --tb:#35539a;
+  --desk:#14181f; --frame:#2b4f9c; --title-a:#2f5cb8; --title-b:#233f80; --tb:#35539a;
   --chrome:#2a2d33; --chrome-line:#434852; --paper:#1a1d22; --paper-line:#3a4150; --ink:#e6e8ec; --muted:#9aa3b2; --link:#80b2ff;
   --meta-bg:#22262d; --meta-line:#343a44; --chip-bg:#1f2b44; --chip-line:#34507f; --ph-bg:#1f242c; --ph-ink:#8d98ab;
-  --btn-bg:#333843; --btn-hover:#3d4350; --btn-active:#2a2e37; --btn-line:#6b7686;
+  --btn-bg:#333843; --btn-hover:#3d4350; --btn-active:#2a2e37; --btn-line:#6b7686; --accent:#3a3419; --accent-line:#8a7a2c;
   --bar:#1b2740; --task:#2c4a85; --task-act:#1a2d55; --task-line:#3b5a99; --tray:#16213a; --menu-bg:#22262d;
 }
 *{box-sizing:border-box}
 @media (pointer:fine){ *,*::before,*::after,html,body{cursor:var(--cursor)!important} }   /* pixel arrow with pixel shadow */
-html,body{margin:0;height:100%;overflow:hidden;background:var(--desk);font-family:var(--ui);font-size:13px;color:var(--ink);-webkit-user-select:none;user-select:none}
-#wall{position:fixed;inset:0;width:100%;height:100%;image-rendering:pixelated;z-index:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{position:relative;margin:0;min-height:100vh;background:var(--desk);font:15px/1.6 var(--ui);color:var(--ink);padding-bottom:calc(var(--taskbar) + 40px)}
 button{font:inherit;color:inherit}
 a{color:var(--link)}
-:focus-visible{outline:2px dotted var(--ink);outline-offset:1px}
+:focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
+svg{shape-rendering:crispEdges}
 
-/* ---------- desktop icons ---------- */
-#icons{position:fixed;top:0;left:0;bottom:var(--taskbar);padding:10px;display:flex;flex-direction:column;flex-wrap:wrap;align-content:flex-start;gap:6px;z-index:1}
-.icon{width:84px;background:none;border:1px solid transparent;padding:4px 2px 6px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:default;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.7)}
-.icon svg{width:40px;height:40px;shape-rendering:crispEdges;}
-.icon span{font-size:12px;line-height:1.2;text-align:center;padding:0 2px}
-.icon.sel{background:rgba(49,106,197,.55);border:1px dotted #fff}
-.icon.sel span{background:#316ac5;text-shadow:none}
+#page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 0;display:flex;flex-direction:column;gap:32px}
 
-/* ---------- windows ---------- */
-.win{position:absolute;display:flex;flex-direction:column;background:var(--chrome);border:3px solid var(--frame);border-top:0;border-radius:9px 9px 0 0;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:5;min-width:260px;min-height:140px}
-.win.hidden{display:none}
-.win.max{left:0!important;top:0!important;width:100%!important;height:calc(100% - var(--taskbar))!important;border-radius:0;border-width:0 3px 3px}
-.titlebar{display:flex;align-items:center;gap:6px;padding:4px 4px 4px 6px;margin:0 -3px;border-radius:7px 7px 0 0;color:#fff;font-weight:bold;font-size:13px;cursor:default;touch-action:none;
+/* ---------- top bar: name + role (plain blue bar until images/header.png loads) ---------- */
+.bar{display:flex;align-items:center;flex-wrap:wrap;gap:6px 24px;min-height:clamp(88px,12vw,120px);padding:14px 28px;color:var(--hdr-ink);
+  width:min(1068px,calc(100% - 32px));margin:28px auto 0;
+  border:3px solid var(--frame);border-radius:9px;box-shadow:0 2px 10px rgba(0,0,0,.28);
   background:linear-gradient(var(--title-a),var(--title-b))}
-.win:not(.focus) .titlebar{background:var(--title-off)}
-.titlebar svg{width:16px;height:16px;flex:none;shape-rendering:crispEdges}
-.titlebar .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--px);font-size:15px;font-weight:400;letter-spacing:.2px}
-.tb{width:22px;height:22px;border:1px solid #fff;border-radius:4px;padding:0;color:#fff;font:bold 12px/1 var(--ui);cursor:default;
-  background:var(--tb)}
+.bar .nm{margin:0;font:700 clamp(30px,5.2vw,54px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
+.bar .rl{margin:0;font:400 clamp(15px,2vw,22px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
+.h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
+/* with your banner images: the whole page becomes one big window */
+body.hdr-img .bar{width:100%;margin:0;gap:2px 22px;padding:10px clamp(16px,3vw,40px) 8px;min-height:var(--hdr-min);
+  border-style:solid;border-width:var(--hdr-bw);border-radius:0;box-shadow:none;background:none;
+  border-image:var(--hdr-img) var(--hdr-slice) fill / var(--hdr-bw) stretch}
+body.hdr-img .bar .nm{font-size:clamp(24px,3vw,38px);text-shadow:1px 1px 0 #fff}
+body.hdr-img .bar .rl{font-size:clamp(14px,1.5vw,19px);text-shadow:1px 1px 0 #fff}
+body.sharp .bar,body.sharp .frame{image-rendering:pixelated}
+.frame{width:100%}
+body.frm-img .frame{border-style:solid;border-width:0 var(--frm-bw);border-image:var(--frm-img) 0 var(--frm-slice) / 0 var(--frm-bw) repeat}
+
+/* ---------- window frame (used by every section) ---------- */
+.win{background:var(--chrome);border:3px solid var(--frame);border-top:0;border-radius:9px 9px 0 0;box-shadow:0 2px 10px rgba(0,0,0,.28);scroll-margin-top:20px;min-width:0}
+.titlebar{display:flex;align-items:center;gap:8px;padding:4px 4px 4px 8px;margin:0 -3px;border-radius:7px 7px 0 0;color:#fff;background:linear-gradient(var(--title-a),var(--title-b))}
+.titlebar svg{width:18px;height:18px;flex:none}
+.titlebar .t{flex:1;margin:0;font:400 16px/1.3 var(--px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tb{width:22px;height:22px;border:1px solid #fff;border-radius:4px;padding:0;display:inline-flex;align-items:center;justify-content:center;background:var(--tb);color:#fff;font:bold 12px/1 var(--ui)}
 .tb.x{background:#d4502c}
-.tb:active{filter:brightness(.85)}
-.menubar{display:flex;gap:2px;padding:2px 4px;border-bottom:1px solid var(--chrome-line);font-size:12px}
-.menubar span{padding:1px 6px}
-.body{flex:1;overflow:auto;background:var(--paper);color:var(--ink);margin:0;padding:14px 16px;border:1px solid var(--paper-line);-webkit-user-select:text;user-select:text;line-height:1.5}
-.win .body{margin:0}
-.statusbar{padding:2px 8px;font-size:11px;border-top:1px solid var(--chrome-line);color:var(--muted)}
-.body h1,.body h2,.body h3{font-family:var(--px);font-weight:700;margin:0 0 6px;line-height:1.15}
-.body h1{font-size:26px}.body h2{font-size:20px;margin-top:18px}.body h3{font-size:16px}
-.body p{margin:0 0 10px;max-width:70ch}
-.meta{display:grid;grid-template-columns:max-content 1fr;gap:2px 14px;margin:8px 0 14px;padding:8px 10px;background:var(--meta-bg);border:1px solid var(--meta-line)}
-.meta dt{font-weight:bold}.meta dd{margin:0}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px;padding:0;list-style:none}
-.chips li{padding:2px 8px;background:var(--chip-bg);border:1px solid var(--chip-line);border-radius:3px}
-.btn{display:inline-block;padding:4px 14px;min-width:75px;text-align:center;text-decoration:none;color:var(--ink);background:var(--btn-bg);border:1px solid var(--btn-line);border-radius:3px;cursor:default;margin:2px 6px 2px 0}
+button.tb:active{filter:brightness(.85)}
+.win > .body,.win > .inner{background:var(--paper);border:1px solid var(--paper-line);padding:20px 22px}
+.win.collapsed > .body{display:none}
+h1,h2,h3{font-family:var(--px);font-weight:700;line-height:1.15;margin:0 0 8px}
+h1{font-size:34px} h3{font-size:19px}
+p{margin:0 0 12px;max-width:68ch}
+code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;border:1px solid var(--meta-line)}
+
+.btn{display:inline-block;padding:5px 16px;min-width:80px;text-align:center;text-decoration:none;color:var(--ink);background:var(--btn-bg);border:1px solid var(--btn-line);border-radius:3px;margin:2px 8px 4px 0}
 .btn:hover{background:var(--btn-hover)}
 .btn:active{background:var(--btn-active)}
-.shot{margin:8px 0 14px}
-.shot img{display:block;max-width:100%;image-rendering:pixelated;border:2px solid var(--paper-line)}
-.shot .ph{padding:26px 12px;text-align:center;border:2px dashed var(--chip-line);background:var(--ph-bg);color:var(--ph-ink)}
-.shot figcaption{font-size:11px;color:var(--muted);margin-top:3px}
+.btn.big{padding:9px 26px;font-weight:bold;font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px;padding:0;list-style:none}
+.chips li{padding:2px 9px;background:var(--chip-bg);border:1px solid var(--chip-line);border-radius:3px;font-size:14px}
+.ph{display:grid;place-items:center;text-align:center;padding:22px 12px;color:var(--ph-ink);font-size:14px;border:2px dashed var(--chip-line);
+  background:repeating-conic-gradient(var(--ph-bg) 0 25%, var(--chrome) 0 50%) 0 0/28px 28px}
+.ph svg{width:44px;height:44px}
 
-/* explorer-style grid */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px}
-.grid .icon{width:auto;color:var(--ink);text-shadow:none}
-.grid .icon svg{width:48px;height:48px;filter:none}
-.grid .icon.sel{color:#fff}
-.grid .icon small{font-size:11px;color:var(--muted)}
-.grid .icon.sel small{color:#dfe8ff}
+/* ---------- 1. showreel ---------- */
+.stage{width:min(100%, calc(68vh * 16 / 9));aspect-ratio:16/9;margin:0 auto;background:#000;position:relative;border:2px solid var(--paper-line)}
+.stage video,.stage iframe{width:100%;height:100%;border:0;display:block;background:#000}
+.stage .poster{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;background:#000}
+.stage .poster img{width:100%;height:100%;object-fit:cover;display:block;opacity:.9}
+.stage .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;display:grid;place-items:center;
+  background:var(--title-b);color:#fff;border:3px solid #fff;font-size:30px;padding-left:6px}
+.stage .vph{height:100%;border:0}
+.vcap{margin:12px 0 10px;text-align:center}
+.reel{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.vthumb{width:170px;padding:4px;background:var(--btn-bg);border:2px solid var(--paper-line);text-align:left}
+.vthumb.on{border-color:var(--frame);background:var(--chip-bg)}
+.vthumb .vt{display:block;aspect-ratio:16/9;overflow:hidden;background:#000}
+.vthumb .vt img{width:100%;height:100%;object-fit:cover;display:block}
+.vthumb .vt .ph{height:100%;padding:0;border-width:1px}
+.vthumb .vt .ph svg{width:30px;height:30px}
+.vthumb .vl{display:block;font-size:13px;margin-top:4px;line-height:1.25}
 
-/* ---------- taskbar ---------- */
-#taskbar{position:fixed;left:0;right:0;bottom:0;height:var(--taskbar);z-index:1000;display:flex;align-items:stretch;padding-bottom:env(safe-area-inset-bottom,0);
-  background:var(--bar)}
-#start{display:flex;align-items:center;gap:6px;padding:0 18px 0 10px;border:0;border-radius:0 12px 12px 0;color:#fff;font:italic 700 18px var(--ui);cursor:default;
-  background:#3c9a2f}
-#start svg{width:20px;height:20px;shape-rendering:crispEdges}
+/* ---------- 2. about ---------- */
+.about{display:grid;grid-template-columns:200px 1fr;gap:28px;align-items:start}
+.avatar{width:100%;aspect-ratio:1;border:2px solid var(--paper-line);overflow:hidden;background:var(--chip-bg);display:grid;place-items:center}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.avatar svg{width:70%;height:70%}
+.role{font:700 18px var(--px);color:var(--muted);margin-bottom:14px}
+.seek{margin:16px 0;padding:12px 16px;background:var(--accent);border:2px solid var(--accent-line);max-width:68ch}
+.seek strong{font-family:var(--px);font-size:18px;display:block;margin-bottom:2px}
+
+/* ---------- 3. projects ---------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{display:flex;flex-direction:column;padding:0;text-align:left;background:var(--btn-bg);border:2px solid var(--paper-line);min-width:0}
+.card:hover,.card:focus-visible{border-color:var(--frame);background:var(--chip-bg)}
+.card .thumb{display:block;aspect-ratio:16/9;overflow:hidden;background:var(--chrome);border-bottom:2px solid var(--paper-line)}
+.card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.card .thumb .ph{height:100%;border:0}
+.card .info{display:flex;flex-direction:column;gap:3px;padding:12px 14px 14px}
+.card .ct{font:700 19px/1.2 var(--px)}
+.card .cb{font-size:14px}
+.card .cm{font-size:13px;color:var(--muted)}
+.card .badge{align-self:flex-start;font:700 13px var(--px);padding:1px 8px;background:var(--accent);border:1px solid var(--accent-line);margin-bottom:4px}
+.card.feat{grid-column:1/-1;display:grid;grid-template-columns:1.6fr 1fr}
+.card.feat .thumb{border-bottom:0;border-right:2px solid var(--paper-line);aspect-ratio:16/10}
+.card.feat .info{justify-content:center;padding:22px 26px;gap:8px}
+.card.feat .ct{font-size:30px}
+.card.feat .cb{font-size:16px}
+
+/* ---------- 4. skills + contact ---------- */
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.links{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px}
+.foot{align-self:center;padding:6px 16px;background:var(--chrome);border:2px solid var(--chrome-line);font-size:13px;text-align:center}
+
+/* ---------- case-study dialog ---------- */
+dialog.win{padding:0;margin:auto;width:min(780px,94vw);max-height:90vh;color:var(--ink)}
+dialog.win[open]{display:flex;flex-direction:column}
+dialog.win::backdrop{background:rgba(0,0,0,.5)}
+dialog.win > .body{overflow:auto;flex:1}
+.meta{display:grid;grid-template-columns:max-content 1fr;gap:3px 16px;margin:10px 0 14px;padding:10px 12px;background:var(--meta-bg);border:1px solid var(--meta-line)}
+.meta dt{font-weight:bold}.meta dd{margin:0}
+.case h3{margin-top:20px}
+.shot{margin:10px 0 16px}
+.shot img{display:block;max-width:100%;border:2px solid var(--paper-line)}
+.shot figcaption{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* ---------- taskbar + start menu ---------- */
+#taskbar{position:fixed;left:0;right:0;bottom:0;height:var(--taskbar);z-index:1000;display:flex;align-items:stretch;padding-bottom:env(safe-area-inset-bottom,0);background:var(--bar)}
+#start{display:flex;align-items:center;gap:6px;padding:0 18px 0 10px;border:0;border-radius:0 12px 12px 0;color:#fff;font:italic 700 18px var(--ui);background:#3c9a2f}
+#start svg{width:20px;height:20px}
 #start.on{filter:brightness(.88)}
 #tasks{flex:1;display:flex;gap:3px;padding:3px 6px;overflow:hidden;min-width:0}
-.task{display:flex;align-items:center;gap:6px;flex:0 1 160px;min-width:40px;padding:0 8px;color:#fff;border:1px solid var(--task-line);border-radius:3px;background:var(--task);font-size:12px;overflow:hidden;white-space:nowrap;cursor:default}
-.task svg{width:16px;height:16px;flex:none;shape-rendering:crispEdges}
+.task{display:flex;align-items:center;gap:6px;flex:0 1 150px;min-width:40px;padding:0 8px;color:#fff;border:1px solid var(--task-line);border-radius:3px;background:var(--task);font-size:12px;overflow:hidden;white-space:nowrap}
+.task svg{width:16px;height:16px;flex:none}
 .task span{overflow:hidden;text-overflow:ellipsis}
 .task.act{background:var(--task-act);box-shadow:inset 1px 1px 3px rgba(0,0,0,.5)}
 #tray{display:flex;align-items:center;padding:0 12px;color:#fff;font-size:12px;background:var(--tray);gap:4px}
-#themebtn{display:flex;align-items:center;background:none;border:0;padding:4px;cursor:default;border-radius:3px}
-#themebtn svg{width:16px;height:16px;shape-rendering:crispEdges}
+#themebtn{display:flex;align-items:center;background:none;border:0;padding:4px;border-radius:3px}
+#themebtn svg{width:16px;height:16px}
 #themebtn:hover{background:rgba(255,255,255,.18)}
-
-/* ---------- start menu ---------- */
 #menu{position:fixed;left:0;bottom:var(--taskbar);width:min(250px,100%);z-index:999;display:none;border:2px solid var(--frame);border-radius:8px 8px 0 0;overflow:hidden;box-shadow:0 -2px 8px rgba(0,0,0,.25);background:var(--menu-bg);color:var(--ink)}
 #menu.open{display:block}
-#menu .top{display:flex;align-items:center;gap:10px;padding:8px 10px;color:#fff;font-family:var(--px);font-size:18px;background:var(--title-b)}
-#menu .top svg{width:36px;height:36px;border:2px solid #fff;border-radius:4px;background:#fff;shape-rendering:crispEdges}
-#menu .cols{display:block}
-#menu .col{padding:6px 0}
-#menu .col.l{background:var(--menu-bg)}
-#menu .col.r{background:#d3e5fa;border-left:1px solid #95bdee}
-#menu button{display:flex;align-items:center;gap:8px;width:100%;padding:6px 10px;border:0;background:none;text-align:left;cursor:default;font-size:13px}
-#menu button svg{width:28px;height:28px;flex:none;shape-rendering:crispEdges}
-#menu .col.l button{font-weight:bold}
-#menu button:hover,#menu button:focus-visible{background:#316ac5;color:#fff}
-#menu .foot{display:flex;justify-content:flex-end;padding:6px 8px;background:var(--bar)}
-#menu .foot button{width:auto;color:#fff;padding:3px 8px}
-#menu .foot button:hover{background:rgba(255,255,255,.2)}
+#menu .top{display:flex;align-items:center;gap:10px;padding:8px 10px;color:#fff;font:18px var(--px);background:var(--title-b)}
+#menu .top svg{width:34px;height:34px;border:2px solid #fff;border-radius:4px;background:#fff}
+#menu .list{padding:6px 0}
+#menu button,#menu a{display:flex;align-items:center;gap:8px;width:100%;padding:7px 12px;border:0;background:none;text-align:left;font-size:14px;color:inherit;text-decoration:none}
+#menu svg{width:26px;height:26px;flex:none}
+#menu button:hover,#menu a:hover,#menu button:focus-visible,#menu a:focus-visible{background:#316ac5;color:#fff}
+#menu hr{border:0;border-top:1px solid var(--paper-line);margin:4px 8px}
 
-/* ---------- plain view + shutdown ---------- */
-#plain{position:fixed;inset:0;z-index:2000;display:none;overflow:auto;background:var(--paper);color:var(--ink);padding:24px 18px 60px;-webkit-user-select:text;user-select:text}
-#plain.open{display:block}
-#plain .wrap{max-width:760px;margin:0 auto;line-height:1.55;font-size:16px}
-#plain h1,#plain h2{font-family:var(--px)}
-#plain article{border-top:2px solid var(--paper-line);padding:14px 0}
-#plain .back{position:sticky;top:0;margin-bottom:14px;font-size:14px}
-#off{position:fixed;inset:0;z-index:3000;display:none;background:#000;color:#ff9f2e;align-items:center;justify-content:center;text-align:center;font-family:var(--px);font-size:22px;padding:20px;cursor:pointer}
-#off.open{display:flex}
-dialog.xp{border:3px solid var(--frame);border-top:0;border-radius:9px 9px 0 0;padding:0;background:var(--chrome);color:var(--ink);box-shadow:4px 4px 0 rgba(0,0,0,.4);width:min(340px,92vw)}
-dialog.xp::backdrop{background:rgba(0,0,0,.45)}
-dialog.xp .titlebar{margin:0 -3px}
-dialog.xp .inner{padding:16px;display:flex;flex-direction:column;gap:10px}
-noscript{position:fixed;inset:0;background:#fff;color:#111;z-index:9999;padding:24px;font-size:16px;display:block}
-
-@media (max-width:700px){
+@media (max-width:760px){
+  body{font-size:16px}
+  h1,.h1{font-size:28px}
+  .win > .body,.win > .inner{padding:16px 14px}
+  .about{grid-template-columns:1fr}
+  .avatar{width:140px}
+  .card.feat{grid-template-columns:1fr}
+  .card.feat .thumb{border-right:0;border-bottom:2px solid var(--paper-line);aspect-ratio:16/9}
+  .card.feat .ct{font-size:24px}
+  .row2{grid-template-columns:1fr}
+  .vthumb{width:calc(50% - 5px)}
   .task.perm span{display:none}
   .task.perm{flex:0 0 40px;justify-content:center;padding:0}
-  #icons{padding:6px;gap:2px}
-  .icon{width:76px}
-  .win{left:0!important;top:0!important;width:100%!important;height:calc(100% - var(--taskbar))!important;border-radius:0;border-width:0 3px 3px}
-  .tb.mx{display:none}
-  .task{flex-basis:90px}
-  #tray .d{display:none}
-  #menu .cols{grid-template-columns:1fr}
-  #menu .col.r{border-left:0;border-top:1px solid #95bdee}
 }
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<noscript>This portfolio uses a Windows XP style desktop and needs JavaScript. Contact: you@example.com</noscript>
-
-<canvas id="wall" aria-hidden="true"></canvas>
-<nav id="icons" aria-label="Desktop"></nav>
-
+<noscript><p style="padding:24px;background:#fff;color:#111">This portfolio needs JavaScript. Contact: you@example.com</p></noscript>
+<header class="bar" id="top"></header>
+<div class="frame"><main id="page"></main></div>
+<dialog id="case" class="win" aria-label="Project case study"></dialog>
 <div id="menu" role="menu" aria-label="Start menu"></div>
 <div id="taskbar">
   <button id="start" aria-haspopup="true" aria-expanded="false"></button>
-  <div id="tasks" role="toolbar" aria-label="Open windows"></div>
+  <nav id="tasks" aria-label="Sections"></nav>
   <div id="tray"><button id="themebtn"></button><span id="clock"></span></div>
 </div>
-
-<div id="plain" role="dialog" aria-label="Plain text version"></div>
-<div id="off" role="button" tabindex="0">It is now safe to hire this designer.<br><br><span style="font-size:15px;color:#cfa060">Click anywhere to restart</span></div>
 
 <script>
 /* =====================================================================
@@ -176,22 +209,25 @@ noscript{position:fixed;inset:0;background:#fff;color:#111;z-index:9999;padding:
 const SITE = {
   name: 'Jasmine Vis',
   role: 'Level Designer · Art/Tech Design',
-  tagline: 'Hybrid level designer who builds the space, the tools, and the look. Voxel worlds, small teams, shipped games.',
-  openOnLoad: ['projects'],                        // windows open at start; use [] for a fully empty desktop
-  wallpaper: 'image',                              // 'image' (your PNG, repeats downward), 'checker' (drawn in code), 'solid' or 'hill'
-  checkerSize: 96,                                 // size of one checker square in pixels
-  checkerLight: '#c8c8c6', checkerDark: '#ababab',
-  checkerFade: 0.19,                               // darkens toward the right edge (0 = flat)
-  wallpaperImage: 'images/background.png',
-  wallpaperFit: '100% auto',                       // full width, repeats vertically. Use e.g. 'max(100%, 1100px) auto' to stop squares getting tiny on phones
-  cursorImage: 'images/cursor.png',                // your own PNG cursor (32x32 or smaller, transparent). Missing file = built-in pixel arrow
-  cursorImage2x: '',                               // optional sharper 64x64 version for high-DPI screens, e.g. 'images/cursor@2x.png'
-  cursorHotspot: [0, 0],                           // the click point inside the PNG, in pixels from the top-left (arrow tip = 0, 0)
-  wallpaperDarken: 0,                              // dims the background in dark theme (0 = no dimming, 1 = black)
-  wallpaperColor: '#3a6ea5',                       // desktop colour, light theme
-  wallpaperColorDark: '#14181f',                   // desktop colour, dark theme
-  location: 'Breda, Netherlands',                 // optional
-  availability: 'Open to junior / mid roles at indie studios (remote or EU).',
+  lookingFor: {
+    headline: 'Looking for a level design internship in 2027',
+    details: 'Interested in indie studios and small teams where I can work across level design, art and tools. Open to remote work or relocating (edit this line: dates, length, location).'
+  },
+  about: [
+    'I design levels with one foot in the editor and the other in the art pipeline. I block out spaces, test them with real players, then push them through lighting, kitbashing, and small tools so they ship looking like the game.',
+    'Voxel games are my favourite playground: chunky readable shapes make flow, landmarks, and sightlines easy to judge, and they reward tidy modular thinking.',
+    'Small teams are where I do my best work, so I like owning a level from paper map to final pass.'
+  ],
+  headerImage: 'images/frame-top.png',             // top bar of the window. Missing file = a plain blue bar
+  sideImage: 'images/frame-side.png',               // left and right edges of the window, repeats down the page. Missing file = no edges
+  headerInk: '',                                   // text colour on the bar. '' = automatic (dark on your grey bar, white on the blue one)
+  pixelSize: 2,                                    // screen pixels per pixel of your art. Bigger = chunkier frame (try 3)
+  sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
+  headerSlice: [18, 18, 9, 18],                    // edge thickness of header.png in file pixels: top, right, bottom, left
+  sharp: true,                                     // keep the frame crisp (pixel art)
+  nameFont: 'Pixelify Sans',                       // Pixelify Sans, Silkscreen, Press Start 2P, VT323, Jersey 10, Tiny5, DotGothic16
+  portrait: 'images/me.png',                       // optional photo or pixel avatar. Missing file = a placeholder
+  location: 'Breda, Netherlands',
   email: 'you@example.com',
   resume: 'resume.pdf',                            // put your PDF next to index.html
   links: [
@@ -200,27 +236,42 @@ const SITE = {
     { label: 'LinkedIn',   url: 'https://www.linkedin.com/' },
     { label: 'GitHub',     url: 'https://github.com/' }
   ],
-  about: [
-    'I design levels with one foot in the editor and the other in the art pipeline. I block out spaces, test them with real players, then push them through lighting, kitbashing, and small tools so they ship looking like the game.',
-    'Voxel games are my favourite playground: chunky readable shapes make flow, landmarks, and sightlines easy to judge, and they reward tidy modular thinking.',
-    'Small teams are where I do my best work, so I like owning a level from paper map to final pass.'
-  ],
   skills: {
     'Level design':  ['Paper maps', 'Greyboxing', 'Pacing and flow', 'Sightlines and landmarks', 'Playtesting', 'Encounter design'],
     'Tech / art':    ['Modular kits', 'Lighting', 'Shaders (basic)', 'Level tools and scripting', 'Optimization', 'Procedural layouts'],
     'Tools':         ['Unity', 'Godot', 'Unreal', 'MagicaVoxel', 'Blender', 'Git', 'Figma / Miro']   // keep only what you really use
-  }
+  },
+
+  /* look and feel */
+  wallpaper: 'image',                              // 'image' (your PNG, repeats downward), 'checker' (drawn in code) or 'solid'
+  wallpaperImage: 'images/background.png',
+  wallpaperFit: '100% auto',                       // full width, repeats vertically
+  wallpaperDarken: 0,                              // dims the background in dark theme (0 = none, 1 = black)
+  wallpaperColor: '#3a6ea5', wallpaperColorDark: '#14181f',
+  checkerSize: 96, checkerLight: '#c8c8c6', checkerDark: '#ababab', checkerFade: 0.19,
+  cursorImage: 'images/cursor.png',                // your own PNG cursor (32x32 or smaller). Missing file = built-in pixel arrow
+  cursorImage2x: '',
+  cursorHotspot: [0, 0]
 };
 
+/* Videos at the top of the page. For each one use EITHER:
+     youtube: 'VIDEO_ID'   (the part after v= in a YouTube link)
+   OR
+     src: 'videos/name.mp4' (a small file in your repo; keep each under about 25 MB)
+   poster is an optional thumbnail image. Leave both empty for a placeholder. */
+const VIDEOS = [
+  { title: 'Showreel',             caption: 'Level design and tech art highlights', youtube: '', src: '', poster: '' },
+  { title: 'Project One',          caption: 'Walkthrough',                          youtube: '', src: '', poster: '' },
+  { title: 'Project Two',          caption: 'Game jam gameplay',                    youtube: '', src: '', poster: '' },
+  { title: 'Project Three',        caption: 'Voxel scene fly-through',              youtube: '', src: '', poster: '' }
+];
+
+/* Projects: the one marked featured:true is shown large at the top; the rest form the grid. */
 const PROJECTS = [
   {
-    id: 'proj1',
-    title: 'Project One',
-    blurb: 'Voxel dungeon crawler',
-    role: 'Level design, lighting, kit building',
-    team: 'Team of 4',
-    time: '3 months',
-    engine: 'Unity',
+    id: 'proj1', featured: true,
+    title: 'Project One', blurb: 'Voxel dungeon crawler', thumb: 'images/proj1-thumb.png',
+    role: 'Level design, lighting, kit building', team: 'Team of 4', time: '3 months', engine: 'Unity',
     summary: 'One or two sentences: what the game is, what you owned, and the result (shipped, jam ranking, playtest count).',
     sections: [
       { h: 'Design goals', t: 'What should the player feel and do in this level? Name the pillars, e.g. readable routes, tension then relief, discovery rewarded.',
@@ -234,12 +285,8 @@ const PROJECTS = [
   },
   {
     id: 'proj2',
-    title: 'Project Two',
-    blurb: 'Game jam, 72 hours',
-    role: 'Level design, tools',
-    team: 'Solo',
-    time: '72 hours',
-    engine: 'Godot',
+    title: 'Project Two', blurb: 'Game jam, 72 hours', thumb: 'images/proj2-thumb.png',
+    role: 'Level design, tools', team: 'Solo', time: '72 hours', engine: 'Godot',
     summary: 'A short project shows speed and ownership. Say what you shipped in the time limit.',
     sections: [
       { h: 'Constraints', t: 'Theme, time limit, scope cuts.', shots: [] },
@@ -249,22 +296,26 @@ const PROJECTS = [
   },
   {
     id: 'proj3',
-    title: 'Project Three',
-    blurb: 'Voxel scene and tooling',
-    role: 'Environment art, tech design',
-    team: 'Solo',
-    time: '6 weeks',
-    engine: 'MagicaVoxel + Blender',
+    title: 'Project Three', blurb: 'Voxel scene and tooling', thumb: 'images/proj3-thumb.png',
+    role: 'Environment art, tech design', team: 'Solo', time: '6 weeks', engine: 'MagicaVoxel + Blender',
     summary: 'A voxel-focused piece that proves your passion: a diorama, a modular biome kit, or a procedural generator.',
     sections: [
       { h: 'Pipeline', t: 'MagicaVoxel to Blender to engine: export settings, palette handling, polycount and draw-call choices.', shots: [{ src: 'images/proj3-main.png', cap: 'Scene render' }] }
     ],
-    links: [{ label: 'Artstation breakdown', url: '#' }]
+    links: [{ label: 'ArtStation breakdown', url: '#' }]
+  },
+  {
+    id: 'proj4',
+    title: 'Project Four', blurb: 'Add another project', thumb: 'images/proj4-thumb.png',
+    role: 'Your role', team: 'Team size', time: 'Duration', engine: 'Engine / tools',
+    summary: 'Copy one of the blocks above to add more projects. Each one becomes a card in the grid.',
+    sections: [],
+    links: []
   }
 ];
 
 /* =====================================================================
-   2. Pixel icons (inline SVG, 32x32 grid)
+   2. Pixel icons
    ===================================================================== */
 const R = (x,y,w,h,f)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"/>`;
 const ICONS = {
@@ -273,83 +324,229 @@ const ICONS = {
   mail:`<svg viewBox="0 0 32 32">${R(2,7,28,19,'#fff')}${R(2,7,28,1,'#6b7fa8')}${R(2,25,28,1,'#6b7fa8')}${R(2,7,1,19,'#6b7fa8')}${R(29,7,1,19,'#6b7fa8')}${R(4,9,3,2,'#6b7fa8')}${R(7,11,3,2,'#6b7fa8')}${R(10,13,3,2,'#6b7fa8')}${R(13,15,6,2,'#6b7fa8')}${R(19,13,3,2,'#6b7fa8')}${R(22,11,3,2,'#6b7fa8')}${R(25,9,3,2,'#6b7fa8')}</svg>`,
   user:`<svg viewBox="0 0 32 32">${R(2,2,28,28,'#a9d1ff')}${R(11,6,10,10,'#f4c28f')}${R(11,6,10,3,'#5a3a1a')}${R(7,19,18,11,'#2a6fdb')}${R(13,17,6,3,'#f4c28f')}</svg>`,
   cube:`<svg viewBox="0 0 32 32"><polygon points="16,2 29,9 16,16 3,9" fill="#8fe39a"/><polygon points="3,9 16,16 16,30 3,23" fill="#3f9d34"/><polygon points="29,9 16,16 16,30 29,23" fill="#2a7222"/><polygon points="16,2 29,9 16,16 3,9" fill="none" stroke="#1e5a18" stroke-width="1"/></svg>`,
+  video:`<svg viewBox="0 0 32 32">${R(2,5,28,20,'#3a3f4a')}${R(4,7,24,16,'#1b3a6b')}<polygon points="13,10 13,20 22,15" fill="#fff"/>${R(11,26,10,2,'#3a3f4a')}</svg>`,
   tools:`<svg viewBox="0 0 32 32">${R(4,4,24,24,'#d8d4c4')}${R(4,4,24,3,'#2a6fdb')}${R(8,11,6,6,'#3f9d34')}${R(16,11,8,2,'#444')}${R(16,15,8,2,'#444')}${R(8,20,16,2,'#444')}${R(8,24,10,2,'#444')}</svg>`,
-  globe:`<svg viewBox="0 0 32 32">${R(6,6,20,20,'#3a8cf5')}${R(10,4,12,24,'#3a8cf5')}${R(4,10,24,12,'#3a8cf5')}${R(10,10,6,5,'#4fb83f')}${R(16,17,6,6,'#4fb83f')}${R(8,18,4,3,'#4fb83f')}</svg>`,
-  power:`<svg viewBox="0 0 32 32">${R(4,4,24,24,'#d4421c')}${R(14,7,4,10,'#fff')}${R(9,12,3,9,'#fff')}${R(20,12,3,9,'#fff')}${R(11,20,10,3,'#fff')}</svg>`,
   win:`<svg viewBox="0 0 32 32">${R(3,5,12,10,'#e8502a')}${R(17,3,12,12,'#6cc04a')}${R(3,17,12,10,'#2a8cf0')}${R(17,17,12,12,'#f5c800')}</svg>`,
   sun:`<svg viewBox="0 0 32 32">${R(11,11,10,10,'#ffd23f')}${R(15,3,2,5,'#ffd23f')}${R(15,24,2,5,'#ffd23f')}${R(3,15,5,2,'#ffd23f')}${R(24,15,5,2,'#ffd23f')}${R(6,6,3,3,'#ffd23f')}${R(23,6,3,3,'#ffd23f')}${R(6,23,3,3,'#ffd23f')}${R(23,23,3,3,'#ffd23f')}</svg>`,
   moon:`<svg viewBox="0 0 32 32">${R(13,5,6,2,'#ffe9a8')}${R(10,7,6,2,'#ffe9a8')}${R(8,9,6,2,'#ffe9a8')}${R(7,11,5,10,'#ffe9a8')}${R(8,21,6,2,'#ffe9a8')}${R(10,23,6,2,'#ffe9a8')}${R(13,25,6,2,'#ffe9a8')}${R(17,6,3,2,'#ffe9a8')}${R(18,24,4,2,'#ffe9a8')}</svg>`,
-  text:`<svg viewBox="0 0 32 32">${R(5,3,22,26,'#fff')}${R(5,3,22,3,'#2a6fdb')}${R(8,10,16,2,'#555')}${R(8,15,16,2,'#555')}${R(8,20,10,2,'#555')}</svg>`
 };
 const ic = n => ICONS[n] || ICONS.doc;
 
 /* =====================================================================
-   3. Wallpaper: a voxel version of the classic green hill
+   3. Helpers + page builder
    ===================================================================== */
-const wall = document.getElementById('wall');
-function paintWall(){
-  const S = 5;                                   // CSS pixels per wallpaper pixel
-  const W = Math.ceil(innerWidth / S), H = Math.ceil(innerHeight / S);
-  wall.width = W; wall.height = H;
-  const g = wall.getContext('2d');
-  const hash = (a,b)=>{ let h = (a*374761393 + b*668265263) ^ 0x5bd1e995; h = (h ^ (h>>>13)) * 1274126177; return ((h ^ (h>>>16)) >>> 0) / 4294967295; };
-  // sky in hard bands
-  const sky = ['#1f5fd0','#2a6fdb','#3a80e4','#4d92ea','#63a4ef','#7db6f3','#97c7f6','#b2d7f9'];
-  const horizon = H * 0.66;
-  for (let y = 0; y < H; y++){
-    const i = Math.min(sky.length-1, Math.floor(y / horizon * sky.length));
-    g.fillStyle = sky[i]; g.fillRect(0, y, W, 1);
-  }
-  // blocky clouds
-  const cloud = (cx, cy, w)=>{
-    g.fillStyle = '#fff';
-    for (let i = 0; i < w; i += 2){
-      const hgt = 2 + Math.round(Math.sin(i / w * Math.PI) * 3);
-      g.fillRect(cx + i, cy - hgt, 2, hgt);
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const linkBtns = ls => ls.map(l => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
+
+function imgFail(el){                 // missing image: show a tidy placeholder instead
+  const d = document.createElement('div'); d.className = 'ph';
+  d.innerHTML = el.dataset.ph === 'cube' ? ic('cube') : 'Add image: ' + esc(el.getAttribute('src'));
+  el.replaceWith(d);
+}
+function winHTML(id, title, icon, inner){
+  return `<section class="win" id="${id}" aria-labelledby="${id}-t">
+    <div class="titlebar">${ic(icon)}<h2 class="t" id="${id}-t">${esc(title)}</h2>
+      <button class="tb mn" aria-label="Collapse ${esc(title)}" aria-expanded="true">_</button>
+      <span class="tb" aria-hidden="true">□</span><span class="tb x" aria-hidden="true">✕</span></div>
+    <div class="body">${inner}</div></section>`;
+}
+
+/* 1. showreel */
+function showreelHTML(){
+  return winHTML('showreel', 'showreel.exe', 'video', `
+    <div class="stage" id="stage"></div>
+    <p class="vcap" id="vcap" style="margin-left:auto;margin-right:auto"></p>
+    <div class="reel">${VIDEOS.map((v,i) => {
+      const poster = v.poster || (v.youtube ? `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg` : '');
+      return `<button class="vthumb" data-v="${i}" aria-label="Show video: ${esc(v.title)}"><span class="vt">${
+        poster ? `<img src="${esc(poster)}" alt="" loading="lazy">` : `<span class="ph">${ic('video')}</span>`}</span><span class="vl">${esc(v.title)}</span></button>`;
+    }).join('')}</div>`);
+}
+function showVideo(i, play){
+  const v = VIDEOS[i], st = $('#stage');
+  document.querySelectorAll('.vthumb').forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-pressed', j === i); });
+  $('#vcap').innerHTML = `<strong>${esc(v.title)}</strong>${v.caption ? ' · ' + esc(v.caption) : ''}`;
+  if (v.src){
+    st.innerHTML = `<video controls playsinline preload="metadata"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`;
+    if (play) st.firstElementChild.play().catch(() => {});
+  } else if (v.youtube){
+    if (play){
+      st.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?autoplay=1&rel=0" title="${esc(v.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+    } else {
+      const poster = v.poster || `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`;
+      st.innerHTML = `<button class="poster" data-play aria-label="Play ${esc(v.title)}"><img src="${esc(poster)}" alt=""><span class="play">▶</span></button>`;
     }
-    g.fillStyle = '#dbe9fb'; g.fillRect(cx, cy, w, 1);
-  };
-  cloud(Math.floor(W*.12), Math.floor(H*.2), 22);
-  cloud(Math.floor(W*.55), Math.floor(H*.12), 30);
-  cloud(Math.floor(W*.8),  Math.floor(H*.3), 18);
-  cloud(Math.floor(W*.33), Math.floor(H*.38), 14);
-  // voxel hill: columns quantised to 3px cubes, three greens + noise
-  const C = 3;
-  const greens = ['#6fcf4a','#5cbb3c','#4aa52f','#3b8e25'];
-  for (let x = 0; x < W; x += C){
-    const t = x / W;
-    const top = Math.round((H * (0.5 + 0.18 * Math.sin(t * 2.4 + 0.5) - 0.08 * t)) / C) * C;
-    for (let y = top; y < H; y += C){
-      const depth = (y - top) / (H - top + 1);
-      let k = Math.min(3, Math.floor(depth * 4 + hash(x, y) * 0.9));
-      if (y === top) k = 0;
-      g.fillStyle = greens[k]; g.fillRect(x, y, C, C);
-      g.fillStyle = 'rgba(0,0,0,.10)'; g.fillRect(x + C - 1, y, 1, C);    // cube edge
-      g.fillStyle = 'rgba(255,255,255,.12)'; g.fillRect(x, y, C, 1);
-    }
-  }
-  // a few voxel flowers
-  for (let n = 0; n < 14; n++){
-    const x = Math.floor(hash(n, 7) * W / C) * C, y = Math.floor((H * 0.72 + hash(n, 9) * H * 0.24) / C) * C;
-    g.fillStyle = n % 2 ? '#ffe45c' : '#fff'; g.fillRect(x, y, C - 1, C - 1);
+  } else {
+    st.innerHTML = `<div class="ph vph"><div>${ic('video')}<br>Video placeholder.<br>Set <code>youtube</code> or <code>src</code> in the VIDEOS list.</div></div>`;
   }
 }
-if (SITE.wallpaper === 'hill'){ paintWall(); addEventListener('resize', paintWall); } else wall.style.display = 'none';
 
-/* theme: light / dark, remembered per visitor */
+/* 2. about */
+function aboutHTML(){
+  return winHTML('about', 'about.txt', 'user', `<div class="about">
+    <div class="avatar"><img src="${esc(SITE.portrait)}" alt="Portrait of ${esc(SITE.name)}" onerror="this.replaceWith(Object.assign(document.createElement('span'),{innerHTML:ICONS.user}))"></div>
+    <div>
+      <div class="h1">${esc(SITE.name)}</div>
+      <p class="role">${esc(SITE.role)}${SITE.location ? ' · ' + esc(SITE.location) : ''}</p>
+      ${SITE.about.map(p => `<p>${esc(p)}</p>`).join('')}
+      <div class="seek"><strong>${esc(SITE.lookingFor.headline)}</strong>${esc(SITE.lookingFor.details)}</div>
+      <p><a class="btn" href="#contact">Contact me</a><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
+    </div></div>`);
+}
+
+/* 3. projects */
+function cardHTML(p){
+  return `<button class="card${p.featured ? ' feat' : ''}" data-p="${p.id}" aria-label="Open case study: ${esc(p.title)}">
+    <span class="thumb"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></span>
+    <span class="info">${p.featured ? '<span class="badge">★ Featured project</span>' : ''}
+      <span class="ct">${esc(p.title)}</span><span class="cb">${esc(p.blurb)}</span>
+      <span class="cm">${esc(p.role)} · ${esc(p.engine)}</span></span></button>`;
+}
+function projectsHTML(){
+  const feat = PROJECTS.filter(p => p.featured).slice(0, 1), rest = PROJECTS.filter(p => !feat.includes(p));
+  return winHTML('projects', 'projects', 'folder', `<div class="pgrid">${[...feat, ...rest].map(cardHTML).join('')}</div>`);
+}
+function openCase(id, from){
+  const p = PROJECTS.find(x => x.id === id), d = $('#case'); if (!p) return;
+  d.innerHTML = `<div class="titlebar">${ic('cube')}<h2 class="t">${esc(p.title)}</h2><button class="tb x" data-close aria-label="Close">✕</button></div>
+    <div class="body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
+      <dl class="meta"><dt>Role</dt><dd>${esc(p.role)}</dd><dt>Team</dt><dd>${esc(p.team)}</dd><dt>Time</dt><dd>${esc(p.time)}</dd><dt>Engine / tools</dt><dd>${esc(p.engine)}</dd></dl>
+      <p>${linkBtns(p.links)}</p>
+      ${p.sections.map(s => `<h3>${esc(s.h)}</h3><p>${esc(s.t)}</p>${(s.shots || []).map(sh => `
+        <figure class="shot"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="imgFail(this)"><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}</div>`;
+  d._from = from; d.showModal(); d.querySelector('.body').scrollTop = 0;
+}
+
+/* 4. skills, contact, footer */
+function skillsHTML(){
+  return winHTML('skills', 'skills & tools', 'tools',
+    Object.entries(SITE.skills).map(([k, v]) => `<h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`).join(''));
+}
+function contactHTML(){
+  return winHTML('contact', 'contact', 'mail', `
+    <h3>Let's talk</h3>
+    <p>${esc(SITE.lookingFor.headline)}. Email is the best way to reach me.</p>
+    <p><a class="btn big" href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a></p>
+    <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
+    <ul class="links">${SITE.links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>`);
+}
+$('#page').innerHTML = showreelHTML() + aboutHTML() + projectsHTML()
+  + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
+  + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
+showVideo(0, false);
+
+/* page interactions */
+document.addEventListener('click', e => {
+  const t = e.target;
+  const mn = t.closest('.tb.mn');
+  if (mn){ const w = mn.closest('.win'); const c = w.classList.toggle('collapsed'); mn.setAttribute('aria-expanded', !c); return; }
+  const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
+  if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
+  const card = t.closest('.card'); if (card){ openCase(card.dataset.p, card); return; }
+});
+function vi(){ const on = document.querySelector('.vthumb.on'); return on ? +on.dataset.v : 0; }
+const dlg = $('#case');
+dlg.addEventListener('click', e => { if (e.target === dlg || e.target.closest('[data-close]')) dlg.close(); });
+dlg.addEventListener('close', () => { if (dlg._from) dlg._from.focus(); });
+
+/* =====================================================================
+   4. Taskbar, start menu, clock
+   ===================================================================== */
+const NAV = [['showreel', 'Showreel', 'video'], ['about', 'About', 'user'], ['projects', 'Projects', 'folder'], ['contact', 'Contact', 'mail']];
+const go = id => { const el = document.getElementById(id); if (el){ if (el.classList.contains('collapsed')){ el.classList.remove('collapsed'); } el.scrollIntoView({ block: 'start' }); } };
+$('#tasks').innerHTML = NAV.map(([id, label, icon]) => `<button class="task perm" data-go="${id}" title="${label}">${ic(icon)}<span>${label}</span></button>`).join('');
+$('#start').innerHTML = `${ic('win')}<span>start</span>`;
+$('#menu').innerHTML = `<div class="top">${ic('user')}<span>${esc(SITE.name)}</span></div>
+  <div class="list">${NAV.map(([id, label, icon]) => `<button role="menuitem" data-go="${id}">${ic(icon)}${label}</button>`).join('')}
+    <hr><a role="menuitem" href="${esc(SITE.resume)}" target="_blank" rel="noopener">${ic('doc')}Resume (PDF)</a>
+    <a role="menuitem" href="mailto:${esc(SITE.email)}">${ic('mail')}Email me</a></div>`;
+const setMenu = v => { $('#menu').classList.toggle('open', v); $('#start').classList.toggle('on', v); $('#start').setAttribute('aria-expanded', v); };
+$('#start').onclick = e => { e.stopPropagation(); setMenu(!$('#menu').classList.contains('open')); };
+document.addEventListener('pointerdown', e => { if (!e.target.closest('#menu') && !e.target.closest('#start')) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]'); if (g){ setMenu(false); go(g.dataset.go); }
+  const a = e.target.closest('a[href="#contact"],a[href="#top"]'); if (a){ e.preventDefault(); go(a.getAttribute('href').slice(1)); }
+  if (e.target.closest('#menu a')) setMenu(false);
+});
+/* highlight the tab for the section you are reading */
+let ticking = false;
+function markActive(){
+  ticking = false;
+  let cur = NAV[0][0];
+  NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
+  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = 'contact';
+  document.querySelectorAll('.task.perm').forEach(t => t.classList.toggle('act', t.dataset.go === cur));
+}
+addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(markActive); } }, { passive: true });
+addEventListener('resize', markActive); markActive();
+
+const tick = () => $('#clock').textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+tick(); setInterval(tick, 15000);
+
+/* =====================================================================
+   5. Theme (light / dark), cursor, wallpaper
+   ===================================================================== */
+const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey 10', 'Tiny5', 'DotGothic16'];
+(function setupHeader(){
+  const root = document.documentElement, body = document.body;
+  let f = new URLSearchParams(location.search).get('font') || SITE.nameFont;      // try a font live with ?font=Silkscreen
+  if (!FONTS.includes(f)) f = 'Pixelify Sans';
+  if (f !== 'Pixelify Sans'){
+    const l = document.createElement('link'); l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=' + f.replace(/ /g, '+') + '&display=swap'; document.head.appendChild(l);
+  }
+  root.style.setProperty('--name-font', `'${f}','Pixelify Sans','Tahoma',monospace`);
+  root.style.setProperty('--hdr-ink', SITE.headerInk || '#fff');
+  $('#top').innerHTML = `<h1 class="nm">${esc(SITE.name)}</h1><p class="rl">${esc(SITE.role)}</p>`;
+  const k = SITE.pixelSize / SITE.sourcePixel;                                    // screen pixels per file pixel
+  if (SITE.sharp) body.classList.add('sharp');
+
+  if (SITE.headerImage){
+    const im = new Image();
+    im.onload = () => {
+      const [t, r, b, l] = SITE.headerSlice, px = n => (n * k) + 'px';
+      root.style.setProperty('--hdr-img', `url("${SITE.headerImage}")`);
+      root.style.setProperty('--hdr-slice', `${t} ${r} ${b} ${l}`);
+      root.style.setProperty('--hdr-bw', `${px(t)} ${px(r)} ${px(b)} ${px(l)}`);
+      root.style.setProperty('--hdr-min', px(im.naturalHeight));
+      root.style.setProperty('--hdr-ink', SITE.headerInk || '#111');
+      body.classList.add('hdr-img');
+    };
+    im.src = SITE.headerImage;
+  }
+  if (SITE.sideImage){
+    const im = new Image();
+    im.onload = () => {
+      let inset = 51;                                                              // edge thickness in file pixels (auto-detected when possible)
+      try {
+        const c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight;
+        const g = c.getContext('2d'); g.drawImage(im, 0, 0);
+        const row = g.getImageData(0, Math.floor(c.height / 2), c.width, 1).data;
+        let x = 0; while (x < c.width / 3 && row[x * 4 + 3] > 8) x++;
+        if (x >= 4 && x < c.width / 3) inset = x;
+      } catch (e) {}
+      root.style.setProperty('--frm-img', `url("${SITE.sideImage}")`);
+      root.style.setProperty('--frm-slice', inset);
+      root.style.setProperty('--frm-bw', (inset * k) + 'px');
+      body.classList.add('frm-img');
+    };
+    im.src = SITE.sideImage;
+  }
+})();
 function applyTheme(t, save){
-  const dark = t === 'dark';
-  document.documentElement.dataset.theme = t;
-  document.documentElement.style.setProperty('--desk', dark ? SITE.wallpaperColorDark : SITE.wallpaperColor);
-  wall.style.filter = dark ? 'brightness(.5)' : '';
+  const dark = t === 'dark', root = document.documentElement;
+  root.dataset.theme = t;
+  root.style.setProperty('--desk', dark ? SITE.wallpaperColorDark : SITE.wallpaperColor);
   if (SITE.cursorImage){
-    const root = document.documentElement, [hx, hy] = SITE.cursorHotspot || [0, 0];
+    const [hx, hy] = SITE.cursorHotspot || [0, 0];
     root.style.removeProperty('--cursor');
     const fallback = getComputedStyle(root).getPropertyValue('--cursor').trim();      // built-in arrow for this theme
     const src = SITE.cursorImage2x ? `image-set(url("${SITE.cursorImage}") 1x, url("${SITE.cursorImage2x}") 2x)` : `url("${SITE.cursorImage}")`;
     root.style.setProperty('--cursor', `${src} ${hx} ${hy}, ${fallback}`);
   }
-  if (SITE.wallpaper === 'image' && SITE._imgOk === undefined){          // if the image can't load, fall back to the drawn checkerboard
+  if (SITE.wallpaper === 'image' && SITE._imgOk === undefined){                       // if the image can't load, fall back to the drawn checkerboard
     SITE._imgOk = null;
     const probe = new Image();
     probe.onload = () => { SITE._imgOk = true; };
@@ -358,266 +555,33 @@ function applyTheme(t, save){
   }
   const useImage = SITE.wallpaper === 'image' && SITE._imgOk !== false;
   const useChecker = SITE.wallpaper === 'checker' || (SITE.wallpaper === 'image' && SITE._imgOk === false);
+  const d = SITE.wallpaperDarken, shade = `linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d}))`, st = document.body.style;
   if (useChecker){
-    const q = SITE.checkerSize, d = SITE.wallpaperDarken, f = SITE.checkerFade;
-    const layers = [   // first layer is drawn on top
+    const q = SITE.checkerSize, f = SITE.checkerFade;
+    const layers = [
       [`linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,${f}))`, 'auto'],
-      [`repeating-conic-gradient(${SITE.checkerDark} 0 25%, ${SITE.checkerLight} 0 50%)`, `${q*2}px ${q*2}px`]
+      [`repeating-conic-gradient(${SITE.checkerDark} 0 25%, ${SITE.checkerLight} 0 50%)`, `${q * 2}px ${q * 2}px`]
     ];
-    if (dark) layers.unshift([`linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d}))`, 'auto']);
-    Object.assign(document.body.style, {
-      backgroundImage: layers.map(l => l[0]).join(','), backgroundSize: layers.map(l => l[1]).join(','),
-      backgroundPosition: 'center', backgroundRepeat: 'repeat'
-    });
-  }
-  if (useImage){
-    const img = `url("${SITE.wallpaperImage}")`, d = SITE.wallpaperDarken;
-    const shade = `linear-gradient(rgba(8,10,14,${d}),rgba(8,10,14,${d}))`;
-    Object.assign(document.body.style, {
+    if (dark) layers.unshift([shade, 'auto']);
+    Object.assign(st, { backgroundImage: layers.map(l => l[0]).join(','), backgroundSize: layers.map(l => l[1]).join(','), backgroundPosition: 'center top', backgroundRepeat: 'repeat' });
+  } else if (useImage){
+    const img = `url("${SITE.wallpaperImage}")`;
+    Object.assign(st, {
       backgroundImage: dark ? `${shade}, ${img}` : img,
       backgroundSize: dark ? `auto, ${SITE.wallpaperFit}` : SITE.wallpaperFit,
       backgroundPosition: dark ? 'center, center top' : 'center top',
       backgroundRepeat: dark ? 'repeat, repeat-y' : 'repeat-y'
     });
+  } else {
+    Object.assign(st, { backgroundImage: 'none' });
   }
-  const b = document.getElementById('themebtn');
-  if (b){ b.innerHTML = ICONS[dark ? 'sun' : 'moon']; b.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme'); b.title = dark ? 'Light theme' : 'Dark theme'; }
-  if (save){ try { localStorage.setItem('theme', t); } catch(e){} }
+  const b = $('#themebtn');
+  b.innerHTML = ICONS[dark ? 'sun' : 'moon'];
+  b.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme'); b.title = dark ? 'Light theme' : 'Dark theme';
+  if (save){ try { localStorage.setItem('theme', t); } catch (e) {} }
 }
-
-/* =====================================================================
-   4. Window manager
-   ===================================================================== */
-const $ = s => document.querySelector(s);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const isMobile = () => matchMedia('(max-width:700px)').matches;
-const wins = {}, tabs = {}; let zTop = 10;
-
-function openWin(id, o){
-  if (wins[id]){ focusWin(id); return; }
-  const el = document.createElement('section');
-  el.className = 'win';
-  el.setAttribute('role','dialog'); el.setAttribute('aria-label', o.title);
-  const w = Math.min(o.w || 520, innerWidth - 20), h = Math.min(o.h || 400, innerHeight - 70);
-  el.style.width = w + 'px'; el.style.height = h + 'px';
-  const off = Object.keys(wins).length * 24;
-  el.style.left = Math.max(8, Math.min(innerWidth - w - 8, (innerWidth - w) / 2 + off)) + 'px';
-  el.style.top  = Math.max(8, Math.min(innerHeight - h - 50, (innerHeight - h) / 2 - 24 + off)) + 'px';
-  el.innerHTML = `
-    <div class="titlebar">${ic(o.icon)}<span class="t">${esc(o.title)}</span>
-      <button class="tb mn" aria-label="Minimize">_</button>
-      <button class="tb mx" aria-label="Maximize">□</button>
-      <button class="tb x" aria-label="Close">✕</button></div>
-    ${o.menu ? `<div class="menubar">${o.menu.map(m=>`<span>${m}</span>`).join('')}</div>` : ''}
-    <div class="body">${o.html}</div>
-    ${o.status ? `<div class="statusbar">${esc(o.status)}</div>` : ''}`;
-  document.body.appendChild(el);
-
-  const perm = tabs[id];
-  const task = perm || document.createElement('button');
-  if (!perm){
-    task.className = 'task'; task.innerHTML = `${ic(o.icon)}<span>${esc(o.title)}</span>`;
-    $('#tasks').appendChild(task);
-  }
-
-  wins[id] = { el, task, min:false };
-  el.addEventListener('pointerdown', () => focusWin(id));
-  el.querySelector('.mn').onclick = () => minWin(id);
-  el.querySelector('.mx').onclick = () => el.classList.toggle('max');
-  el.querySelector('.x').onclick  = () => closeWin(id);
-  el.querySelector('.titlebar').addEventListener('dblclick', e => { if (!e.target.closest('button')) el.classList.toggle('max'); });
-  if (!perm) task.onclick = () => taskClick(id);
-  makeDraggable(el, el.querySelector('.titlebar'));
-  if (o.onMount) o.onMount(el);
-  focusWin(id);
-}
-function taskClick(id){
-  const s = wins[id]; if (!s) return;
-  if (s.min) focusWin(id);
-  else if (s.el.classList.contains('focus')) minWin(id);
-  else focusWin(id);
-}
-function focusWin(id){
-  const s = wins[id]; if (!s) return;
-  s.min = false; s.el.classList.remove('hidden');
-  Object.values(wins).forEach(v => { v.el.classList.remove('focus'); v.task.classList.remove('act'); });
-  s.el.style.zIndex = ++zTop; s.el.classList.add('focus'); s.task.classList.add('act');
-}
-function minWin(id){
-  const s = wins[id]; s.min = true; s.el.classList.add('hidden'); s.el.classList.remove('focus'); s.task.classList.remove('act');
-}
-function closeWin(id){
-  const s = wins[id]; if (!s) return;
-  s.el.remove(); if (tabs[id]) s.task.classList.remove('act'); else s.task.remove(); delete wins[id];
-  const next = Object.entries(wins).filter(([,v]) => !v.min).sort((a,b) => b[1].el.style.zIndex - a[1].el.style.zIndex)[0];
-  if (next) focusWin(next[0]);
-}
-function makeDraggable(el, bar){
-  let on = false, sx, sy, ox, oy;
-  bar.addEventListener('pointerdown', e => {
-    if (e.target.closest('button') || isMobile() || el.classList.contains('max')) return;
-    on = true; sx = e.clientX; sy = e.clientY; ox = el.offsetLeft; oy = el.offsetTop; bar.setPointerCapture(e.pointerId);
-  });
-  bar.addEventListener('pointermove', e => {
-    if (!on) return;
-    el.style.left = Math.max(-el.offsetWidth + 90, Math.min(innerWidth - 90, ox + e.clientX - sx)) + 'px';
-    el.style.top  = Math.max(0, Math.min(innerHeight - 60, oy + e.clientY - sy)) + 'px';
-  });
-  const end = () => on = false;
-  bar.addEventListener('pointerup', end); bar.addEventListener('pointercancel', end);
-}
-
-/* =====================================================================
-   5. Window contents
-   ===================================================================== */
-const linkList = links => links.map(l => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('');
-
-function winAbout(){
-  openWin('about', { title:'About Me.txt', icon:'user', w:500, h:380, menu:['File','Edit','View','Help'],
-    html:`<h1>${esc(SITE.name)}</h1>
-      <p><strong>${esc(SITE.role)}</strong>${SITE.location ? ' · ' + esc(SITE.location) : ''}</p>
-      <p>${esc(SITE.tagline)}</p>
-      <p>${esc(SITE.about[0])}</p>
-      <p><strong>Status:</strong> ${esc(SITE.availability)}</p>
-      <p><button class="btn" data-open="projects">See my projects</button><button class="btn" data-open="contact">Contact</button></p>`,
-    status:'Ready' });
-}
-function winProjects(){
-  openWin('projects', { title:'My Projects', icon:'folder', w:600, h:400, menu:['File','Edit','View','Favorites','Help'],
-    html:`<p style="margin-bottom:12px"><strong>${esc(SITE.name)}</strong> · ${esc(SITE.role)}</p><div class="grid">${PROJECTS.map(p => `
-      <button class="icon" data-project="${p.id}" aria-label="Open ${esc(p.title)}">${ic('cube')}<span>${esc(p.title)}</span><small>${esc(p.blurb)}</small></button>`).join('')}</div>`,
-    status:`${PROJECTS.length} objects · double-click to open`,
-    onMount: bindIcons });
-}
-function winProject(p){
-  openWin('p:' + p.id, { title:p.title, icon:'cube', w:640, h:480,
-    html:`<h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
-      <dl class="meta"><dt>Role</dt><dd>${esc(p.role)}</dd><dt>Team</dt><dd>${esc(p.team)}</dd><dt>Time</dt><dd>${esc(p.time)}</dd><dt>Engine / tools</dt><dd>${esc(p.engine)}</dd></dl>
-      <p>${linkList(p.links)}</p>
-      ${p.sections.map(s => `<h2>${esc(s.h)}</h2><p>${esc(s.t)}</p>${(s.shots||[]).map(sh => `
-        <figure class="shot"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="this.outerHTML='<div class=ph>Add image: ${esc(sh.src)}</div>'"><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}`,
-    status:p.engine });
-}
-function winResume(){
-  openWin('resume', { title:'Resume', icon:'doc', w:540, h:430, menu:['File','Edit','View','Help'],
-    html:`<h1>Resume</h1>
-      <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Open PDF</a></p>
-      ${Object.entries(SITE.skills).map(([k,v]) => `<h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`).join('')}`,
-    status:'resume.pdf' });
-}
-function winContact(){
-  openWin('contact', { title:'Contact', icon:'mail', w:440, h:340,
-    html:`<h1>Say hello</h1>
-      <p>${esc(SITE.availability)}</p>
-      <p><a class="btn" href="mailto:${esc(SITE.email)}">Email me</a> <span>${esc(SITE.email)}</span></p>
-      <p>${linkList(SITE.links)}</p>`,
-    status:'1 new message' });
-}
-const APPS = {
-  about:    { label:'About Me',   icon:'user',   open:winAbout },
-  projects: { label:'My Projects',icon:'folder', open:winProjects },
-  resume:   { label:'Resume',     icon:'doc',    open:winResume, hidden:true },
-  contact:  { label:'Contact',    icon:'mail',   open:winContact }
-};
-
-/* ---------- icons, start menu, plain view, shutdown ---------- */
-function bindIcons(root = document){
-  root.querySelectorAll('.icon').forEach(b => {
-    if (b._b) return; b._b = true;
-    const go = () => {
-      if (b.dataset.app) APPS[b.dataset.app].open();
-      else if (b.dataset.project) winProject(PROJECTS.find(p => p.id === b.dataset.project));
-    };
-    b.addEventListener('click', () => {
-      root.querySelectorAll('.icon.sel').forEach(x => x.classList.remove('sel'));
-      b.classList.add('sel');
-      if (matchMedia('(pointer:coarse)').matches) go();
-    });
-    b.addEventListener('dblclick', go);
-    b.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
-  });
-}
-$('#icons').remove();                       // bare desktop: no icons
-Object.entries(APPS).forEach(([k,a]) => {   // permanent taskbar tabs
-  const t = document.createElement('button');
-  t.className = 'task perm'; t.title = a.label; t.innerHTML = `${ic(a.icon)}<span>${a.label}</span>`;
-  t.onclick = () => wins[k] ? taskClick(k) : a.open();
-  $('#tasks').appendChild(t); tabs[k] = t;
-});
-document.addEventListener('click', e => {
-  const o = e.target.closest('[data-open]'); if (o) APPS[o.dataset.open].open();
-  if (!e.target.closest('.icon')) document.querySelectorAll('.icon.sel').forEach(x => x.classList.remove('sel'));
-});
-
-$('#start').innerHTML = `${ic('win')}<span>start</span>`;
-$('#menu').innerHTML = `
-  <div class="top">${ic('user')}<span>${esc(SITE.name)}</span></div>
-  <div class="cols"><div class="col l">
-    ${Object.entries(APPS).map(([k,a]) => `<button role="menuitem" data-app="${k}">${ic(a.icon)}${a.label}</button>`).join('')}
-    <button role="menuitem" data-plain>${ic('text')}Plain version</button>
-  </div></div>
-  <div class="foot"><button id="shut">${ic('power')}Shut Down</button></div>`;
-const setMenu = v => { $('#menu').classList.toggle('open', v); $('#start').classList.toggle('on', v); $('#start').setAttribute('aria-expanded', v); };
-$('#start').onclick = e => { e.stopPropagation(); setMenu(!$('#menu').classList.contains('open')); };
-document.addEventListener('pointerdown', e => { if (!e.target.closest('#menu') && !e.target.closest('#start')) setMenu(false); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { setMenu(false); $('#plain').classList.remove('open'); } });
-$('#menu').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  setMenu(false);
-  if (b.dataset.app) APPS[b.dataset.app].open();
-  else if (b.dataset.link) window.open(b.dataset.link, b.dataset.link.startsWith('mailto') ? '_self' : '_blank', 'noopener');
-  else if (b.hasAttribute('data-plain')) openPlain();
-  else if (b.id === 'shut') shutDialog();
-});
-
-function openPlain(){
-  $('#plain').innerHTML = `<div class="wrap">
-    <button class="btn back" id="back">Back to desktop</button>
-    <h1>${esc(SITE.name)}</h1><p><strong>${esc(SITE.role)}</strong></p><p>${esc(SITE.tagline)}</p>
-    <p><a href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a> · ${SITE.links.map(l => `<a href="${esc(l.url)}">${esc(l.label)}</a>`).join(' · ')} · <a href="${esc(SITE.resume)}">Resume (PDF)</a></p>
-    <h2>Projects</h2>
-    ${PROJECTS.map(p => `<article><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p>
-      <p><em>${esc(p.role)} · ${esc(p.team)} · ${esc(p.time)} · ${esc(p.engine)}</em></p>
-      <p>${p.links.map(l => `<a href="${esc(l.url)}">${esc(l.label)}</a>`).join(' · ')}</p></article>`).join('')}
-    <h2>Skills</h2>${Object.entries(SITE.skills).map(([k,v]) => `<p><strong>${esc(k)}:</strong> ${v.map(esc).join(', ')}</p>`).join('')}
-    <h2>About</h2>${SITE.about.map(p => `<p>${esc(p)}</p>`).join('')}</div>`;
-  $('#plain').classList.add('open');
-  $('#back').onclick = () => $('#plain').classList.remove('open');
-  $('#back').focus();
-}
-function shutDialog(){
-  let d = $('#shutdlg');
-  if (!d){
-    d = document.createElement('dialog'); d.id = 'shutdlg'; d.className = 'xp';
-    d.innerHTML = `<div class="titlebar"><span class="t">Turn off computer</span><button class="tb x" aria-label="Close">✕</button></div>
-      <div class="inner"><p style="margin:0">What would you like to do?</p>
-      <button class="btn" data-a="mail">Hire me (send email)</button>
-      <button class="btn" data-a="off">Turn off</button>
-      <button class="btn" data-a="cancel">Cancel</button></div>`;
-    document.body.appendChild(d);
-    d.addEventListener('click', e => {
-      const a = e.target.closest('[data-a]')?.dataset.a;
-      if (e.target.closest('.tb') || a === 'cancel') d.close();
-      if (a === 'mail') { d.close(); location.href = 'mailto:' + SITE.email; }
-      if (a === 'off') { d.close(); $('#off').classList.add('open'); }
-    });
-  }
-  d.showModal();
-}
-$('#off').addEventListener('click', () => $('#off').classList.remove('open'));
-$('#off').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') $('#off').classList.remove('open'); });
-
-document.getElementById('themebtn').onclick = () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
+$('#themebtn').onclick = () => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true);
 applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
-
-/* clock */
-const tick = () => $('#clock').textContent = new Date().toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
-tick(); setInterval(tick, 15000);
-
-/* =====================================================================
-   6. Boot: show the work immediately
-   ===================================================================== */
-(SITE.openOnLoad || []).forEach(k => APPS[k].open());
 </script>
 </body>
 </html>
