@@ -82,6 +82,12 @@ body.hdr-img .bar .menu a{color:#000;padding:1px 10px;font-size:max(15px, calc(v
 body.hdr-img .bar .menu a:hover{background:#000080;color:#fff}
 body.hdr-img .bar .menu a.act{background:none;box-shadow:inset 1px 1px #818181, inset -1px -1px #fff}
 body.hdr-img .bar .themebtn{background:#1b2740;border:1px solid #000;border-radius:0}
+body.hdr-img .bar .menu{transition:background-color .15s}
+body.hdr-img.scrolled .bar .menu{background:#000080;left:calc(var(--k) * var(--tl) * 1px);right:calc(var(--k) * var(--tr) * 1px);padding:0 0 0 8px}
+body.hdr-img.scrolled .bar .menu a{color:#fff}
+body.hdr-img.scrolled .bar .menu a:hover{background:#fff;color:#000080}
+body.hdr-img.scrolled .bar .menu a.act{background:#1c1ccc;box-shadow:inset 1px 1px #8080ff, inset -1px -1px #00004a}
+body.hdr-img.scrolled .bar .themebtn{border-color:#fff}
 body.sharp .bar .cap,body.sharp .bar .fill,body.sharp .frame{image-rendering:pixelated}
 .frame{width:100%}
 body.frm-img .frame{border-style:solid;border-width:0 calc(var(--k) * var(--frm-slice) * 1px);border-image:var(--frm-img) 0 var(--frm-slice) / 0 calc(var(--k) * var(--frm-slice) * 1px) repeat}
@@ -228,7 +234,7 @@ dialog.win > .body{overflow:auto;flex:1}
    ===================================================================== */
 const SITE = {
   name: 'Jasmine Vis',
-  role: 'Level Designer · Art/Tech Design',
+  role: 'Level Designer',
   lookingFor: {
     headline: 'Looking for a level design internship in 2027',
     details: 'Interested in indie studios and small teams where I can work across level design, art and tools. Open to remote work or relocating (edit this line: dates, length, location).'
@@ -245,7 +251,7 @@ const SITE = {
   pixelSize: 3,                                    // screen pixels per pixel of your art. Bigger = chunkier frame
   pixelSizeSmall: 2,                               // same, for phones and small windows
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
-  topFrame: { leftCap: 33, rightCap: 456, fillAt: 2000, title: [33, 177], menu: [177, 327] },
+  topFrame: { leftCap: 33, rightCap: 33, fillAt: 2000, title: [33, 177], menu: [177, 327] },
                                                    // measurements of frame-top.png in file pixels: left edge width, right part
                                                    // (buttons) width, a flat spot to stretch, title bar top/bottom, menu bar top/bottom
   sharp: true,                                     // keep the frame crisp (pixel art)
@@ -477,8 +483,8 @@ dlg.addEventListener('close', () => { if (dlg._from) dlg._from.focus(); });
 /* =====================================================================
    4. Taskbar, start menu, clock
    ===================================================================== */
-const NAV = [['showreel', 'Showreel', 'video'], ['about', 'About', 'user'], ['projects', 'Projects', 'folder'], ['contact', 'Contact', 'mail']];
-const go = id => { const el = document.getElementById(id); if (el){ if (el.classList.contains('collapsed')){ el.classList.remove('collapsed'); } el.scrollIntoView({ block: 'start' }); } };
+const NAV = [['showreel', 'Home', 'video'], ['about', 'About me', 'user'], ['projects', 'Projects', 'folder'], ['contact', 'Contact', 'mail']];
+const go = id => { if (id === 'showreel'){ scrollTo({ top: 0 }); return; } const el = document.getElementById(id); if (el){ if (el.classList.contains('collapsed')){ el.classList.remove('collapsed'); } el.scrollIntoView({ block: 'start' }); } };
 $('#tasks').innerHTML = NAV.map(([id, label, icon]) => `<button class="task perm" data-go="${id}" title="${label}">${ic(icon)}<span>${label}</span></button>`).join('');
 $('#start').innerHTML = `${ic('win')}<span>start</span>`;
 $('#menu').innerHTML = `<div class="top">${ic('user')}<span>${esc(SITE.name)}</span></div>
@@ -498,6 +504,8 @@ document.addEventListener('click', e => {
 let ticking = false;
 function markActive(){
   ticking = false;
+  const k = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--k')), pin = (k && SITE.topFrame) ? k * SITE.topFrame.title[1] - 1 : 60;
+  document.body.classList.toggle('scrolled', scrollY >= pin);          // once the menu bar is pinned, it turns blue
   let cur = NAV[0][0];
   NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
   if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = 'contact';
@@ -526,6 +534,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   $('#top').innerHTML = `<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><p class="rl">${esc(SITE.role)}</p></div>
     <nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}<button class="themebtn"></button></nav>`;
   if (SITE.sharp) body.classList.add('sharp');
+  markActive();
   if (!SITE.taskbar) body.classList.add('no-taskbar');
 
   const setScale = () => root.style.setProperty('--k', ((innerWidth < 700 ? SITE.pixelSizeSmall : SITE.pixelSize) / SITE.sourcePixel).toFixed(5));
