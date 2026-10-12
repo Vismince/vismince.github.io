@@ -129,6 +129,7 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
   background:var(--title-b);color:#fff;border:3px solid #fff;font-size:30px;padding-left:6px}
 .stage .vph{height:100%;border:0}
 .vcap{margin:12px 0 10px;text-align:center}
+.reel[hidden]{display:none}
 .reel{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
 .vthumb{width:170px;padding:4px;background:var(--btn-bg);border:2px solid var(--paper-line);text-align:left}
 .vthumb.on{border-color:var(--frame);background:var(--chip-bg)}
@@ -256,17 +257,19 @@ const SITE = {
   cursorHotspot: [0, 0]
 };
 
-/* Videos at the top of the page. For each one use EITHER:
+/* Videos at the top of the page. Put your video files in a folder called videos (lowercase). For each one use EITHER:
      youtube: 'VIDEO_ID'   (the part after v= in a YouTube link)
    OR
      src: 'videos/name.mp4' (a small file in your repo; keep each under about 25 MB)
    poster is an optional thumbnail image. Leave both empty for a placeholder. */
 const VIDEOS = [
-  { title: 'Showreel',             caption: 'Level design and tech art highlights', youtube: '', src: '', poster: '' },
+  { title: 'Showreel',             caption: 'Level design and tech art highlights', youtube: '', src: 'videos/showreel.mp4', poster: '' },
   { title: 'Project One',          caption: 'Walkthrough',                          youtube: '', src: '', poster: '' },
   { title: 'Project Two',          caption: 'Game jam gameplay',                    youtube: '', src: '', poster: '' },
   { title: 'Project Three',        caption: 'Voxel scene fly-through',              youtube: '', src: '', poster: '' }
 ];
+
+const VLIST = (() => { const r = VIDEOS.filter(v => v.src || v.youtube); return r.length ? r : VIDEOS; })();   // empty slots are hidden once you have a real video
 
 /* Projects: the one marked featured:true is shown large at the top; the rest form the grid. */
 const PROJECTS = [
@@ -357,19 +360,21 @@ function showreelHTML(){
   return winHTML('showreel', 'showreel.exe', 'video', `
     <div class="stage" id="stage"></div>
     <p class="vcap" id="vcap" style="margin-left:auto;margin-right:auto"></p>
-    <div class="reel">${VIDEOS.map((v,i) => {
+    <div class="reel"${VLIST.length < 2 ? ' hidden' : ''}>${VLIST.map((v,i) => {
       const poster = v.poster || (v.youtube ? `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg` : '');
       return `<button class="vthumb" data-v="${i}" aria-label="Show video: ${esc(v.title)}"><span class="vt">${
         poster ? `<img src="${esc(poster)}" alt="" loading="lazy">` : `<span class="ph">${ic('video')}</span>`}</span><span class="vl">${esc(v.title)}</span></button>`;
     }).join('')}</div>`);
 }
 function showVideo(i, play){
-  const v = VIDEOS[i], st = $('#stage');
+  const v = VLIST[i], st = $('#stage');
   document.querySelectorAll('.vthumb').forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-pressed', j === i); });
   $('#vcap').innerHTML = `<strong>${esc(v.title)}</strong>${v.caption ? ' · ' + esc(v.caption) : ''}`;
   if (v.src){
     st.innerHTML = `<video controls playsinline preload="metadata"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`;
-    if (play) st.firstElementChild.play().catch(() => {});
+    const vid = st.firstElementChild;
+    vid.addEventListener('error', () => { st.innerHTML = `<div class="ph vph"><div>${ic('video')}<br>Video could not be loaded:<br><code>${esc(v.src)}</code><br>Check the file name, that it is in the videos folder, and that it is an H.264 MP4.</div></div>`; }, true);
+    if (play) vid.play().catch(() => {});
   } else if (v.youtube){
     if (play){
       st.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?autoplay=1&rel=0" title="${esc(v.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
