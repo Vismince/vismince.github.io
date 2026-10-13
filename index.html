@@ -325,7 +325,9 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 /* ---------- 4. skills + contact ---------- */
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
 .skillgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:6px 32px}
-.skillgrid h3{margin-top:0}
+.skillgrid h4{margin:0 0 6px;font:700 16px/1.2 var(--px)}
+.skillsblock{margin-top:26px;padding-top:22px;border-top:2px dashed var(--paper-line)}
+.skillsblock > h3{margin:0 0 14px;font-size:20px}
 .w95-body .about p{max-width:80ch}
 .links{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px}
 
@@ -458,9 +460,9 @@ const SITE = {
     { label: 'GitHub',     url: 'https://github.com/' }
   ],
   skills: {
-    'Level design':  ['Paper maps', 'Greyboxing', 'Pacing and flow', 'Sightlines and landmarks', 'Playtesting', 'Encounter design'],
+    'Level design':  ['Layout sketching', 'Greyboxing', 'Pacing and flow', 'Sightlines and landmarks', 'Playtesting', 'Encounter design'],
     'Tech / art':    ['Modular kits', 'Lighting', 'Shaders (basic)', 'Level tools and scripting', 'Optimization', 'Procedural layouts'],
-    'Tools':         ['Unity', 'Godot', 'Unreal', 'MagicaVoxel', 'Blender', 'Git', 'Figma / Miro']   // keep only what you really use
+    'Tools':         ['Unity', 'Godot', 'Unreal', 'Blender']   // keep only what you really use
   },
 
   /* look and feel */
@@ -676,9 +678,8 @@ function aboutHTML(){
       <div class="h1">${esc(SITE.name)}</div>
       <p class="role">${esc(SITE.role)}${SITE.location ? ' · ' + esc(SITE.location) : ''}</p>
       ${SITE.about.map(p => `<p>${esc(p)}</p>`).join('')}
-      <div class="seek"><strong>${esc(SITE.lookingFor.headline)}</strong>${esc(SITE.lookingFor.details)}</div>
       <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
-    </div></div>${photosHTML()}`);
+    </div></div>${skillsHTML()}${photosHTML()}`);
 }
 
 /* 3. projects */
@@ -712,14 +713,14 @@ function openCase(id, from){
 }
 
 /* 4. skills */
-function skillsHTML(){
-  return w95HTML('skills', 'skills & tools', 'tools', `<div class="skillgrid">` +
-    Object.entries(SITE.skills).map(([k, v]) => `<div><h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + `</div>`);
+function skillsHTML(){          // shown inside the About me window, under your text
+  return `<div class="skillsblock"><h3>skills &amp; tools</h3><div class="skillgrid">` +
+    Object.entries(SITE.skills).map(([k, v]) => `<div><h4>${esc(k)}</h4><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + `</div></div>`;
 }
 $('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
 $('#hello').innerHTML = introHTML();
 $('#projwrap').innerHTML = projectsHTML();
-$('#page').innerHTML = aboutHTML() + skillsHTML();
+$('#page').innerHTML = aboutHTML();
 /* find out which of the listed videos exist, then show only those (a missing file gets no dot) */
 function videoExists(v){
   if (v.youtube) return Promise.resolve(true);
