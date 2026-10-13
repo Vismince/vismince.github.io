@@ -422,12 +422,12 @@ const SITE = {
    poster is an optional thumbnail image. Leave both empty for a placeholder. */
 const VIDEOS = [
   { title: 'Showreel',             caption: 'Level design and tech art highlights', youtube: '', src: 'videos/showreel.mp4', poster: '' },
-  { title: 'Project One',          caption: 'Walkthrough',                          youtube: '', src: '', poster: '' },
-  { title: 'Project Two',          caption: 'Game jam gameplay',                    youtube: '', src: '', poster: '' },
-  { title: 'Project Three',        caption: 'Voxel scene fly-through',              youtube: '', src: '', poster: '' }
+  { title: 'Project One',          caption: 'Walkthrough',                          youtube: '', src: 'videos/project-one.mp4', poster: '' },
+  { title: 'Project Two',          caption: 'Game jam gameplay',                    youtube: '', src: 'videos/project-two.mp4', poster: '' },
+  { title: 'Project Three',        caption: 'Voxel scene fly-through',              youtube: '', src: 'videos/project-three.mp4', poster: '' }
 ];
 
-const VLIST = (() => { const r = VIDEOS.filter(v => v.src || v.youtube); return r.length ? r : VIDEOS; })();   // empty slots are hidden once you have a real video
+let VLIST = VIDEOS.filter(v => v.src || v.youtube).slice(0, 1);   // filled in properly by initShowreel(), which skips videos whose file is missing
 
 /* Projects: the one marked featured:true is shown large at the top; the rest form the grid. */
 const PROJECTS = [
@@ -657,21 +657,41 @@ function contactHTML(){
     <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
     <ul class="links">${SITE.links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>`);
 }
-$('#showreel').innerHTML = showreelHTML();
+$('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
 $('#page').innerHTML = introHTML() + projectsHTML() + aboutHTML()
   + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
   + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
-showVideo(0, false);
-if (VLIST.length > 1){
-  document.addEventListener('keydown', e => {                                   // arrow keys switch videos while focus is on the video area
-    const wrap = document.getElementById('showreel');
-    if (!wrap || !wrap.contains(document.activeElement)) return;
-    if (e.key === 'ArrowLeft'){ e.preventDefault(); stepVideo(-1); } else if (e.key === 'ArrowRight'){ e.preventDefault(); stepVideo(1); }
+/* find out which of the listed videos exist, then show only those (a missing file gets no dot) */
+function videoExists(v){
+  if (v.youtube) return Promise.resolve(true);
+  if (!v.src) return Promise.resolve(false);
+  return new Promise(res => {
+    const t = document.createElement('video'); let done = false;
+    const end = ok => { if (done) return; done = true; t.removeAttribute('src'); t.load(); res(ok); };
+    t.preload = 'metadata'; t.muted = true;
+    t.onloadedmetadata = () => end(true); t.onerror = () => end(false);
+    setTimeout(() => end(true), 8000);            // a very slow connection: assume it exists
+    t.src = v.src;
   });
-  let x0 = null; const sw = document.getElementById('stagewrap');                // swipe on touch screens
-  sw.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
-  sw.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) stepVideo(dx < 0 ? 1 : -1); });
 }
+async function initShowreel(){
+  const ok = await Promise.all(VIDEOS.map(videoExists));
+  const found = VIDEOS.filter((v, i) => ok[i]);
+  VLIST = found.length ? found : VIDEOS.slice(0, 1);
+  $('#showreel').innerHTML = showreelHTML();
+  showVideo(0, false);
+  if (VLIST.length > 1){
+    document.addEventListener('keydown', e => {                                 // arrow keys switch videos while focus is on the video area
+      const wrap = document.getElementById('showreel');
+      if (!wrap || !wrap.contains(document.activeElement)) return;
+      if (e.key === 'ArrowLeft'){ e.preventDefault(); stepVideo(-1); } else if (e.key === 'ArrowRight'){ e.preventDefault(); stepVideo(1); }
+    });
+    let x0 = null; const sw = document.getElementById('stagewrap');              // swipe on touch screens
+    sw.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+    sw.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) stepVideo(dx < 0 ? 1 : -1); });
+  }
+}
+initShowreel();
 startChat();
 
 /* page interactions */
