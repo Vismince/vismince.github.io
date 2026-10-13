@@ -364,7 +364,8 @@ const SITE = {
   pixelSizeSmall: 2,                               // same, for phones and small windows
   sourcePixel: 9,                                  // how many pixels wide one art pixel is in your PNG files (yours are 9)
   showreelAutoplay: true,                          // the video starts by itself, silent, with no controls (browsers only allow silent autoplay)
-  showreelLoop: true,                              // repeat the video
+  showreelAdvance: true,                           // with more than one video: when one ends, go to the next (after the last, back to the first)
+  showreelLoop: true,                              // repeat the video when there is only one (or when showreelAdvance is false)
   showreelAspect: '1.8 / 1',                       // shape of the video area. '16 / 9' is the tallest, '2 / 1' is shorter, '21 / 9' is a slim cinema strip
   showreelMaxHeight: 88,                           // never taller than this % of the screen height (0 = no limit)
   showreelFit: 'cover',                            // 'cover' fills the width and crops the top and bottom; 'contain' shows the whole video with black bars
@@ -538,12 +539,14 @@ function showVideo(i, play){
   if ($('#vcap')) $('#vcap').innerHTML = `<strong>${esc(v.title)}</strong>${v.caption ? ' · ' + esc(v.caption) : ''}`;
   if (v.src){
     const auto = SITE.showreelAutoplay !== false && !matchMedia('(prefers-reduced-motion: reduce)').matches;   // plays by itself, silent, no controls
+    const advance = auto && VLIST.length > 1 && SITE.showreelAdvance !== false;                               // with several videos: move on to the next one when this one ends
     st.innerHTML = auto
-      ? `<video class="auto" autoplay muted${SITE.showreelLoop === false ? '' : ' loop'} playsinline disablepictureinpicture disableremoteplayback tabindex="-1" controlslist="nodownload noplaybackrate nofullscreen" preload="auto"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`
+      ? `<video class="auto" autoplay muted${!advance && SITE.showreelLoop !== false ? ' loop' : ''} playsinline disablepictureinpicture disableremoteplayback tabindex="-1" controlslist="nodownload noplaybackrate nofullscreen" preload="auto"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`
       : `<video controls playsinline preload="metadata"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`;
     const vid = st.firstElementChild;
     if (auto){
       vid.muted = true;                                                            // browsers only allow autoplay when the video is silent
+      if (advance) vid.addEventListener('ended', () => stepVideo(1));              // after the last video it goes back to the first
       vid.play().catch(() => { vid.classList.remove('auto'); vid.controls = true; });   // if a browser still blocks it, show a play button so the video isn't stuck
       vid.addEventListener('contextmenu', e => e.preventDefault());
     }
