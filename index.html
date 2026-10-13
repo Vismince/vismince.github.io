@@ -70,16 +70,17 @@ svg{shape-rendering:crispEdges}
 .title .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
 /* quick hello: a character talking in a chat box */
+#hello{padding:32px var(--hello-edge, 22px) 0 max(16px, calc((100% - 1068px) / 2))}   /* lines up with the page content on the left, close to the frame on the right */
 .hello{display:flex;align-items:flex-start;gap:34px;scroll-margin-top:calc(var(--stick-h) + 20px)}
-.hello .char{flex:none;display:flex;align-items:flex-end;margin-top:calc(var(--hang, 0px) * -1)}
+.hello .char{flex:none;display:flex;align-items:flex-end;margin-left:auto;margin-top:calc(var(--hang, 0px) * -1)}
 .hello .char img{display:block;height:var(--char-h,180px);width:auto;max-width:44vw}
 .hello.px .char img{image-rendering:pixelated}
 .hello.flip .char img{transform:scaleX(-1)}
 .hello .char .ph{width:calc(var(--char-h,180px) * .7);height:var(--char-h,180px);padding:8px;border:3px dashed #fff;background:rgba(0,0,0,.25);color:#fff;font-size:13px;text-shadow:1px 1px 0 #000}
-.chat{position:relative;flex:1;min-width:0;margin-bottom:12px;padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
+.chat{position:relative;flex:1;min-width:0;max-width:900px;margin-bottom:12px;padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
 .chat::before,.chat::after{content:'';position:absolute;width:0;height:0;border:solid transparent}
-.chat::before{left:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 20px 12px 0;border-right-color:#000}    /* tail, outline */
-.chat::after{left:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 16px 9px 0;border-right-color:#fff}      /* tail, fill */
+.chat::before{right:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 0 12px 20px;border-left-color:#000}    /* tail, outline */
+.chat::after{right:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 0 9px 16px;border-left-color:#fff}      /* tail, fill */
 .chat .who{position:absolute;left:14px;top:-17px;padding:2px 12px;background:var(--blue);color:#fff;border:2px solid #000;font:16px/1.3 var(--px)}
 .chat .say{margin:0 0 10px;font-size:1.2em;line-height:1.55;max-width:62ch}
 .chat .say:first-of-type{font-family:var(--px);font-size:1.5em}
@@ -96,10 +97,12 @@ svg{shape-rendering:crispEdges}
 .chat .choices a::before{content:'\25B8';margin-right:6px}
 .chat .choices a:hover{background:var(--blue);color:#fff}
 @media (max-width:760px){
-  .hello{flex-direction:column;align-items:flex-start;gap:22px}
-  .chat{width:100%;margin-left:0;padding:24px 18px 18px}
-  .chat::before{left:auto;right:56px;bottom:auto;top:-24px;border-width:0 12px 21px 12px;border-bottom-color:#000;border-right-color:transparent}
-  .chat::after{left:auto;right:59px;bottom:auto;top:-18px;border-width:0 9px 17px 9px;border-bottom-color:#fff;border-right-color:transparent}
+  #hello{padding:26px 14px 0}
+  .hello{flex-direction:column-reverse;align-items:flex-end;gap:22px}
+  .hello .char{margin-left:0;margin-right:16px}
+  .chat{width:100%;max-width:none;margin-left:0;padding:24px 18px 18px}
+  .chat::before{left:auto;right:56px;bottom:auto;top:-24px;border-width:0 12px 21px 12px;border-bottom-color:#000;border-left-color:transparent;border-right-color:transparent}
+  .chat::after{left:auto;right:59px;bottom:auto;top:-18px;border-width:0 9px 17px 9px;border-bottom-color:#fff;border-left-color:transparent;border-right-color:transparent}
   body .menubar .menu a{padding:1px 6px;font-size:14px}
 }
 @media (max-width:380px){
@@ -333,6 +336,7 @@ dialog.win > .body{overflow:auto;flex:1}
   <section id="showreel" aria-label="Showreel"></section>
   <div class="sill" aria-hidden="true"></div>
   <div class="floor" data-floor="middle" aria-hidden="true"></div>
+  <div id="hello"></div>
   <main id="page"></main>
   <div class="floor" data-floor="bottom" aria-hidden="true"></div>
 </div>
@@ -589,12 +593,12 @@ function showVideo(i, play){
 function introHTML(){
   const lines = [].concat(SITE.intro);
   return `<section class="hello${SITE.characterFlip ? ' flip' : ''}${SITE.characterPixelated ? ' px' : ''}" id="intro" aria-label="Introduction" style="--char-h:${SITE.characterHeight || 260}px;--hang:${SITE.characterHang || 0}px">
-    <div class="char"><img src="${esc(SITE.character)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'Add your character: ${esc(SITE.character)}'}))"></div>
     <div class="chat" id="chat"><span class="who">${esc(SITE.name)}</span>
       ${lines.map(l => `<p class="say"><span class="sr">${esc(l)}</span><span class="t" aria-hidden="true" data-full="${esc(l)}"></span></p>`).join('')}
       <div class="seek reveal"><strong style="margin:0">${esc(SITE.lookingFor.headline)}</strong></div>
       <div class="choices reveal"><a href="#projects" data-go="projects">See my projects</a><a href="#contact" data-go="contact">Contact me</a></div>
-    </div></section>`;
+    </div>
+    <div class="char"><img src="${esc(SITE.character)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'Add your character: ${esc(SITE.character)}'}))"></div></section>`;
 }
 function waveBadge(b){            // little hop when you click the corner badge
   b.classList.remove('hop'); void b.offsetWidth; b.classList.add('hop');
@@ -686,7 +690,8 @@ function contactHTML(){
     <ul class="links">${SITE.links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>`);
 }
 $('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
-$('#page').innerHTML = introHTML() + projectsHTML() + aboutHTML()
+$('#hello').innerHTML = introHTML();
+$('#page').innerHTML = projectsHTML() + aboutHTML()
   + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
   + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
 /* find out which of the listed videos exist, then show only those (a missing file gets no dot) */
