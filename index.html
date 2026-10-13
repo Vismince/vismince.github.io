@@ -55,7 +55,7 @@ a{color:var(--link)}
 :focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
 svg{shape-rendering:crispEdges}
 
-#page{position:relative;z-index:1;max-width:none;margin:0;padding:76px 24px 28px;display:flex;flex-direction:column;gap:76px}
+#page{position:relative;z-index:1;max-width:none;margin:0;padding:76px 24px 76px;display:flex;flex-direction:column;gap:76px}
 #page .w95{width:100%}
 
 /* ---------- title bar: solid, at the very top, with your name and role (plain blue bar until images/frame-title.png loads) ---------- */
@@ -121,7 +121,7 @@ svg{shape-rendering:crispEdges}
 @media (max-width:760px){
   #hello{padding:26px 14px 0}
   #projwrap{padding:40px 14px 0}
-  #page{padding:40px 14px 28px;gap:40px}
+  #page{padding:40px 14px 40px;gap:40px}
   .hello{flex-direction:column-reverse;align-items:flex-end;gap:22px}
   .hello.ov .chat::before,.hello.ov .chat::after{display:block}
   .hello.ov .chat{padding-right:18px}
@@ -328,7 +328,6 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .skillgrid h3{margin-top:0}
 .w95-body .about p{max-width:80ch}
 .links{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px}
-.foot{margin-top:-44px;align-self:center;padding:6px 16px;background:var(--chrome);border:2px solid var(--chrome-line);font-size:13px;text-align:center}
 
 /* ---------- case-study dialog ---------- */
 dialog.win{overflow:hidden;padding:0;margin:auto;width:min(780px,94vw);max-height:90vh;color:var(--ink)}
@@ -353,7 +352,6 @@ dialog.win > .body{overflow:auto;flex:1}
   .card.feat .thumb{border-right:0;border-bottom:2px solid var(--paper-line);aspect-ratio:16/9}
   .card.feat .ct{font-size:24px}
   .row2{grid-template-columns:1fr}
-  .foot{margin-top:-12px}
   .vthumb{width:calc(50% - 5px)}
 }
 </style>
@@ -713,7 +711,7 @@ function openCase(id, from){
   d._from = from; d.showModal(); d.querySelector('.body').scrollTop = 0;
 }
 
-/* 4. skills, contact, footer */
+/* 4. skills and contact */
 function skillsHTML(){
   return w95HTML('skills', 'skills & tools', 'tools', `<div class="skillgrid">` +
     Object.entries(SITE.skills).map(([k, v]) => `<div><h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + `</div>`);
@@ -729,8 +727,7 @@ function contactHTML(){
 $('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
 $('#hello').innerHTML = introHTML();
 $('#projwrap').innerHTML = projectsHTML();
-$('#page').innerHTML = aboutHTML() + skillsHTML() + contactHTML()
-  + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
+$('#page').innerHTML = aboutHTML() + skillsHTML() + contactHTML();
 /* find out which of the listed videos exist, then show only those (a missing file gets no dot) */
 function videoExists(v){
   if (v.youtube) return Promise.resolve(true);
