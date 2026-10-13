@@ -89,13 +89,13 @@ svg{shape-rendering:crispEdges}
 
 /* quick hello: a character talking in a chat box */
 #hello{padding:76px 24px 0}   /* the box and the mascot form one piece, centred on the page */
-.hello{max-width:1320px;margin-inline:auto;display:flex;align-items:flex-start;gap:0;scroll-margin-top:calc(var(--stick-h) + 20px)}
+.hello{max-width:1320px;margin-inline:auto;display:flex;align-items:flex-start;gap:0;scroll-margin-top:calc(var(--stick-h) + 20px);padding-bottom:12px}
 .hello .char{position:relative;z-index:3;flex:none;display:flex;align-items:flex-end;margin-left:auto;margin-top:calc(var(--hang, 0px) * -1)}
 .hello .char img{display:block;height:var(--char-h,180px);width:auto;max-width:44vw}
 .hello.px .char img{image-rendering:pixelated}
 .hello.flip .char img{transform:scaleX(-1)}
 .hello .char .ph{width:calc(var(--char-h,180px) * .7);height:var(--char-h,180px);padding:8px;border:3px dashed #fff;background:rgba(0,0,0,.25);color:#fff;font-size:13px;text-shadow:1px 1px 0 #000}
-.chat{position:relative;flex:1;min-width:0;margin-right:calc(var(--overlap, 64px) * -1);margin-bottom:12px;padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
+.chat{position:relative;flex:1;min-width:0;margin-right:calc(var(--overlap, 64px) * -1);padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
 .chat::before,.chat::after{content:'';position:absolute;width:0;height:0;border:solid transparent}
 .chat::before{right:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 0 12px 20px;border-left-color:#000}    /* tail, outline */
 .chat::after{right:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 0 9px 16px;border-left-color:#fff}      /* tail, fill */
@@ -113,11 +113,7 @@ svg{shape-rendering:crispEdges}
 .chat .reveal{opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s}
 .chat.done .reveal{opacity:1;transform:none}
 .chat .seek{margin:12px 0 14px}
-.chat .seek strong,.chat .choices a{font-family:var(--name-font);font-weight:400}
-.chat .choices{display:flex;flex-wrap:wrap;gap:6px 10px}
-.chat .choices a{display:inline-block;padding:4px 14px 4px 10px;color:#000;text-decoration:none;background:var(--btn-bg);border:1px solid var(--btn-line)}
-.chat .choices a::before{content:'\25B8';margin-right:6px}
-.chat .choices a:hover{background:var(--blue);color:#fff}
+.chat .seek strong{font-family:var(--name-font);font-weight:400}
 @media (max-width:760px){
   #hello{padding:26px 14px 0}
   #projwrap{padding:40px 14px 0}
@@ -381,7 +377,7 @@ const SITE = {
     headline: 'Looking for a level design internship in 2027',
     details: 'Interested in indie studios and small teams where I can work across level design, art and tools. Open to remote work or relocating (edit this line: dates, length, location).'
   },
-  intro: ['Hi, I’m Jasmine!', 'A level designer who works across the editor and the art side: blockouts, lighting, kitbashing and small tools. I started out in game art, so I care about how a space looks as much as how it plays.'],   // what the character says (each line is typed out in turn)
+  intro: ['Hi, I’m Jasmine!', 'A level designer who works across the editor and the art side: blockouts, lighting, kitbashing and small tools.', 'I started out in game art, so I care about how a space looks as much as how it plays.'],   // what the character says (each line is typed out in turn)
   character: 'images/hello-mascot.png',               // your character PNG, shown next to the chat box. Missing file = a dashed placeholder
   characterHeight: 260,                            // height of the character in pixels
   characterHang: 0,                                // how far the character reaches up into the bar above (30 = hangs from it, 0 = starts below it, -20 = lower still)
@@ -625,7 +621,6 @@ function introHTML(){
     <div class="chat" id="chat"><span class="who">${esc(SITE.name)}</span>
       ${lines.map(l => `<p class="say"><span class="sr">${esc(l)}</span><span class="t" aria-hidden="true" data-full="${esc(l)}"><span class="a"></span><span class="b">${esc(l)}</span></span></p>`).join('')}
       <div class="seek reveal"><strong style="margin:0">${esc(SITE.lookingFor.headline)}</strong></div>
-      <div class="choices reveal"><a href="#projects" data-go="projects">See my projects</a><a href="#contact" data-go="contact">Contact me</a></div>
     </div>
     <div class="char"><img src="${esc(SITE.character)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'Add your character: ${esc(SITE.character)}'}))"></div></section>`;
 }
