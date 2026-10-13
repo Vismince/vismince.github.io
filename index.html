@@ -118,6 +118,15 @@ body.ttl-img .title{width:100%;height:calc(var(--k) * var(--wh) * 1px);margin:0;
 body.ttl-img{--face-h:calc(var(--k) * (var(--w2) - var(--w1)) * var(--face-scale, 1) * 1px);--face-w:var(--face-h);--face-x:calc(var(--ks) * var(--wl) * 1px + 8px)}
 body.ttl-img .title .badge{position:absolute;z-index:5;left:var(--face-x);top:calc(var(--k) * var(--face-top, 36) * 1px);width:var(--face-w);height:var(--face-h);margin:0}
 body.ttl-img .title .badge .pic{width:100%;height:100%;border-width:calc(var(--k) * 9px);box-shadow:calc(var(--k) * 12px) calc(var(--k) * 12px) 0 rgba(0,0,0,.35)}
+body.has-btn .title .tbtn{display:block;position:absolute;z-index:6;right:calc(var(--ks) * var(--br) * 1px);top:calc(var(--k) * var(--bt) * 1px);width:calc(var(--k) * var(--bw) * 1px);height:calc(var(--k) * var(--bh) * 1px);
+  background:var(--ttl-img) no-repeat;background-size:calc(var(--k) * var(--ww) * 1px) calc(var(--k) * var(--wh) * 1px);background-position:calc(var(--k) * var(--bl) * -1px) calc(var(--k) * var(--bt) * -1px)}
+.title .tbtn{display:none}
+.title .tbtn svg{position:absolute;left:calc(var(--k) * var(--bfx) * 1px - var(--lu) * 6);top:calc(var(--k) * var(--bfy) * 1px - var(--lu) * 6);width:calc(var(--lu) * 12);height:calc(var(--lu) * 12);shape-rendering:crispEdges}
+.title .tbtn{--lu:calc(var(--k) * 6px)}
+.title .tbtn:hover svg{filter:brightness(1.18)}
+.title .tbtn:active svg{transform:translate(1px,1px)}
+body.sharp .title .tbtn{image-rendering:pixelated}
+body.has-btn.ttl-img .title .ttl{right:calc(var(--ks) * var(--br) * 1px + var(--k) * var(--bw) * 1px + 14px)}
 body.ttl-img.has-face .title .ttl{left:calc(var(--face-x) + var(--face-w) + var(--name-gap, 26px))}
 body.ttl-img.has-face .menubar .menu{left:calc(var(--face-x) + var(--face-w) - var(--frm-bw, 0px) + var(--face-gap, 28px))}
 body.pinned.ttl-img.has-face .menubar .menu{left:8px}
@@ -377,6 +386,12 @@ const SITE = {
   showreelFit: 'cover',                            // 'cover' fills the width and crops the top and bottom; 'contain' shows the whole video with black bars
   topTabOpacity: 0.7,                              // how solid the blue current-section tab is at the very top of the page (1 = solid, 0.5 = quite see-through). Once pinned it is always solid
   barOpacity: 0.5,                                 // how solid the menu bar is over the video (1 = solid, 0.3 = very see-through). The title bar is always solid
+  titleButton: {                                   // the square button on the right of frame-title.png, made clickable with a pixel LinkedIn logo
+    href: 'https://www.linkedin.com/in/jasmine-vis/', title: 'LinkedIn',
+    left: 4308, top: 48, width: 120, height: 114,  // where the button sits in the image, in file pixels
+    right: 72,                                     // distance from the button's right edge to the image's right edge
+    faceX: 55.5, faceY: 52.5                       // centre of the button's grey face (the logo is centred there)
+  },
   titleFrame: { leftCap: 51, rightCap: 51, fillAt: 2000, title: [33, 177] },     // measurements of frame-title.png in file pixels: edge widths, a flat spot to stretch, title row top and bottom
   pinImage: 'images/frame-pinned.png',             // grey bar shown once the menu is pinned to the top while you scroll. Missing file = a plain grey bar
   pinTabs: { top: 48, height: 123 },               // where the blue current-section block sits in the pinned bar, in file pixels (divide by 3 for screen pixels). 48 and 123 centre it in the grey part of the bar; smaller top = higher, smaller height = shorter
@@ -407,7 +422,7 @@ const SITE = {
   links: [
     { label: 'itch.io',    url: 'https://itch.io/' },
     { label: 'ArtStation', url: 'https://www.artstation.com/' },
-    { label: 'LinkedIn',   url: 'https://www.linkedin.com/' },
+    { label: 'LinkedIn',   url: 'https://www.linkedin.com/in/jasmine-vis/' },
     { label: 'GitHub',     url: 'https://github.com/' }
   ],
   skills: {
@@ -529,6 +544,7 @@ function winHTML(id, title, icon, inner){
 }
 
 /* 1. showreel */
+const LI_LOGO = '<svg viewBox="0 0 12 12" aria-hidden="true"><g fill="#0a66c2"><rect x="1" y="0" width="10" height="1"/><rect x="0" y="1" width="12" height="10"/><rect x="1" y="11" width="10" height="1"/></g><g fill="#fff"><rect x="2" y="2" width="2" height="2"/><rect x="2" y="5" width="2" height="5"/><rect x="5" y="5" width="2" height="5"/><rect x="7" y="5" width="3" height="2"/><rect x="8" y="7" width="2" height="3"/></g></svg>';
 const CHEV = '<svg viewBox="0 0 7 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="3" height="1"/><rect x="1" y="1" width="3" height="1"/><rect x="2" y="2" width="3" height="1"/><rect x="3" y="3" width="3" height="1"/><rect x="4" y="4" width="3" height="1"/><rect x="3" y="5" width="3" height="1"/><rect x="2" y="6" width="3" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="0" y="8" width="3" height="1"/></svg>';
 const DOT = '<svg viewBox="0 0 5 5" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="3" height="1"/><rect x="0" y="1" width="5" height="3"/><rect x="1" y="4" width="3" height="1"/></svg>';
 let curVideo = 0;
@@ -846,6 +862,13 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
       ['cap l', 'fill', 'cap r'].reverse().forEach(c => { const e = document.createElement('span'); e.className = c; e.setAttribute('aria-hidden', 'true'); $('#top').prepend(e); });
       body.classList.add('ttl-img');
       info.title = { h: im.naturalHeight }; layoutMenu();
+      const tb = SITE.titleButton;                                                 // the square button drawn on the right of your title image
+      if (tb && tb.href){
+        Object.entries({ bl: tb.left, bt: tb.top, bw: tb.width, bh: tb.height, br: tb.right, bfx: tb.faceX, bfy: tb.faceY }).forEach(([n, x]) => root.style.setProperty('--' + n, x));
+        const a = document.createElement('a');
+        a.className = 'tbtn'; a.href = tb.href; a.target = '_blank'; a.rel = 'noopener'; a.title = tb.title || 'LinkedIn'; a.setAttribute('aria-label', (tb.title || 'LinkedIn') + ' (opens in a new tab)');
+        a.innerHTML = LI_LOGO; $('#top').appendChild(a); body.classList.add('has-btn');
+      }
     };
     im.src = SITE.titleImage;
   }
