@@ -49,7 +49,7 @@ a{color:var(--link)}
 :focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
 svg{shape-rendering:crispEdges}
 
-#page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:64px 16px 28px;display:flex;flex-direction:column;gap:32px}
+#page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 28px;display:flex;flex-direction:column;gap:32px}
 
 /* ---------- title bar: solid, at the very top, with your name and role (plain blue bar until images/frame-title.png loads) ---------- */
 .title{display:flex;align-items:center;gap:14px;position:relative;z-index:120;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
@@ -69,6 +69,21 @@ svg{shape-rendering:crispEdges}
 .title .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .title .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
+/* frame-style window (Projects): same widths, colours and bevels as the frame pieces */
+#projwrap{padding:64px 24px 0}
+.w95{position:relative;max-width:1320px;margin:0 auto;padding:11px;background:#bfbfbf;scroll-margin-top:calc(var(--stick-h) + 20px);
+  box-shadow:inset 3px 3px 0 #bfbfbf, inset 6px 6px 0 #fff, inset 11px 11px 0 #bfbfbf,
+             inset -3px -3px 0 #000, inset -6px -6px 0 #818181, inset -11px -11px 0 #bfbfbf}
+.w95-title{display:flex;align-items:center;gap:8px;height:38px;margin-bottom:8px;padding:0 6px 0 10px;background:var(--blue);color:#fff}
+.w95-title svg{width:20px;height:20px;flex:none}
+.w95-title .t{flex:1;margin:0;font:400 17px/1.2 var(--name-font);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w95 .tb{width:26px;height:26px;border:0;border-radius:0;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#bfbfbf;color:#000;font:700 14px/1 var(--ui);
+  box-shadow:inset -3px -3px 0 #000, inset -6px -6px 0 #818181, inset 3px 3px 0 #fff}
+.w95 button.tb:active{box-shadow:inset 3px 3px 0 #000, inset 6px 6px 0 #818181;filter:none}
+.w95-body{padding:22px 24px;background:#fff;color:var(--ink);
+  box-shadow:inset 3px 3px 0 #818181, inset 6px 6px 0 #000, inset -3px -3px 0 #fff, inset -6px -6px 0 #dfdfdf}
+.w95.collapsed .w95-body{display:none}
+
 /* quick hello: a character talking in a chat box */
 #hello{padding:76px 24px 0}   /* the box and the mascot form one piece, centred on the page */
 .hello{max-width:1320px;margin-inline:auto;display:flex;align-items:flex-start;gap:0;scroll-margin-top:calc(var(--stick-h) + 20px)}
@@ -102,7 +117,8 @@ svg{shape-rendering:crispEdges}
 .chat .choices a:hover{background:var(--blue);color:#fff}
 @media (max-width:760px){
   #hello{padding:26px 14px 0}
-  #page{padding-top:40px}
+  #projwrap{padding:40px 14px 0}
+  #page{padding-top:28px}
   .hello{flex-direction:column-reverse;align-items:flex-end;gap:22px}
   .hello.ov .chat::before,.hello.ov .chat::after{display:block}
   .hello.ov .chat{padding-right:18px}
@@ -344,6 +360,7 @@ dialog.win > .body{overflow:auto;flex:1}
   <div class="sill" aria-hidden="true"></div>
   <div class="floor" data-floor="middle" aria-hidden="true"></div>
   <div id="hello"></div>
+  <div id="projwrap"></div>
   <main id="page"></main>
   <div class="floor" data-floor="bottom" aria-hidden="true"></div>
 </div>
@@ -410,7 +427,7 @@ const SITE = {
                                                    // measurements of frame-top.png in file pixels: left edge width, right part
                                                    // (buttons) width, a flat spot to stretch, title bar top/bottom, menu bar top/bottom
   sharp: true,                                     // keep the frame crisp (pixel art)
-  nameFont: 'Pixelify Sans',                       // Pixelify Sans, Silkscreen, Press Start 2P, VT323, Jersey 10, Tiny5, DotGothic16
+  nameFont: 'Tiny5',                               // the font for your name, tabs and the hello box: Tiny5, Jersey 10, VT323, DotGothic16, Silkscreen, Press Start 2P, or Pixelify Sans (its h has a little flag)
   titlePortrait: 'images/portrait-mascot.png',     // small portrait of your character at the left of the title bar, before your name. Missing file = nothing shown
   titlePortraitSize: 2.4,                          // height of the corner badge compared with the blue title bar. 2.4 hangs down over the menu bar
   titlePortraitTop: 36,                            // how far the badge hangs below the top edge of the page, in file pixels (36 = about 12 screen pixels). Bigger = lower
@@ -673,7 +690,14 @@ function cardHTML(p){
 }
 function projectsHTML(){
   const feat = PROJECTS.filter(p => p.featured).slice(0, 1), rest = PROJECTS.filter(p => !feat.includes(p));
-  return winHTML('projects', 'projects', 'folder', `<div class="pgrid">${[...feat, ...rest].map(cardHTML).join('')}</div>`);
+  return w95HTML('projects', 'projects', 'folder', `<div class="pgrid">${[...feat, ...rest].map(cardHTML).join('')}</div>`);
+}
+function w95HTML(id, title, icon, inner){        // a window drawn in the same grey, bevelled style as your frame pieces
+  return `<section class="w95" id="${id}" aria-labelledby="${id}-t">
+    <div class="w95-title">${ic(icon)}<h2 class="t" id="${id}-t">${esc(title)}</h2>
+      <button class="tb mn" aria-label="Collapse ${esc(title)}" aria-expanded="true">_</button>
+      <span class="tb" aria-hidden="true">□</span><span class="tb" aria-hidden="true">✕</span></div>
+    <div class="w95-body">${inner}</div></section>`;
 }
 function openCase(id, from){
   const p = PROJECTS.find(x => x.id === id), d = $('#case'); if (!p) return;
@@ -701,7 +725,8 @@ function contactHTML(){
 }
 $('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
 $('#hello').innerHTML = introHTML();
-$('#page').innerHTML = projectsHTML() + aboutHTML()
+$('#projwrap').innerHTML = projectsHTML();
+$('#page').innerHTML = aboutHTML()
   + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
   + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
 /* find out which of the listed videos exist, then show only those (a missing file gets no dot) */
@@ -756,7 +781,7 @@ startChat();
 document.addEventListener('click', e => {
   const t = e.target;
   const mn = t.closest('.tb.mn');
-  if (mn){ const w = mn.closest('.win'); const c = w.classList.toggle('collapsed'); mn.setAttribute('aria-expanded', !c); return; }
+  if (mn){ const w = mn.closest('.win, .w95'); const c = w.classList.toggle('collapsed'); mn.setAttribute('aria-expanded', !c); return; }
   const stp = t.closest('[data-vstep]'); if (stp){ stepVideo(+stp.dataset.vstep); return; }
   const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
   if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
