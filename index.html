@@ -70,8 +70,8 @@ svg{shape-rendering:crispEdges}
 .title .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
 /* quick hello: a character talking in a chat box */
-#hello{padding:56px var(--hello-edge, max(22px, calc((100% - 1068px) / 2 - 16px))) 0 max(16px, calc((100% - 1068px) / 2 - 60px))}   /* box reaches a little past the page content on the left; mascot stays just inside the frame on the right */
-.hello{display:flex;align-items:flex-start;gap:0;scroll-margin-top:calc(var(--stick-h) + 20px)}
+#hello{padding:76px 24px 0}   /* the box and the mascot form one piece, centred on the page */
+.hello{max-width:1320px;margin-inline:auto;display:flex;align-items:flex-start;gap:0;scroll-margin-top:calc(var(--stick-h) + 20px)}
 .hello .char{position:relative;z-index:3;flex:none;display:flex;align-items:flex-end;margin-left:auto;margin-top:calc(var(--hang, 0px) * -1)}
 .hello .char img{display:block;height:var(--char-h,180px);width:auto;max-width:44vw}
 .hello.px .char img{image-rendering:pixelated}
@@ -82,7 +82,7 @@ svg{shape-rendering:crispEdges}
 .chat::before{right:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 0 12px 20px;border-left-color:#000}    /* tail, outline */
 .chat::after{right:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 0 9px 16px;border-left-color:#fff}      /* tail, fill */
 .chat .who{position:absolute;left:14px;top:-17px;padding:2px 12px;background:var(--blue);color:#fff;border:2px solid #000;font:400 16px/1.3 var(--name-font)}
-.chat .say{margin:0 0 10px;font-family:var(--name-font);font-weight:400;font-size:1.2em;line-height:1.55;max-width:90ch}
+.chat .say{margin:0 0 10px;font-family:var(--name-font);font-weight:400;font-size:1.2em;line-height:1.55;max-width:none}
 .hello.ov .chat::before,.hello.ov .chat::after{display:none}      /* no speech tail while the mascot stands in front of the box */
 .hello.ov .chat{padding-right:calc(var(--overlap, 64px) + 26px)}
 .chat .say:first-of-type{font-size:1.5em}
@@ -366,7 +366,7 @@ const SITE = {
   characterPixelated: false,                       // true for pixel-art characters. Your illustrated one scales smoothly
   mascotOverlap: 64,                               // how far the mascot stands in front of the right end of the text box, in pixels (0 = beside the box, with a speech tail pointing at it)
   characterFlip: false,                            // true if the character faces the wrong way
-  introSpeed: 40,                                  // typing speed in the hello box: milliseconds per letter. Bigger = slower (22 was the old speed)
+  introSpeed: 30,                                  // typing speed in the hello box: milliseconds per letter. Bigger = slower (22 was fast, 40 felt slow)
   introTyping: true,                               // type the text out letter by letter (false = show it straight away)
   about: [
     'I design levels with one foot in the editor and the other in the art pipeline. I block out spaces, test them with real players, then push them through lighting, kitbashing, and small tools so they ship looking like the game.',
@@ -621,8 +621,8 @@ function startChat(){                      // types the lines out one after anot
     if (started) return; started = true;
     for (const t of spans){
       t.parentElement.classList.add('typing');
-      for (let i = 1; i <= t.dataset.full.length; i++){ t.textContent = t.dataset.full.slice(0, i); await new Promise(r => setTimeout(r, SITE.introSpeed || 40)); }
-      t.parentElement.classList.remove('typing'); await new Promise(r => setTimeout(r, 450));
+      for (let i = 1; i <= t.dataset.full.length; i++){ t.textContent = t.dataset.full.slice(0, i); await new Promise(r => setTimeout(r, SITE.introSpeed || 30)); }
+      t.parentElement.classList.remove('typing'); await new Promise(r => setTimeout(r, 350));
     }
     box.classList.add('done');
   };
