@@ -213,9 +213,9 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
   background:var(--title-b);color:#fff;border:3px solid #fff;font-size:30px;padding-left:6px}
 .stage .vph{height:100%;border:0}
 .stagewrap{position:relative;--u:4px}
-.vnav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;display:grid;place-items:center;width:calc(var(--u) * 12);height:calc(var(--u) * 18);padding:0;border:0;background:none;color:#fff;opacity:.55;transition:opacity .15s,background .15s}
-.vnav.prev{left:0}.vnav.next{right:0}
-.vnav svg{display:block;width:calc(var(--u) * 6);height:calc(var(--u) * 9);filter:drop-shadow(2px 2px 0 rgba(0,0,0,.6))}
+.vnav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;display:grid;place-items:center;width:calc(var(--u) * 12);height:calc(var(--u) * 18);padding:0;border:0;background:none;color:#fff;opacity:.45;transition:opacity .15s,background .15s}
+.vnav.prev{left:calc(var(--u) * 4)}.vnav.next{right:calc(var(--u) * 4)}      /* kept away from the edge of the video */
+.vnav svg{display:block;width:calc(var(--u) * 7);height:calc(var(--u) * 9);filter:drop-shadow(2px 2px 0 rgba(0,0,0,.6))}
 .vnav.prev svg{transform:scaleX(-1)}
 .vnav:hover,.vnav:focus-visible{opacity:1}
 .vnav.prev:hover,.vnav.prev:focus-visible{background:linear-gradient(to right,rgba(0,0,0,.3),transparent)}
@@ -519,7 +519,7 @@ function winHTML(id, title, icon, inner){
 }
 
 /* 1. showreel */
-const CHEV = '<svg viewBox="0 0 6 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="2" height="1"/><rect x="1" y="1" width="2" height="1"/><rect x="2" y="2" width="2" height="1"/><rect x="3" y="3" width="2" height="1"/><rect x="4" y="4" width="2" height="1"/><rect x="3" y="5" width="2" height="1"/><rect x="2" y="6" width="2" height="1"/><rect x="1" y="7" width="2" height="1"/><rect x="0" y="8" width="2" height="1"/></svg>';
+const CHEV = '<svg viewBox="0 0 7 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="3" height="1"/><rect x="1" y="1" width="3" height="1"/><rect x="2" y="2" width="3" height="1"/><rect x="3" y="3" width="3" height="1"/><rect x="4" y="4" width="3" height="1"/><rect x="3" y="5" width="3" height="1"/><rect x="2" y="6" width="3" height="1"/><rect x="1" y="7" width="3" height="1"/><rect x="0" y="8" width="3" height="1"/></svg>';
 const DOT = '<svg viewBox="0 0 5 5" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="3" height="1"/><rect x="0" y="1" width="5" height="3"/><rect x="1" y="4" width="3" height="1"/></svg>';
 let curVideo = 0;
 function showreelHTML(){        // the video, with soft arrows at the sides and white dots along the bottom when there is more than one
