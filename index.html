@@ -137,7 +137,7 @@ body.mb-img .menubar::before{background-color:transparent;box-shadow:none;backgr
 .menubar .menu{transition:left .2s;position:absolute;z-index:1;left:8px;right:8px;top:0;height:var(--mtext);display:flex;align-items:center;gap:0 2px;overflow:hidden}
 .menubar .menu a{color:#000;text-decoration:none;white-space:nowrap;padding:1px 10px;font:400 max(15px, calc(var(--mtext) * .5)) var(--name-font);text-shadow:0 0 3px rgba(255,255,255,.85)}
 .menubar .menu a:hover{background:#dcdcdc;box-shadow:inset 1px 1px #fff, inset -1px -1px #818181}
-.menubar .menu a.act,.menubar .menu a.act:hover{background:var(--blue);color:#fff;text-shadow:none;box-shadow:inset 1px 1px #6f9ff5, inset -1px -1px var(--blue-dark)}
+.menubar .menu a.act,.menubar .menu a.act:hover{background:rgba(23,96,229,var(--home-op, .7));color:#fff;text-shadow:none;box-shadow:inset 1px 1px rgba(111,159,245,var(--home-op, .7)), inset -1px -1px rgba(14,63,166,var(--home-op, .7))}   /* at the top of the page: see-through blue */
 /* once pinned: grey bar (your frame-pinned.png) with blue tab buttons; the tab for the page you have reached is pressed in */
 .menubar .pin{display:none}
 body.pinned .menubar{background:#bfbfbf;box-shadow:inset 0 calc(var(--k) * -9px) #818181}     /* plain grey bar until the image loads */
@@ -375,6 +375,7 @@ const SITE = {
   showreelAspect: '1.8 / 1',                       // shape of the video area. '16 / 9' is the tallest, '2 / 1' is shorter, '21 / 9' is a slim cinema strip
   showreelMaxHeight: 88,                           // never taller than this % of the screen height (0 = no limit)
   showreelFit: 'cover',                            // 'cover' fills the width and crops the top and bottom; 'contain' shows the whole video with black bars
+  topTabOpacity: 0.7,                              // how solid the blue current-section tab is at the very top of the page (1 = solid, 0.5 = quite see-through). Once pinned it is always solid
   barOpacity: 0.5,                                 // how solid the menu bar is over the video (1 = solid, 0.3 = very see-through). The title bar is always solid
   titleFrame: { leftCap: 51, rightCap: 51, fillAt: 2000, title: [33, 177] },     // measurements of frame-title.png in file pixels: edge widths, a flat spot to stretch, title row top and bottom
   pinImage: 'images/frame-pinned.png',             // grey bar shown once the menu is pinned to the top while you scroll. Missing file = a plain grey bar
@@ -788,6 +789,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--vasp', SITE.showreelAspect || '16 / 9');
   root.style.setProperty('--vfit', SITE.showreelFit || 'cover');
   root.style.setProperty('--bar-op', SITE.barOpacity);
+  root.style.setProperty('--home-op', SITE.topTabOpacity ?? 0.7);
   $('#top').classList.toggle('px', !!SITE.titlePortraitPixelated);
   $('#top').innerHTML = `${SITE.titlePortrait ? `<button class="badge" type="button" aria-label="Wave at the mascot"><span class="pic"><img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face')" onerror="this.closest('.badge').remove()"></span></button>` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
   $('#menubar').innerHTML = `<span class="pin" aria-hidden="true"><span class="cap l"></span><span class="fill"></span><span class="cap r"></span></span><nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
