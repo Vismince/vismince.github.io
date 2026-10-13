@@ -30,6 +30,7 @@
 /* the pixel hand: shown over anything you can click */
 @media (pointer:fine){
   a,a *,button,button *,[role="button"],[role="button"] *,summary,summary *,label[for],select,input[type="checkbox"],input[type="radio"],
+  .hello .char,.hello .char *,
   [data-go],[data-go] *,[data-v],[data-v] *,[data-vstep],[data-vstep] *,[data-p],[data-p] *,[data-photo],[data-photo] *,[data-main],[data-main] *,[data-close],[data-close] *{cursor:var(--cursor-hand)!important}
 }
 html{scroll-behavior:smooth}
@@ -94,8 +95,11 @@ svg{shape-rendering:crispEdges}
 .hello .char img{display:block;height:var(--char-h,180px);width:auto;max-width:44vw}
 .hello.px .char img{image-rendering:pixelated}
 .hello.flip .char img{transform:scaleX(-1)}
+.hello .char{animation:bob 2.6s steps(2) infinite}
+.hello .char:hover,.hello .char.hop{animation:hop .4s steps(4) 1}
+@media (prefers-reduced-motion:reduce){.hello .char{animation:none!important}}
 .hello .char .ph{width:calc(var(--char-h,180px) * .7);height:var(--char-h,180px);padding:8px;border:3px dashed #fff;background:rgba(0,0,0,.25);color:#fff;font-size:13px;text-shadow:1px 1px 0 #000}
-.chat{position:relative;flex:1;min-width:0;margin-right:calc(var(--overlap, 64px) * -1);padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
+.chat{position:relative;flex:1;min-width:0;min-height:var(--chat-min, 300px);margin-right:calc(var(--overlap, 64px) * -1);padding:30px 30px 26px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
 .chat::before,.chat::after{content:'';position:absolute;width:0;height:0;border:solid transparent}
 .chat::before{right:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 0 12px 20px;border-left-color:#000}    /* tail, outline */
 .chat::after{right:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 0 9px 16px;border-left-color:#fff}      /* tail, fill */
@@ -122,7 +126,7 @@ svg{shape-rendering:crispEdges}
   .hello.ov .chat::before,.hello.ov .chat::after{display:block}
   .hello.ov .chat{padding-right:18px}
   .hello .char{margin-left:0;margin-right:16px}
-  .chat{width:100%;max-width:none;margin-left:0;margin-right:0;padding:24px 18px 18px}
+  .chat{width:100%;max-width:none;min-height:0;margin-left:0;margin-right:0;padding:24px 18px 18px}
   .chat::before{left:auto;right:56px;bottom:auto;top:-24px;border-width:0 12px 21px 12px;border-bottom-color:#000;border-left-color:transparent;border-right-color:transparent}
   .chat::after{left:auto;right:59px;bottom:auto;top:-18px;border-width:0 9px 17px 9px;border-bottom-color:#fff;border-left-color:transparent;border-right-color:transparent}
   body .menubar .menu a{padding:1px 6px;font-size:14px}
@@ -382,6 +386,7 @@ const SITE = {
   characterHeight: 260,                            // height of the character in pixels
   characterHang: 0,                                // how far the character reaches up into the bar above (30 = hangs from it, 0 = starts below it, -20 = lower still)
   characterPixelated: false,                       // true for pixel-art characters. Your illustrated one scales smoothly
+  chatMinHeight: 300,                              // the least height of the hello text box, in pixels (bigger = taller box)
   mascotOverlap: 64,                               // how far the mascot stands in front of the right end of the text box, in pixels (0 = beside the box, with a speech tail pointing at it)
   characterFlip: false,                            // true if the character faces the wrong way
   introSpeed: 30,                                  // typing speed in the hello box: milliseconds per letter. Bigger = slower (22 was fast, 40 felt slow)
@@ -617,13 +622,14 @@ function showVideo(i, play){
 /* 2. about */
 function introHTML(){
   const lines = [].concat(SITE.intro);
-  return `<section class="hello${SITE.characterFlip ? ' flip' : ''}${SITE.characterPixelated ? ' px' : ''}${(SITE.mascotOverlap ?? 64) > 0 ? ' ov' : ''}" id="intro" aria-label="Introduction" style="--overlap:${SITE.mascotOverlap ?? 64}px;--char-h:${SITE.characterHeight || 260}px;--hang:${SITE.characterHang || 0}px">
+  return `<section class="hello${SITE.characterFlip ? ' flip' : ''}${SITE.characterPixelated ? ' px' : ''}${(SITE.mascotOverlap ?? 64) > 0 ? ' ov' : ''}" id="intro" aria-label="Introduction" style="--chat-min:${SITE.chatMinHeight ?? 300}px;--overlap:${SITE.mascotOverlap ?? 64}px;--char-h:${SITE.characterHeight || 260}px;--hang:${SITE.characterHang || 0}px">
     <div class="chat" id="chat"><span class="who">${esc(SITE.name)}</span>
       ${lines.map(l => `<p class="say"><span class="sr">${esc(l)}</span><span class="t" aria-hidden="true" data-full="${esc(l)}"><span class="a"></span><span class="b">${esc(l)}</span></span></p>`).join('')}
       <div class="seek reveal"><strong style="margin:0">${esc(SITE.lookingFor.headline)}</strong></div>
     </div>
     <div class="char"><img src="${esc(SITE.character)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'Add your character: ${esc(SITE.character)}'}))"></div></section>`;
 }
+document.addEventListener('animationend', e => { if (e.animationName === 'hop' && e.target.classList && e.target.classList.contains('char')) e.target.classList.remove('hop'); });   // after a hop, back to bobbing
 function waveBadge(b){            // little hop when you click the corner badge
   b.classList.remove('hop'); void b.offsetWidth; b.classList.add('hop');
 }
@@ -784,6 +790,7 @@ document.addEventListener('click', e => {
   const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
   if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
   const bd = t.closest('.badge'); if (bd){ waveBadge(bd); return; }
+  const mc = t.closest('.hello .char'); if (mc){ mc.classList.remove('hop'); void mc.offsetWidth; mc.classList.add('hop'); return; }   // the mascot hops when clicked
   const card = t.closest('.card'); if (card){ openCase(card.dataset.p, card); return; }
   const mp = t.closest('[data-main]'); if (mp){ showPhoto({ src: SITE.portrait, caption: SITE.portraitCaption || SITE.name, alt: 'Portrait of ' + SITE.name }, mp); return; }
   const ph = t.closest('.photo'); if (ph){ openPhoto(+ph.dataset.photo); return; }
