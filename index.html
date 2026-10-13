@@ -70,19 +70,21 @@ svg{shape-rendering:crispEdges}
 .title .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
 .h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
 /* quick hello: a character talking in a chat box */
-#hello{padding:32px var(--hello-edge, 22px) 0 max(16px, calc((100% - 1068px) / 2))}   /* lines up with the page content on the left, close to the frame on the right */
-.hello{display:flex;align-items:flex-start;gap:34px;scroll-margin-top:calc(var(--stick-h) + 20px)}
-.hello .char{flex:none;display:flex;align-items:flex-end;margin-left:auto;margin-top:calc(var(--hang, 0px) * -1)}
+#hello{padding:32px var(--hello-edge, max(22px, calc((100% - 1068px) / 2 - 16px))) 0 max(16px, calc((100% - 1068px) / 2 - 44px))}   /* box reaches a little past the page content on the left; mascot stays just inside the frame on the right */
+.hello{display:flex;align-items:flex-start;gap:0;scroll-margin-top:calc(var(--stick-h) + 20px)}
+.hello .char{position:relative;z-index:3;flex:none;display:flex;align-items:flex-end;margin-left:auto;margin-top:calc(var(--hang, 0px) * -1)}
 .hello .char img{display:block;height:var(--char-h,180px);width:auto;max-width:44vw}
 .hello.px .char img{image-rendering:pixelated}
 .hello.flip .char img{transform:scaleX(-1)}
 .hello .char .ph{width:calc(var(--char-h,180px) * .7);height:var(--char-h,180px);padding:8px;border:3px dashed #fff;background:rgba(0,0,0,.25);color:#fff;font-size:13px;text-shadow:1px 1px 0 #000}
-.chat{position:relative;flex:1;min-width:0;max-width:900px;margin-bottom:12px;padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
+.chat{position:relative;flex:1;min-width:0;margin-right:calc(var(--overlap, 36px) * -1);margin-bottom:12px;padding:26px 26px 22px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
 .chat::before,.chat::after{content:'';position:absolute;width:0;height:0;border:solid transparent}
 .chat::before{right:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 0 12px 20px;border-left-color:#000}    /* tail, outline */
 .chat::after{right:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 0 9px 16px;border-left-color:#fff}      /* tail, fill */
 .chat .who{position:absolute;left:14px;top:-17px;padding:2px 12px;background:var(--blue);color:#fff;border:2px solid #000;font:16px/1.3 var(--px)}
-.chat .say{margin:0 0 10px;font-size:1.2em;line-height:1.55;max-width:62ch}
+.chat .say{margin:0 0 10px;font-size:1.2em;line-height:1.55;max-width:90ch}
+.hello.ov .chat::before,.hello.ov .chat::after{display:none}      /* no speech tail while the mascot stands in front of the box */
+.hello.ov .chat{padding-right:calc(var(--overlap, 36px) + 26px)}
 .chat .say:first-of-type{font-family:var(--px);font-size:1.5em}
 .vdebug{position:absolute;left:14px;top:92px;z-index:6;max-width:min(620px,92%);padding:10px 14px;background:rgba(0,0,0,.82);color:#fff;font:13px/1.55 Consolas,monospace;border:2px solid #fff}
 .vdebug b{color:#ffd84a}
@@ -99,8 +101,10 @@ svg{shape-rendering:crispEdges}
 @media (max-width:760px){
   #hello{padding:26px 14px 0}
   .hello{flex-direction:column-reverse;align-items:flex-end;gap:22px}
+  .hello.ov .chat::before,.hello.ov .chat::after{display:block}
+  .hello.ov .chat{padding-right:18px}
   .hello .char{margin-left:0;margin-right:16px}
-  .chat{width:100%;max-width:none;margin-left:0;padding:24px 18px 18px}
+  .chat{width:100%;max-width:none;margin-left:0;margin-right:0;padding:24px 18px 18px}
   .chat::before{left:auto;right:56px;bottom:auto;top:-24px;border-width:0 12px 21px 12px;border-bottom-color:#000;border-left-color:transparent;border-right-color:transparent}
   .chat::after{left:auto;right:59px;bottom:auto;top:-18px;border-width:0 9px 17px 9px;border-bottom-color:#fff;border-left-color:transparent;border-right-color:transparent}
   body .menubar .menu a{padding:1px 6px;font-size:14px}
@@ -359,6 +363,7 @@ const SITE = {
   characterHeight: 260,                            // height of the character in pixels
   characterHang: 0,                                // how far the character reaches up into the bar above (30 = hangs from it, 0 = starts below it, -20 = lower still)
   characterPixelated: false,                       // true for pixel-art characters. Your illustrated one scales smoothly
+  mascotOverlap: 36,                               // how far the mascot stands in front of the right end of the text box, in pixels (0 = beside the box, with a speech tail pointing at it)
   characterFlip: false,                            // true if the character faces the wrong way
   introTyping: true,                               // type the text out letter by letter (false = show it straight away)
   about: [
@@ -592,7 +597,7 @@ function showVideo(i, play){
 /* 2. about */
 function introHTML(){
   const lines = [].concat(SITE.intro);
-  return `<section class="hello${SITE.characterFlip ? ' flip' : ''}${SITE.characterPixelated ? ' px' : ''}" id="intro" aria-label="Introduction" style="--char-h:${SITE.characterHeight || 260}px;--hang:${SITE.characterHang || 0}px">
+  return `<section class="hello${SITE.characterFlip ? ' flip' : ''}${SITE.characterPixelated ? ' px' : ''}${(SITE.mascotOverlap ?? 36) > 0 ? ' ov' : ''}" id="intro" aria-label="Introduction" style="--overlap:${SITE.mascotOverlap ?? 36}px;--char-h:${SITE.characterHeight || 260}px;--hang:${SITE.characterHang || 0}px">
     <div class="chat" id="chat"><span class="who">${esc(SITE.name)}</span>
       ${lines.map(l => `<p class="say"><span class="sr">${esc(l)}</span><span class="t" aria-hidden="true" data-full="${esc(l)}"></span></p>`).join('')}
       <div class="seek reveal"><strong style="margin:0">${esc(SITE.lookingFor.headline)}</strong></div>
