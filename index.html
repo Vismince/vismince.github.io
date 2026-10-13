@@ -677,7 +677,7 @@ function aboutHTML(){
       <p class="role">${esc(SITE.role)}${SITE.location ? ' · ' + esc(SITE.location) : ''}</p>
       ${SITE.about.map(p => `<p>${esc(p)}</p>`).join('')}
       <div class="seek"><strong>${esc(SITE.lookingFor.headline)}</strong>${esc(SITE.lookingFor.details)}</div>
-      <p><a class="btn" href="#contact">Contact me</a><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
+      <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
     </div></div>${photosHTML()}`);
 }
 
@@ -711,23 +711,15 @@ function openCase(id, from){
   d._from = from; d.showModal(); d.querySelector('.body').scrollTop = 0;
 }
 
-/* 4. skills and contact */
+/* 4. skills */
 function skillsHTML(){
   return w95HTML('skills', 'skills & tools', 'tools', `<div class="skillgrid">` +
     Object.entries(SITE.skills).map(([k, v]) => `<div><h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + `</div>`);
 }
-function contactHTML(){
-  return w95HTML('contact', 'contact', 'mail', `
-    <h3>Let's talk</h3>
-    <p>${esc(SITE.lookingFor.headline)}. Email is the best way to reach me.</p>
-    <p><a class="btn big" href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a></p>
-    <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
-    <ul class="links">${SITE.links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a></li>`).join('')}</ul>`);
-}
 $('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
 $('#hello').innerHTML = introHTML();
 $('#projwrap').innerHTML = projectsHTML();
-$('#page').innerHTML = aboutHTML() + skillsHTML() + contactHTML();
+$('#page').innerHTML = aboutHTML() + skillsHTML();
 /* find out which of the listed videos exist, then show only those (a missing file gets no dot) */
 function videoExists(v){
   if (v.youtube) return Promise.resolve(true);
@@ -799,11 +791,11 @@ dlg.addEventListener('close', () => { if (dlg._from) dlg._from.focus(); });
 /* =====================================================================
    4. Menu bar navigation
    ===================================================================== */
-const NAV = [['showreel', 'Home', 'video'], ['projects', 'Projects', 'folder'], ['about', 'About me', 'user'], ['contact', 'Contact', 'mail']];
+const NAV = [['showreel', 'Home', 'video'], ['projects', 'Projects', 'folder'], ['about', 'About me', 'user']];
 const go = id => { if (id === 'showreel'){ scrollTo({ top: 0 }); return; } const el = document.getElementById(id); if (el){ if (el.classList.contains('collapsed')){ el.classList.remove('collapsed'); } el.scrollIntoView({ block: 'start' }); } };
 document.addEventListener('click', e => {
   const g = e.target.closest('[data-go]'); if (g){ e.preventDefault(); go(g.dataset.go); }
-  const a = e.target.closest('a[href="#contact"],a[href="#top"]'); if (a){ e.preventDefault(); go(a.getAttribute('href').slice(1)); }
+  const a = e.target.closest('a[href="#top"]'); if (a){ e.preventDefault(); go(a.getAttribute('href').slice(1)); }
 });
 /* highlight the tab for the section you are reading */
 let ticking = false;
@@ -813,7 +805,7 @@ function markActive(){
   if (mb) document.body.classList.toggle('pinned', scrollY > 0 && mb.getBoundingClientRect().top <= 0.5);          // once the menu bar is pinned to the top, it turns blue
   let cur = NAV[0][0];
   NAV.forEach(([id]) => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= innerHeight * 0.4) cur = id; });
-  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = 'contact';
+  if (innerHeight + scrollY >= document.documentElement.scrollHeight - 6) cur = NAV[NAV.length - 1][0];
   document.querySelectorAll('.menu a').forEach(t => { const on = t.dataset.go === cur; t.classList.toggle('act', on); if (t.tagName === 'A') on ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'); });
 }
 addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(markActive); } }, { passive: true });
