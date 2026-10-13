@@ -210,6 +210,21 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .stage .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;display:grid;place-items:center;
   background:var(--title-b);color:#fff;border:3px solid #fff;font-size:30px;padding-left:6px}
 .stage .vph{height:100%;border:0}
+.stagewrap{position:relative}
+.vnav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;display:grid;place-items:center;width:clamp(46px,6vw,76px);height:clamp(76px,13vw,130px);padding:0;border:0;background:none;color:#fff;opacity:.55;transition:opacity .15s,background .15s}
+.vnav.prev{left:0}.vnav.next{right:0}
+.vnav svg{height:46%;width:auto;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.6))}
+.vnav.prev svg{transform:scaleX(-1)}
+.vnav:hover,.vnav:focus-visible{opacity:1}
+.vnav.prev:hover,.vnav.prev:focus-visible{background:linear-gradient(to right,rgba(0,0,0,.3),transparent)}
+.vnav.next:hover,.vnav.next:focus-visible{background:linear-gradient(to left,rgba(0,0,0,.3),transparent)}
+.dots{position:absolute;left:0;right:0;bottom:16px;z-index:3;display:flex;justify-content:center;gap:12px;pointer-events:none}
+.dot{position:relative;pointer-events:auto;width:12px;height:12px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.45);box-shadow:0 0 0 1px rgba(0,0,0,.45);transition:background .15s,transform .15s}
+.dot::before{content:'';position:absolute;inset:-9px}
+.dot:hover{background:rgba(255,255,255,.8)}
+.dot.on{background:#fff;transform:scale(1.2)}
+.stagewrap.ctl .dots{bottom:58px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .reelbar{background:#bfbfbf;padding:10px 12px 12px;box-shadow:inset 0 calc(var(--k) * -9px) #818181}
 .reelbar[hidden]{display:none}
 .vcap{margin:0 0 10px;text-align:center}
@@ -500,20 +515,21 @@ function winHTML(id, title, icon, inner){
 }
 
 /* 1. showreel */
-function showreelHTML(){
-  return `<div class="stage" id="stage"></div>
-    <div class="reelbar"${VLIST.length < 2 ? ' hidden' : ''}>
-      <p class="vcap" id="vcap"></p>
-      <div class="reel">${VLIST.map((v,i) => {
-        const poster = v.poster || (v.youtube ? `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg` : '');
-        return `<button class="vthumb" data-v="${i}" aria-label="Show video: ${esc(v.title)}"><span class="vt">${
-          poster ? `<img src="${esc(poster)}" alt="" loading="lazy">` : `<span class="ph">${ic('video')}</span>`}</span><span class="vl">${esc(v.title)}</span></button>`;
-      }).join('')}</div>
-    </div>`;
+const CHEV = '<svg viewBox="0 0 9 16" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="3" height="2"/><rect x="2" y="2" width="3" height="2"/><rect x="4" y="4" width="3" height="2"/><rect x="6" y="6" width="3" height="2"/><rect x="6" y="8" width="3" height="2"/><rect x="4" y="10" width="3" height="2"/><rect x="2" y="12" width="3" height="2"/><rect x="0" y="14" width="3" height="2"/></svg>';
+let curVideo = 0;
+function showreelHTML(){        // the video, with soft arrows at the sides and white dots along the bottom when there is more than one
+  const n = VLIST.length, many = n > 1;
+  return `<div class="stagewrap" id="stagewrap"><div class="stage" id="stage"></div>
+    ${many ? `<button class="vnav prev" data-vstep="-1" aria-label="Previous video">${CHEV}</button><button class="vnav next" data-vstep="1" aria-label="Next video">${CHEV}</button>
+    <div class="dots" role="group" aria-label="Choose a video">${VLIST.map((v, i) => `<button class="dot" data-v="${i}" aria-label="Show video ${i + 1} of ${n}: ${esc(v.title)}" title="${esc(v.title)}"></button>`).join('')}</div>` : ''}
+    <p class="sr" id="vlive" aria-live="polite"></p></div>`;
 }
+function stepVideo(d){ const n = VLIST.length; showVideo((curVideo + d + n) % n, true); }
 function showVideo(i, play){
   const v = VLIST[i], st = $('#stage');
-  document.querySelectorAll('.vthumb').forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-pressed', j === i); });
+  curVideo = i;
+  document.querySelectorAll('.dot').forEach((b, j) => { b.classList.toggle('on', j === i); if (j === i) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+  if ($('#vlive') && VLIST.length > 1) $('#vlive').textContent = `Video ${i + 1} of ${VLIST.length}: ${v.title}`;
   if ($('#vcap')) $('#vcap').innerHTML = `<strong>${esc(v.title)}</strong>${v.caption ? ' · ' + esc(v.caption) : ''}`;
   if (v.src){
     const auto = SITE.showreelAutoplay !== false && !matchMedia('(prefers-reduced-motion: reduce)').matches;   // plays by itself, silent, no controls
@@ -646,6 +662,16 @@ $('#page').innerHTML = introHTML() + projectsHTML() + aboutHTML()
   + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
   + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
 showVideo(0, false);
+if (VLIST.length > 1){
+  document.addEventListener('keydown', e => {                                   // arrow keys switch videos while focus is on the video area
+    const wrap = document.getElementById('showreel');
+    if (!wrap || !wrap.contains(document.activeElement)) return;
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); stepVideo(-1); } else if (e.key === 'ArrowRight'){ e.preventDefault(); stepVideo(1); }
+  });
+  let x0 = null; const sw = document.getElementById('stagewrap');                // swipe on touch screens
+  sw.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+  sw.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) stepVideo(dx < 0 ? 1 : -1); });
+}
 startChat();
 
 /* page interactions */
@@ -653,6 +679,7 @@ document.addEventListener('click', e => {
   const t = e.target;
   const mn = t.closest('.tb.mn');
   if (mn){ const w = mn.closest('.win'); const c = w.classList.toggle('collapsed'); mn.setAttribute('aria-expanded', !c); return; }
+  const stp = t.closest('[data-vstep]'); if (stp){ stepVideo(+stp.dataset.vstep); return; }
   const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
   if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
   const bd = t.closest('.badge'); if (bd){ waveBadge(bd); return; }
@@ -660,7 +687,7 @@ document.addEventListener('click', e => {
   const mp = t.closest('[data-main]'); if (mp){ showPhoto({ src: SITE.portrait, caption: SITE.portraitCaption || SITE.name, alt: 'Portrait of ' + SITE.name }, mp); return; }
   const ph = t.closest('.photo'); if (ph){ openPhoto(+ph.dataset.photo); return; }
 });
-function vi(){ const on = document.querySelector('.vthumb.on'); return on ? +on.dataset.v : 0; }
+function vi(){ return curVideo; }
 const pdlg = $('#photo');
 pdlg.addEventListener('click', e => { if (e.target === pdlg || e.target.closest('[data-close]')) pdlg.close(); });
 pdlg.addEventListener('close', () => { if (pdlg._from && pdlg._from.isConnected) pdlg._from.focus(); });
