@@ -55,7 +55,8 @@ a{color:var(--link)}
 :focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
 svg{shape-rendering:crispEdges}
 
-#page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:32px 16px 28px;display:flex;flex-direction:column;gap:32px}
+#page{position:relative;z-index:1;max-width:none;margin:0;padding:76px 24px 28px;display:flex;flex-direction:column;gap:76px}
+#page .w95{width:100%}
 
 /* ---------- title bar: solid, at the very top, with your name and role (plain blue bar until images/frame-title.png loads) ---------- */
 .title{display:flex;align-items:center;gap:14px;position:relative;z-index:120;width:min(1068px,calc(100% - 32px));margin:28px auto 0;padding:14px 28px 10px;color:var(--hdr-ink);
@@ -120,7 +121,7 @@ svg{shape-rendering:crispEdges}
 @media (max-width:760px){
   #hello{padding:26px 14px 0}
   #projwrap{padding:40px 14px 0}
-  #page{padding-top:28px}
+  #page{padding:40px 14px 28px;gap:40px}
   .hello{flex-direction:column-reverse;align-items:flex-end;gap:22px}
   .hello.ov .chat::before,.hello.ov .chat::after{display:block}
   .hello.ov .chat{padding-right:18px}
@@ -184,7 +185,7 @@ body.pinned.pin-img .menubar .pin{display:block;position:absolute;z-index:0;top:
 .pin .cap{z-index:1}
 .pin .cap.l{left:0;width:calc(var(--ks) * var(--pl) * 1px);background-position:left calc(var(--k) * var(--pin-off, 0) * -1px);background-size:calc(var(--ks) * var(--pw) * 1px) calc(var(--k) * var(--ph) * 1px)}
 .pin .cap.r{right:0;width:calc(var(--ks) * var(--pr) * 1px);background-position:right calc(var(--k) * var(--pin-off, 0) * -1px);background-size:calc(var(--ks) * var(--pw) * 1px) calc(var(--k) * var(--ph) * 1px)}
-.pin .fill{left:0;right:0;background-size:calc(var(--k) * var(--pw) * 10px) calc(var(--k) * var(--ph) * 1px);background-position:calc(var(--k) * var(--px) * -10px) calc(var(--k) * var(--pin-off, 0) * -1px)}
+.pin .fill{left:0;right:0;background-size:calc(var(--k) * var(--pw) * 10px) calc(var(--k) * var(--ph) * 1px);background-position:calc(var(--k) * var(--pfx) * -10px) calc(var(--k) * var(--pin-off, 0) * -1px)}
 body.pinned .menubar .menu{gap:0 6px}
 body.pinned .menubar .menu a{display:flex;align-items:center;align-self:stretch;padding:0 18px;font-size:max(16px, calc(var(--k) * (var(--w2, 177) - var(--w1, 33)) * .4px));background:none;color:#000;text-shadow:none;box-shadow:none}
 body.pinned .menubar .menu a:hover{background:#dcdcdc;box-shadow:inset 1px 1px #fff, inset -1px -1px #818181}
@@ -323,8 +324,11 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 
 /* ---------- 4. skills + contact ---------- */
 .row2{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.skillgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:6px 32px}
+.skillgrid h3{margin-top:0}
+.w95-body .about p{max-width:80ch}
 .links{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px}
-.foot{align-self:center;padding:6px 16px;background:var(--chrome);border:2px solid var(--chrome-line);font-size:13px;text-align:center}
+.foot{margin-top:-44px;align-self:center;padding:6px 16px;background:var(--chrome);border:2px solid var(--chrome-line);font-size:13px;text-align:center}
 
 /* ---------- case-study dialog ---------- */
 dialog.win{overflow:hidden;padding:0;margin:auto;width:min(780px,94vw);max-height:90vh;color:var(--ink)}
@@ -349,6 +353,7 @@ dialog.win > .body{overflow:auto;flex:1}
   .card.feat .thumb{border-right:0;border-bottom:2px solid var(--paper-line);aspect-ratio:16/9}
   .card.feat .ct{font-size:24px}
   .row2{grid-template-columns:1fr}
+  .foot{margin-top:-12px}
   .vthumb{width:calc(50% - 5px)}
 }
 </style>
@@ -667,7 +672,7 @@ function showPhoto(p, from){
 }
 function openPhoto(i){ showPhoto(SITE.aboutPhotos[i], document.querySelector(`.photo[data-photo="${i}"]`)); }
 function aboutHTML(){
-  return winHTML('about', 'about.txt', 'user', `<div class="about">
+  return w95HTML('about', 'about me', 'user', `<div class="about">
     ${portraitHTML()}
     <div>
       <div class="h1">${esc(SITE.name)}</div>
@@ -710,11 +715,11 @@ function openCase(id, from){
 
 /* 4. skills, contact, footer */
 function skillsHTML(){
-  return winHTML('skills', 'skills & tools', 'tools',
-    Object.entries(SITE.skills).map(([k, v]) => `<h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`).join(''));
+  return w95HTML('skills', 'skills & tools', 'tools', `<div class="skillgrid">` +
+    Object.entries(SITE.skills).map(([k, v]) => `<div><h3>${esc(k)}</h3><ul class="chips">${v.map(i => `<li>${esc(i)}</li>`).join('')}</ul></div>`).join('') + `</div>`);
 }
 function contactHTML(){
-  return winHTML('contact', 'contact', 'mail', `
+  return w95HTML('contact', 'contact', 'mail', `
     <h3>Let's talk</h3>
     <p>${esc(SITE.lookingFor.headline)}. Email is the best way to reach me.</p>
     <p><a class="btn big" href="mailto:${esc(SITE.email)}">${esc(SITE.email)}</a></p>
@@ -724,8 +729,7 @@ function contactHTML(){
 $('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
 $('#hello').innerHTML = introHTML();
 $('#projwrap').innerHTML = projectsHTML();
-$('#page').innerHTML = aboutHTML()
-  + `<div class="row2">${skillsHTML()}${contactHTML()}</div>`
+$('#page').innerHTML = aboutHTML() + skillsHTML() + contactHTML()
   + `<div class="foot">© ${new Date().getFullYear()} ${esc(SITE.name)} · Hand-built in HTML, hosted on GitHub Pages · <a href="#top">Back to top ↑</a></div>`;
 /* find out which of the listed videos exist, then show only those (a missing file gets no dot) */
 function videoExists(v){
@@ -872,7 +876,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     root.style.setProperty('--mrows', th - m0);
     root.style.setProperty('--mtr', mf.rows[1] - m0);
     if (info.pin){                                                              // the pinned bar shows the bottom rows of frame-pinned.png
-      const pf = SITE.pinFrame, v = { pw: info.pin.w, ph: info.pin.h, pl: pf.leftCap, pr: pf.rightCap, px: pf.fillAt, 'pin-off': 0 };
+      const pf = SITE.pinFrame, v = { pw: info.pin.w, ph: info.pin.h, pl: pf.leftCap, pr: pf.rightCap, pfx: pf.fillAt, 'pin-off': 0 };
       Object.entries(v).forEach(([n, x]) => root.style.setProperty('--' + n, x));
       root.style.setProperty('--pin-img', `url("${SITE.pinImage}")`);
       root.style.setProperty('--ptt', SITE.pinTabs.top); root.style.setProperty('--pth', SITE.pinTabs.height);
