@@ -30,7 +30,6 @@
 /* the pixel hand: shown over anything you can click */
 @media (pointer:fine){
   a,a *,button,button *,[role="button"],[role="button"] *,summary,summary *,label[for],select,input[type="checkbox"],input[type="radio"],
-  .hello .char,.hello .char *,
   [data-go],[data-go] *,[data-v],[data-v] *,[data-vstep],[data-vstep] *,[data-p],[data-p] *,[data-photo],[data-photo] *,[data-main],[data-main] *,[data-close],[data-close] *{cursor:var(--cursor-hand)!important}
 }
 html{scroll-behavior:smooth}
@@ -64,9 +63,7 @@ svg{shape-rendering:crispEdges}
   background:repeating-conic-gradient(#c8c8c6 0 25%, #ababab 0 50%) 0 0 / 14px 14px}
 .title .badge .face{display:block;width:100%;height:100%;object-fit:cover}
 .title.px .badge .face{image-rendering:pixelated}
-.title .badge:hover,.title .badge.hop{animation:hop .4s steps(4) 1}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-@keyframes hop{0%{transform:translateY(0)}40%{transform:translateY(-10px)}70%{transform:translateY(-4px)}100%{transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){.title .badge{animation:none!important}}
 .title .sep{flex:none;align-self:center;width:3px;height:1.1em;background:rgba(255,255,255,.75)}
 .title .ttl{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 24px;min-width:0}
@@ -96,7 +93,6 @@ svg{shape-rendering:crispEdges}
 .hello.px .char img{image-rendering:pixelated}
 .hello.flip .char img{transform:scaleX(-1)}
 .hello .char{animation:bob 2.6s steps(2) infinite}
-.hello .char:hover,.hello .char.hop{animation:hop .4s steps(4) 1}
 @media (prefers-reduced-motion:reduce){.hello .char{animation:none!important}}
 .hello .char .ph{width:calc(var(--char-h,180px) * .7);height:var(--char-h,180px);padding:8px;border:3px dashed #fff;background:rgba(0,0,0,.25);color:#fff;font-size:13px;text-shadow:1px 1px 0 #000}
 .chat{position:relative;flex:1;min-width:0;margin-right:calc(var(--overlap, 64px) * -1);padding:34px 30px 42px;background:#fff;color:#1b1b1b;border:3px solid #000;box-shadow:5px 5px 0 rgba(0,0,0,.35)}
@@ -628,10 +624,6 @@ function introHTML(){
     </div>
     <div class="char"><img src="${esc(SITE.character)}" alt="" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph',textContent:'Add your character: ${esc(SITE.character)}'}))"></div></section>`;
 }
-document.addEventListener('animationend', e => { if (e.animationName === 'hop' && e.target.classList && e.target.classList.contains('char')) e.target.classList.remove('hop'); });   // after a hop, back to bobbing
-function waveBadge(b){            // little hop when you click the corner badge
-  b.classList.remove('hop'); void b.offsetWidth; b.classList.add('hop');
-}
 function startChat(){                      // types the lines out one after another when the box scrolls into view
   const box = document.getElementById('chat'); if (!box) return;
   const spans = [...box.querySelectorAll('.t')];
@@ -788,8 +780,6 @@ document.addEventListener('click', e => {
   const stp = t.closest('[data-vstep]'); if (stp){ stepVideo(+stp.dataset.vstep); return; }
   const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
   if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
-  const bd = t.closest('.badge'); if (bd){ waveBadge(bd); return; }
-  const mc = t.closest('.hello .char'); if (mc){ mc.classList.remove('hop'); void mc.offsetWidth; mc.classList.add('hop'); return; }   // the mascot hops when clicked
   const card = t.closest('.card'); if (card){ openCase(card.dataset.p, card); return; }
   const mp = t.closest('[data-main]'); if (mp){ showPhoto({ src: SITE.portrait, caption: SITE.portraitCaption || SITE.name, alt: 'Portrait of ' + SITE.name }, mp); return; }
   const ph = t.closest('.photo'); if (ph){ openPhoto(+ph.dataset.photo); return; }
@@ -846,7 +836,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--bar-op', SITE.barOpacity);
   root.style.setProperty('--home-op', SITE.topTabOpacity ?? 0.7);
   $('#top').classList.toggle('px', !!SITE.titlePortraitPixelated);
-  $('#top').innerHTML = `${SITE.titlePortrait ? `<button class="badge" type="button" aria-label="Wave at the mascot"><span class="pic"><img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face')" onerror="this.closest('.badge').remove()"></span></button>` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
+  $('#top').innerHTML = `${SITE.titlePortrait ? `<div class="badge" aria-hidden="true"><span class="pic"><img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face')" onerror="this.closest('.badge').remove()"></span></div>` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
   $('#menubar').innerHTML = `<span class="pin" aria-hidden="true"><span class="cap l"></span><span class="fill"></span><span class="cap r"></span></span><nav class="menu" aria-label="Sections">${NAV.map(([id, label]) => `<a href="#${id}" data-go="${id}"><u>${label[0]}</u>${label.slice(1)}</a>`).join('')}</nav>`;
   if (SITE.sharp) body.classList.add('sharp');
   markActive();
