@@ -305,8 +305,10 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .seek strong{font-family:var(--px);font-size:18px;display:block;margin-bottom:2px}
 
 /* ---------- 3. projects ---------- */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-.card{display:flex;flex-direction:column;padding:0;text-align:left;background:var(--btn-bg);border:2px solid var(--paper-line);min-width:0}
+.pgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px}      /* the small cards share the full width, three to a row, and a short last row is centred */
+.card{flex:0 0 calc((100% - 36px) / 3);display:flex;flex-direction:column;padding:0;text-align:left;background:var(--btn-bg);border:2px solid var(--paper-line);min-width:0}
+@media (max-width:1000px){.card{flex-basis:calc((100% - 18px) / 2)}}
+@media (max-width:620px){.card{flex-basis:100%}}
 .card:hover,.card:focus-visible{border-color:var(--frame);background:var(--chip-bg)}
 .card .thumb{display:block;aspect-ratio:16/9;overflow:hidden;background:var(--chrome);border-bottom:2px solid var(--paper-line)}
 .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
@@ -316,7 +318,7 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .card .cb{font-size:14px}
 .card .cm{font-size:13px;color:var(--muted)}
 .card .badge{align-self:flex-start;font:700 13px var(--px);padding:1px 8px;background:var(--accent);border:1px solid var(--accent-line);margin-bottom:4px}
-.card.feat{grid-column:1/-1;display:grid;grid-template-columns:1.6fr 1fr}
+.card.feat{flex:0 0 100%;display:grid;grid-template-columns:1.6fr 1fr}
 .card.feat .thumb{border-bottom:0;border-right:2px solid var(--paper-line);aspect-ratio:16/10}
 .card.feat .info{justify-content:center;padding:22px 26px;gap:8px}
 .card.feat .ct{font-size:30px}
