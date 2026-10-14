@@ -305,9 +305,10 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .seek strong{font-family:var(--px);font-size:18px;display:block;margin-bottom:2px}
 
 /* ---------- 3. projects ---------- */
-.pgrid{display:flex;flex-wrap:wrap;justify-content:center;gap:34px 18px}      /* the small cards share the full width, three to a row, and a short last row is centred */
-.card{flex:0 0 calc((100% - 36px) / 3);display:flex;flex-direction:column;padding:0;text-align:left;background:var(--btn-bg);border:2px solid var(--paper-line);min-width:0}
-@media (max-width:1000px){.card{flex-basis:calc((100% - 18px) / 2)}}
+.pgrid{--pgap:24px;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--pgap)}      /* one distance for everything in the projects window: border to cards, and between cards */
+#projects .w95-body{padding:24px}      /* the small cards share the full width, three to a row, and a short last row is centred */
+.card{flex:0 0 calc((100% - 2 * var(--pgap, 24px)) / 3);display:flex;flex-direction:column;padding:0;text-align:left;background:var(--btn-bg);border:2px solid var(--paper-line);min-width:0}
+@media (max-width:1000px){.card{flex-basis:calc((100% - var(--pgap, 24px)) / 2)}}
 @media (max-width:620px){.card{flex-basis:100%}}
 .card:hover,.card:focus-visible{border-color:var(--frame);background:var(--chip-bg)}
 .card .thumb{display:block;aspect-ratio:16/9;overflow:hidden;background:var(--chrome);border-bottom:2px solid var(--paper-line)}
