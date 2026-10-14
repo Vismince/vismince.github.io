@@ -494,50 +494,17 @@ let VLIST = VIDEOS.filter(v => v.src || v.youtube).slice(0, 1);   // filled in p
 
 /* Projects: the one marked featured:true is shown large at the top; the rest form the grid. */
 const PROJECTS = [
-  {
-    id: 'proj1', featured: true,
-    title: 'Project One', blurb: 'Voxel dungeon crawler', thumb: 'images/proj1-thumb.png',
-    role: 'Level design, lighting, kit building', team: 'Team of 4', time: '3 months', engine: 'Unity',
-    summary: 'One or two sentences: what the game is, what you owned, and the result (shipped, jam ranking, playtest count).',
-    sections: [
-      { h: 'Design goals', t: 'What should the player feel and do in this level? Name the pillars, e.g. readable routes, tension then relief, discovery rewarded.',
-        shots: [{ src: 'images/proj1-papermap.png', cap: 'Paper map and flow diagram' }] },
-      { h: 'Blockout and iteration', t: 'Show greybox versions side by side and say what playtests changed. Concrete numbers help: "6 testers, 4 got lost at the bridge, so I added a landmark."',
-        shots: [{ src: 'images/proj1-blockout.png', cap: 'Greybox v1 vs v3' }] },
-      { h: 'Art and tech pass', t: 'Modular voxel kit, lighting setup, any tool or script you built, and performance notes.',
-        shots: [{ src: 'images/proj1-final.png', cap: 'Final lit version' }] }
-    ],
-    links: [{ label: 'Play on itch.io', url: '#' }, { label: 'Watch walkthrough', url: '#' }]
-  },
-  {
-    id: 'proj2',
-    title: 'Project Two', blurb: 'Game jam, 72 hours', thumb: 'images/proj2-thumb.png',
-    role: 'Level design, tools', team: 'Solo', time: '72 hours', engine: 'Godot',
-    summary: 'A short project shows speed and ownership. Say what you shipped in the time limit.',
-    sections: [
-      { h: 'Constraints', t: 'Theme, time limit, scope cuts.', shots: [] },
-      { h: 'What I built', t: 'Levels, a small editor tool, a procedural layout helper, whatever applies.', shots: [{ src: 'images/proj2-main.png', cap: 'Top-down map' }] }
-    ],
-    links: [{ label: 'Play on itch.io', url: '#' }]
-  },
-  {
-    id: 'proj3',
-    title: 'Project Three', blurb: 'Voxel scene and tooling', thumb: 'images/proj3-thumb.png',
-    role: 'Environment art, tech design', team: 'Solo', time: '6 weeks', engine: 'MagicaVoxel + Blender',
-    summary: 'A voxel-focused piece that proves your passion: a diorama, a modular biome kit, or a procedural generator.',
-    sections: [
-      { h: 'Pipeline', t: 'MagicaVoxel to Blender to engine: export settings, palette handling, polycount and draw-call choices.', shots: [{ src: 'images/proj3-main.png', cap: 'Scene render' }] }
-    ],
-    links: [{ label: 'ArtStation breakdown', url: '#' }]
-  },
-  {
-    id: 'proj4',
-    title: 'Project Four', blurb: 'Add another project', thumb: 'images/proj4-thumb.png',
-    role: 'Your role', team: 'Team size', time: 'Duration', engine: 'Engine / tools',
-    summary: 'Copy one of the blocks above to add more projects. Each one becomes a card in the grid.',
-    sections: [],
-    links: []
-  }
+  // Template: replace the placeholder text, add your images, and delete or copy blocks as you need.
+  // Fields: title, blurb (one short line), thumb (card picture), summary, optional role / team / time / engine,
+  //         sections (heading, text and screenshots for the pop-up) and links (buttons in the pop-up).
+  { id: 'proj1', featured: true, title: 'Project 1', blurb: 'Short description', thumb: 'images/proj1-thumb.png',
+    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
+  { id: 'proj2', title: 'Project 2', blurb: 'Short description', thumb: 'images/proj2-thumb.png',
+    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
+  { id: 'proj3', title: 'Project 3', blurb: 'Short description', thumb: 'images/proj3-thumb.png',
+    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
+  { id: 'proj4', title: 'Project 4', blurb: 'Short description', thumb: 'images/proj4-thumb.png',
+    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] }
 ];
 
 /* =====================================================================
@@ -678,7 +645,6 @@ function aboutHTML(){
       <div class="h1">${esc(SITE.name)}</div>
       <p class="role">${esc(SITE.role)}${SITE.location ? ' · ' + esc(SITE.location) : ''}</p>
       ${SITE.about.map(p => `<p>${esc(p)}</p>`).join('')}
-      <p><a class="btn" href="${esc(SITE.resume)}" target="_blank" rel="noopener">Resume (PDF)</a></p>
     </div></div>${skillsHTML()}${photosHTML()}`);
 }
 
@@ -688,7 +654,7 @@ function cardHTML(p){
     <span class="thumb"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></span>
     <span class="info">${p.featured ? '<span class="badge">★ Featured project</span>' : ''}
       <span class="ct">${esc(p.title)}</span><span class="cb">${esc(p.blurb)}</span>
-      <span class="cm">${esc(p.role)} · ${esc(p.engine)}</span></span></button>`;
+      ${(p.role || p.engine) ? `<span class="cm">${[p.role, p.engine].filter(Boolean).map(esc).join(' · ')}</span>` : ''}</span></button>`;
 }
 function projectsHTML(){
   const feat = PROJECTS.filter(p => p.featured).slice(0, 1), rest = PROJECTS.filter(p => !feat.includes(p));
@@ -705,8 +671,8 @@ function openCase(id, from){
   const p = PROJECTS.find(x => x.id === id), d = $('#case'); if (!p) return;
   d.innerHTML = `<div class="titlebar">${ic('cube')}<h2 class="t">${esc(p.title)}</h2><button class="tb x" data-close aria-label="Close">✕</button></div>
     <div class="body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
-      <dl class="meta"><dt>Role</dt><dd>${esc(p.role)}</dd><dt>Team</dt><dd>${esc(p.team)}</dd><dt>Time</dt><dd>${esc(p.time)}</dd><dt>Engine / tools</dt><dd>${esc(p.engine)}</dd></dl>
-      <p>${linkBtns(p.links)}</p>
+      ${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].some(r => r[1]) ? `<dl class="meta">${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>` : ''}
+      ${(p.links && p.links.length) ? `<p>${linkBtns(p.links)}</p>` : ''}
       ${p.sections.map(s => `<h3>${esc(s.h)}</h3><p>${esc(s.t)}</p>${(s.shots || []).map(sh => `
         <figure class="shot"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="imgFail(this)"><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}</div>`;
   d._from = from; d.showModal(); d.querySelector('.body').scrollTop = 0;
