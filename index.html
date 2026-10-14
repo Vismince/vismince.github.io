@@ -85,7 +85,7 @@ svg{shape-rendering:crispEdges}
 .w95 .tb{width:26px;height:26px;border:0;border-radius:0;padding:0;display:inline-flex;align-items:center;justify-content:center;background:#bfbfbf;color:#000;font:700 14px/1 var(--ui);
   box-shadow:inset -3px -3px 0 #000, inset -6px -6px 0 #818181, inset 3px 3px 0 #fff}
 .w95 button.tb:active{box-shadow:inset 3px 3px 0 #000, inset 6px 6px 0 #818181;filter:none}
-.w95-body{padding:22px 24px;background:#fff;color:var(--ink);
+.w95-body{padding:24px;background:#fff;color:var(--ink);
   box-shadow:inset 3px 3px 0 #818181, inset 6px 6px 0 #000, inset -3px -3px 0 #fff, inset -6px -6px 0 #dfdfdf}
 .w95.collapsed .w95-body{display:none}
 
@@ -534,7 +534,7 @@ const linkBtns = ls => ls.map(l => `<a class="btn" href="${esc(l.url)}" target="
 
 function imgFail(el){                 // missing image: show a tidy placeholder instead
   const d = document.createElement('div'); d.className = 'ph';
-  d.innerHTML = el.dataset.ph === 'cube' ? ic('cube') : 'Add image: ' + esc(el.getAttribute('src'));
+  d.innerHTML = el.dataset.ph === 'cube' ? '' : 'Add image: ' + esc(el.getAttribute('src'));      // project thumbnails: an empty tile, no icon
   el.replaceWith(d);
 }
 function winHTML(id, title, icon, inner){
