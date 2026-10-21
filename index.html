@@ -239,13 +239,12 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .btn:active{background:var(--btn-active)}
 .btn.big{padding:9px 26px;font-weight:bold;font-size:16px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px;padding:0;list-style:none}
-.chips li.tool{display:inline-flex;align-items:center;gap:9px;padding:5px 14px 5px 7px;font:400 16px/1.2 var(--px)}
-.chips li.tool svg,.chips li.tool .pxi{width:24px;height:24px;flex:none}
+.chips li.tool{--ico:44px;display:inline-flex;align-items:center;gap:11px;padding:6px 18px 6px 8px;font:400 18px/1.2 var(--px)}
+.chips li.tool svg,.chips li.tool .pxi{width:var(--ico);height:var(--ico);flex:none}
 .chips li.tool .pxi{display:inline-flex}
-.chips li.tool img{height:28px;width:auto;max-width:130px;flex:none;object-fit:contain}
+.chips li.tool img{height:var(--ico);width:auto;max-width:150px;flex:none;object-fit:contain}
 .chips li.tool.logo-only{padding:5px 12px}
-.chips li.tool.logo-only img{height:26px}
-.skillsblock .credit{margin:12px 0 0;font-size:12px;color:var(--muted)}
+.chips li.tool.logo-only img{height:calc(var(--ico) - 4px)}
 .chips li{padding:2px 9px;background:var(--chip-bg);border:1px solid var(--chip-line);border-radius:3px;font-size:14px}
 .ph{display:grid;place-items:center;text-align:center;padding:22px 12px;color:var(--ph-ink);font-size:14px;border:2px dashed var(--chip-line);
   background:repeating-conic-gradient(var(--ph-bg) 0 25%, var(--chrome) 0 50%) 0 0/28px 28px}
@@ -569,7 +568,7 @@ function toolKey(name){ const n = name.toLowerCase(); return Object.keys(TOOL_IC
 function toolIcon(name){        // the tool's own logo from images/tools/ if you added it; otherwise a small pixel icon, so the list is always quick to skim
   const own = SITE.toolIcons && SITE.toolIcons[name], slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const logoOnly = (SITE.toolLogoOnly || []).includes(name);
-  return `<img src="${esc(own || 'images/tools/' + slug + '.svg')}" alt="${logoOnly ? esc(name) : ''}" data-k="${toolKey(name)}" data-slug="${esc(slug)}"${own ? ' data-tried="1"' : ''} onload="toolLogoLoaded(this)" onerror="toolLogoFallback(this)">`;
+  return `<img src="${esc(own || 'images/tools/' + slug + '.svg')}" alt="${logoOnly ? esc(name) : ''}" data-k="${toolKey(name)}" data-slug="${esc(slug)}"${own ? ' data-tried="1"' : ''} onerror="toolLogoFallback(this)">`;
 }
 function toolLogoFallback(img){   // .svg missing -> try .png -> then the built-in pixel icon
   if (!img.dataset.tried){ img.dataset.tried = '1'; img.src = 'images/tools/' + img.dataset.slug + '.png'; return; }
@@ -577,9 +576,6 @@ function toolLogoFallback(img){   // .svg missing -> try .png -> then the built-
   const li = img.closest('li'); if (li) li.classList.remove('logo-only');
   if (li && li.dataset.label) li.append(li.dataset.label);       // a logo-only tool shows its name again when no logo file was found
   img.replaceWith(sp);
-}
-function toolLogoLoaded(img){
-  if (img.dataset.k === 'godot'){ const c = document.getElementById('godot-credit'); if (c) c.hidden = false; }
 }
 const DOT = '<svg viewBox="0 0 5 5" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="3" height="1"/><rect x="0" y="1" width="5" height="3"/><rect x="1" y="4" width="3" height="1"/></svg>';
 let curVideo = 0;
@@ -716,7 +712,7 @@ function openCase(id, from){
 /* 4. skills */
 function skillsHTML(){          // shown inside the About me window, under your text
   return `<div class="skillsblock"><h3>skills &amp; tools</h3><div class="skillgrid">` +
-    Object.entries(SITE.skills).map(([k, v]) => { const tools = /tool/i.test(k); return `<div><h4>${esc(k)}</h4><ul class="chips${tools ? ' tools' : ''}">${v.map(i => { const lo = tools && (SITE.toolLogoOnly || []).includes(i); return `<li${tools ? ` class="tool${lo ? ' logo-only' : ''}"` : ''}${lo ? ` data-label="${esc(i)}"` : ''}>${tools ? toolIcon(i) : ''}${lo ? '' : esc(i)}</li>`; }).join('')}</ul></div>`; }).join('') + `</div><p class="credit" id="godot-credit" hidden>Godot logo © Andrea Calabró, licensed CC BY 4.0.</p></div>`;
+    Object.entries(SITE.skills).map(([k, v]) => { const tools = /tool/i.test(k); return `<div><h4>${esc(k)}</h4><ul class="chips${tools ? ' tools' : ''}">${v.map(i => { const lo = tools && (SITE.toolLogoOnly || []).includes(i); return `<li${tools ? ` class="tool${lo ? ' logo-only' : ''}"` : ''}${lo ? ` data-label="${esc(i)}"` : ''}>${tools ? toolIcon(i) : ''}${lo ? '' : esc(i)}</li>`; }).join('')}</ul></div>`; }).join('') + `</div></div>`;
 }
 $('#showreel').innerHTML = '<div class="stagewrap"><div class="stage"></div></div>';   // empty box with the right shape while the videos are checked
 $('#hello').innerHTML = introHTML();
