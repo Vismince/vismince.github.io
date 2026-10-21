@@ -267,6 +267,17 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .vnav:hover,.vnav:focus-visible{opacity:1}
 .vnav.prev:hover,.vnav.prev:focus-visible{background:linear-gradient(to right,rgba(0,0,0,.3),transparent)}
 .vnav.next:hover,.vnav.next:focus-visible{background:linear-gradient(to left,rgba(0,0,0,.3),transparent)}
+.transport{position:absolute;left:28px;bottom:24px;z-index:3;display:flex;gap:6px;padding:6px;background:#bfbfbf;opacity:.88;transition:opacity .15s;
+  box-shadow:inset 3px 3px 0 #fff, inset -3px -3px 0 #818181, inset -6px -6px 0 #000, 3px 3px 0 rgba(0,0,0,.35)}
+.transport[hidden]{display:none}
+.transport:hover,.transport:focus-within{opacity:1}
+.transport button{width:38px;height:34px;padding:0;border:0;border-radius:0;display:grid;place-items:center;background:#bfbfbf;color:#000;
+  box-shadow:inset -3px -3px 0 #000, inset -6px -6px 0 #818181, inset 3px 3px 0 #fff}
+.transport button svg{width:18px;height:18px;display:block}
+.transport button:active,.transport[data-state="playing"] [data-act="play"],.transport[data-state="paused"] [data-act="pause"]{box-shadow:inset 3px 3px 0 #000, inset 6px 6px 0 #818181}
+.transport button:active svg,.transport[data-state="playing"] [data-act="play"] svg,.transport[data-state="paused"] [data-act="pause"] svg{transform:translate(1.5px,1.5px)}
+.transport button:focus-visible{outline:2px dotted #000;outline-offset:-5px}
+@media (max-width:760px){.transport{left:12px;bottom:14px;gap:4px;padding:5px}.transport button{width:32px;height:30px}.transport button svg{width:15px;height:15px}}
 .dots{position:absolute;left:0;right:0;bottom:28px;z-index:3;display:flex;justify-content:center;gap:10px;pointer-events:none}
 .dot{position:relative;pointer-events:auto;width:10px;height:10px;padding:0;border:0;background:none;color:rgba(255,255,255,.45);transition:color .15s}
 .dot svg{display:block;width:100%;height:100%;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.6))}
@@ -577,13 +588,33 @@ function toolLogoFallback(img){   // .svg missing -> try .png -> then the built-
   if (li && li.dataset.label) li.append(li.dataset.label);       // a logo-only tool shows its name again when no logo file was found
   img.replaceWith(sp);
 }
+const TP_REW = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="2" height="9"/><rect x="8" y="0" width="1" height="1"/><rect x="7" y="1" width="2" height="1"/><rect x="6" y="2" width="3" height="1"/><rect x="5" y="3" width="4" height="1"/><rect x="4" y="4" width="5" height="1"/><rect x="5" y="5" width="4" height="1"/><rect x="6" y="6" width="3" height="1"/><rect x="7" y="7" width="2" height="1"/><rect x="8" y="8" width="1" height="1"/></svg>', TP_PLAY = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="1" height="1"/><rect x="1" y="1" width="2" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="1" y="3" width="4" height="1"/><rect x="1" y="4" width="5" height="1"/><rect x="1" y="5" width="4" height="1"/><rect x="1" y="6" width="3" height="1"/><rect x="1" y="7" width="2" height="1"/><rect x="1" y="8" width="1" height="1"/></svg>', TP_PAUSE = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="2" height="9"/><rect x="5" y="0" width="2" height="9"/></svg>';
 const DOT = '<svg viewBox="0 0 5 5" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="3" height="1"/><rect x="0" y="1" width="5" height="3"/><rect x="1" y="4" width="3" height="1"/></svg>';
 let curVideo = 0;
+function setTransport(vid){       // show the play / pause / rewind bar only while a self-playing video is on screen
+  const tp = document.getElementById('transport'); if (!tp) return;
+  tp.hidden = !vid; if (!vid) return;
+  const sync = () => { tp.dataset.state = vid.paused ? 'paused' : 'playing'; tp.querySelector('[data-act="play"]').setAttribute('aria-pressed', !vid.paused); tp.querySelector('[data-act="pause"]').setAttribute('aria-pressed', vid.paused); };
+  ['play', 'playing', 'pause', 'ended'].forEach(ev => vid.addEventListener(ev, sync));
+  vid.addEventListener('error', () => { tp.hidden = true; });
+  vid.addEventListener('animationend', () => {}); sync();
+}
+function transportAct(act){
+  const v = document.querySelector('#stage video'); if (!v) return;
+  if (act === 'play') v.play().catch(() => {});
+  else if (act === 'pause') v.pause();
+  else if (act === 'rewind') v.currentTime = 0;               // back to the start; keeps playing or staying paused
+}
 function showreelHTML(){        // the video, with soft arrows at the sides and white dots along the bottom when there is more than one
   const n = VLIST.length, many = n > 1;
   return `<div class="stagewrap" id="stagewrap"><div class="stage" id="stage"></div>
     ${many ? `<button class="vnav prev" data-vstep="-1" aria-label="Previous video">${CHEV}</button><button class="vnav next" data-vstep="1" aria-label="Next video">${CHEV}</button>
     <div class="dots" role="group" aria-label="Choose a video">${VLIST.map((v, i) => `<button class="dot" data-v="${i}" aria-label="Show video ${i + 1} of ${n}: ${esc(v.title)}" title="${esc(v.title)}">${DOT}</button>`).join('')}</div>` : ''}
+    <div class="transport" id="transport" role="group" aria-label="Video controls" data-state="playing" hidden>
+      <button type="button" data-act="rewind" aria-label="Rewind to the start" title="Rewind">${TP_REW}</button>
+      <button type="button" data-act="play" aria-label="Play" title="Play">${TP_PLAY}</button>
+      <button type="button" data-act="pause" aria-label="Pause" title="Pause">${TP_PAUSE}</button>
+    </div>
     <p class="sr" id="vlive" aria-live="polite"></p></div>`;
 }
 function stepVideo(d){ const n = VLIST.length; showVideo((curVideo + d + n) % n, true); }
@@ -600,6 +631,7 @@ function showVideo(i, play){
       ? `<video class="auto" autoplay muted${!advance && SITE.showreelLoop !== false ? ' loop' : ''} playsinline disablepictureinpicture disableremoteplayback tabindex="-1" controlslist="nodownload noplaybackrate nofullscreen" preload="auto"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`
       : `<video controls playsinline preload="metadata"${v.poster ? ` poster="${esc(v.poster)}"` : ''} src="${esc(v.src)}"></video>`;
     const vid = st.firstElementChild;
+    setTransport(auto ? vid : null);
     if (auto){
       vid.muted = true;                                                            // browsers only allow autoplay when the video is silent
       if (advance) vid.addEventListener('ended', () => stepVideo(1));              // after the last video it goes back to the first
@@ -609,6 +641,7 @@ function showVideo(i, play){
     vid.addEventListener('error', () => { st.innerHTML = `<div class="ph vph"><div>${ic('video')}<br>Video could not be loaded:<br><code>${esc(v.src)}</code><br>Check the file name, that it is in the videos folder, and that it is an H.264 MP4.</div></div>`; }, true);
     if (play && !auto) vid.play().catch(() => {});
   } else if (v.youtube){
+    setTransport(null);
     if (play){
       st.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${esc(v.youtube)}?autoplay=1&rel=0" title="${esc(v.title)}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
     } else {
@@ -616,6 +649,7 @@ function showVideo(i, play){
       st.innerHTML = `<button class="poster" data-play aria-label="Play ${esc(v.title)}"><img src="${esc(poster)}" alt=""><span class="play">▶</span></button>`;
     }
   } else {
+    setTransport(null);
     st.innerHTML = `<div class="ph vph"><div>${ic('video')}<br>Video placeholder.<br>Set <code>youtube</code> or <code>src</code> in the VIDEOS list.</div></div>`;
   }
 }
@@ -771,6 +805,7 @@ document.addEventListener('click', e => {
   const t = e.target;
   const mn = t.closest('.tb.mn');
   if (mn){ const w = mn.closest('.win, .w95'); const c = w.classList.toggle('collapsed'); mn.setAttribute('aria-expanded', !c); return; }
+  const tpb = t.closest('.transport button'); if (tpb){ transportAct(tpb.dataset.act); return; }
   const stp = t.closest('[data-vstep]'); if (stp){ stepVideo(+stp.dataset.vstep); return; }
   const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
   if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
