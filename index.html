@@ -213,8 +213,8 @@ body.frm-img .floor.show::before{left:0}
 /* tabbed middle bar: the tab rises over the bottom of the video and holds the buttons; the bar holds the seek slider */
 body.frm-img .floor.show.tabbed{margin-top:calc(var(--fov, 0px) * -1)}
 body.frm-img .floor.show.tabbed::before{width:calc(var(--ks) * var(--capl) * 1px)}
-.floor .transport{z-index:2;left:calc(var(--ks) * 19px + 14px);top:calc((var(--fov, 50px) - 34px) / 2);bottom:auto;padding:0;background:none;box-shadow:none;opacity:1}
-.floor .seekwrap{position:absolute;z-index:2;left:calc(var(--ks) * 19px + 14px);right:calc(var(--ks) * 43px + 14px);top:calc(var(--fov, 50px) + (var(--fbh, 46px) - 28px) / 2);height:28px}
+.floor .transport{--tw:126px;--th:34px;z-index:2;left:calc((var(--ks) * var(--tabw, 1050) * 1px + var(--ks) * 19px - var(--tw)) / 2);top:calc((var(--fov, 23px) + var(--fbh, 46px) - var(--th)) / 2);bottom:auto;padding:0;background:none;box-shadow:none;opacity:1}
+.floor .seekwrap{position:absolute;z-index:2;left:calc(var(--ks) * var(--tabw, 1050) * 1px + 18px);right:calc(var(--ks) * 43px + 14px);top:calc(var(--fov, 50px) + (var(--fbh, 46px) - 28px) / 2);height:28px}
 .seekwrap[hidden]{display:none}
 .stagewrap .seekwrap{position:absolute;left:28px;right:28px;bottom:76px;height:28px;z-index:3}
 .vseek{display:block;width:100%;height:28px;margin:0;padding:0;background:transparent;-webkit-appearance:none;appearance:none;--p:0%}
@@ -225,7 +225,7 @@ body.frm-img .floor.show.tabbed::before{width:calc(var(--ks) * var(--capl) * 1px
 .vseek::-moz-range-thumb{width:18px;height:28px;border:0;border-radius:0;background:#bfbfbf;box-shadow:inset -3px -3px 0 #000, inset -6px -6px 0 #818181, inset 3px 3px 0 #fff}
 .vseek:focus-visible::-webkit-slider-thumb{outline:2px dotted #000;outline-offset:-5px}
 .vseek:focus-visible::-moz-range-thumb{outline:2px dotted #000;outline-offset:-5px}
-@media (max-width:760px){.floor .transport{top:calc((var(--fov, 38px) - 30px) / 2)}.stagewrap .seekwrap{left:12px;right:12px;bottom:56px}}
+@media (max-width:760px){.floor .transport{--tw:104px;--th:30px}.stagewrap .seekwrap{left:12px;right:12px;bottom:56px}}
 body.frm-img .floor.show::after{right:0;left:auto;background-position:right top}
 body.no-sill.frm-img .sill{display:none}
 body.flr-end{padding-bottom:0}
@@ -446,7 +446,7 @@ const SITE = {
   titleImage: 'images/frame-title.png',            // solid title bar at the very top of the page (your name and role sit on it). Missing file = a plain blue bar
   headerImage: 'images/frame-top.png',             // the see-through menu bar over the video (its grey menu row). Missing file = a plain grey bar
   middleImage: 'images/frame-middle.png',          // bar under the video. Missing file = frame-bottom.png is used there instead
-  middleFrame: { fillAt: 2000, capLeft: 1200, overlapRows: 226, barRows: 207 },   // fillAt = a flat spot to stretch. capLeft = how much of the left (the tab) is drawn as it is. overlapRows = how many rows at the top are the tab that rises over the video. barRows = height of the grey bar. All in file pixels.                   // a flat spot of frame-middle.png (in file pixels) that gets stretched across the middle
+  middleFrame: { fillAt: 2000, capLeft: 1100, tabWidth: 1050, overlapRows: 104, barRows: 206 },   // fillAt = a flat spot to stretch. capLeft = how much of the left (the tab) is drawn as it is. tabWidth = where the tab ends (the slider starts after it). overlapRows = how many rows at the top are the tab that rises over the video. barRows = height of the grey bar. All in file pixels.                   // a flat spot of frame-middle.png (in file pixels) that gets stretched across the middle
   bottomImage: 'images/frame-bottom.png',          // bar that closes the frame at the very end of the page
   bottomFrame: { fillAt: 2000 },                   // a flat spot of frame-bottom.png (in file pixels) that gets stretched across the middle
   sideImage: 'images/frame-side.png',              // left and right edges of the window, repeats down the page. Missing file = no edges
@@ -995,7 +995,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
         el.dataset.fh = im.naturalHeight;
         const mf = SITE.middleFrame;
         if (which === 'middle' && src === SITE.middleImage && mf && mf.capLeft){      // the image with the tab: it rises over the video and holds the controls
-          el.style.setProperty('--capl', mf.capLeft); el.dataset.ovr = mf.overlapRows; el.dataset.bar = mf.barRows; el.classList.add('tabbed');
+          el.style.setProperty('--capl', mf.capLeft); el.style.setProperty('--tabw', mf.tabWidth || mf.capLeft); el.dataset.ovr = mf.overlapRows; el.dataset.bar = mf.barRows; el.classList.add('tabbed');
         }
         el.classList.add('show');
       });
