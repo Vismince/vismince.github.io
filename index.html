@@ -33,6 +33,7 @@
 /* the pixel hand: shown over anything you can click */
 @media (pointer:fine){
   a,a *,button,button *,[role="button"],[role="button"] *,summary,summary *,label[for],select,input[type="checkbox"],input[type="radio"],
+  input[type="range"],
   [data-go],[data-go] *,[data-v],[data-v] *,[data-vstep],[data-vstep] *,[data-p],[data-p] *,[data-photo],[data-photo] *,[data-main],[data-main] *,[data-close],[data-close] *{cursor:var(--cursor-hand)!important}
 }
 html{scroll-behavior:smooth}
@@ -209,6 +210,22 @@ body.frm-img .floor.show{display:block;position:relative;z-index:1;height:var(--
 body.frm-img .floor.show::before,body.frm-img .floor.show::after{content:'';position:absolute;top:0;bottom:0;width:var(--frm-bw);
   background:var(--flr-img) 0 0 / calc(var(--ks) * var(--fbw) * 1px) 100% no-repeat}
 body.frm-img .floor.show::before{left:0}
+/* tabbed middle bar: the tab rises over the bottom of the video and holds the buttons; the bar holds the seek slider */
+body.frm-img .floor.show.tabbed{margin-top:calc(var(--fov, 0px) * -1)}
+body.frm-img .floor.show.tabbed::before{width:calc(var(--ks) * var(--capl) * 1px)}
+.floor .transport{z-index:2;left:calc(var(--ks) * 19px + 14px);top:calc((var(--fov, 50px) - 34px) / 2);bottom:auto;padding:0;background:none;box-shadow:none;opacity:1}
+.floor .seekwrap{position:absolute;z-index:2;left:calc(var(--ks) * 19px + 14px);right:calc(var(--ks) * 43px + 14px);top:calc(var(--fov, 50px) + (var(--fbh, 46px) - 28px) / 2);height:28px}
+.seekwrap[hidden]{display:none}
+.stagewrap .seekwrap{position:absolute;left:28px;right:28px;bottom:76px;height:28px;z-index:3}
+.vseek{display:block;width:100%;height:28px;margin:0;padding:0;background:transparent;-webkit-appearance:none;appearance:none;--p:0%}
+.vseek:focus{outline:none}
+.vseek::-webkit-slider-runnable-track{height:16px;background:linear-gradient(90deg,var(--blue) var(--p),#fff var(--p));box-shadow:inset 3px 3px 0 #818181, inset 6px 6px 0 #000, inset -3px -3px 0 #fff}
+.vseek::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:28px;margin-top:-6px;border:0;border-radius:0;background:#bfbfbf;box-shadow:inset -3px -3px 0 #000, inset -6px -6px 0 #818181, inset 3px 3px 0 #fff}
+.vseek::-moz-range-track{height:16px;background:linear-gradient(90deg,var(--blue) var(--p),#fff var(--p));box-shadow:inset 3px 3px 0 #818181, inset 6px 6px 0 #000, inset -3px -3px 0 #fff}
+.vseek::-moz-range-thumb{width:18px;height:28px;border:0;border-radius:0;background:#bfbfbf;box-shadow:inset -3px -3px 0 #000, inset -6px -6px 0 #818181, inset 3px 3px 0 #fff}
+.vseek:focus-visible::-webkit-slider-thumb{outline:2px dotted #000;outline-offset:-5px}
+.vseek:focus-visible::-moz-range-thumb{outline:2px dotted #000;outline-offset:-5px}
+@media (max-width:760px){.floor .transport{top:calc((var(--fov, 38px) - 30px) / 2)}.stagewrap .seekwrap{left:12px;right:12px;bottom:56px}}
 body.frm-img .floor.show::after{right:0;left:auto;background-position:right top}
 body.no-sill.frm-img .sill{display:none}
 body.flr-end{padding-bottom:0}
@@ -385,7 +402,14 @@ dialog.win > .body{overflow:auto;flex:1}
   <div class="menubar" id="menubar"></div>
   <section id="showreel" aria-label="Showreel"></section>
   <div class="sill" aria-hidden="true"></div>
-  <div class="floor" data-floor="middle" aria-hidden="true"></div>
+  <div class="floor" data-floor="middle">
+    <div class="transport" id="transport" role="group" aria-label="Video controls" data-state="playing" hidden>
+      <button type="button" data-act="rewind" aria-label="Rewind to the start" title="Rewind"></button>
+      <button type="button" data-act="play" aria-label="Play" title="Play"></button>
+      <button type="button" data-act="pause" aria-label="Pause" title="Pause"></button>
+    </div>
+    <div class="seekwrap" id="seekwrap" hidden><input type="range" class="vseek" id="seek" min="0" max="1000" step="1" value="0" aria-label="Video position"></div>
+  </div>
   <div id="hello"></div>
   <div id="projwrap"></div>
   <main id="page"></main>
@@ -422,7 +446,7 @@ const SITE = {
   titleImage: 'images/frame-title.png',            // solid title bar at the very top of the page (your name and role sit on it). Missing file = a plain blue bar
   headerImage: 'images/frame-top.png',             // the see-through menu bar over the video (its grey menu row). Missing file = a plain grey bar
   middleImage: 'images/frame-middle.png',          // bar under the video. Missing file = frame-bottom.png is used there instead
-  middleFrame: { fillAt: 2000 },                   // a flat spot of frame-middle.png (in file pixels) that gets stretched across the middle
+  middleFrame: { fillAt: 2000, capLeft: 1200, overlapRows: 226, barRows: 207 },   // fillAt = a flat spot to stretch. capLeft = how much of the left (the tab) is drawn as it is. overlapRows = how many rows at the top are the tab that rises over the video. barRows = height of the grey bar. All in file pixels.                   // a flat spot of frame-middle.png (in file pixels) that gets stretched across the middle
   bottomImage: 'images/frame-bottom.png',          // bar that closes the frame at the very end of the page
   bottomFrame: { fillAt: 2000 },                   // a flat spot of frame-bottom.png (in file pixels) that gets stretched across the middle
   sideImage: 'images/frame-side.png',              // left and right edges of the window, repeats down the page. Missing file = no edges
@@ -589,16 +613,39 @@ function toolLogoFallback(img){   // .svg missing -> try .png -> then the built-
   img.replaceWith(sp);
 }
 const TP_REW = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="2" height="9"/><rect x="8" y="0" width="1" height="1"/><rect x="7" y="1" width="2" height="1"/><rect x="6" y="2" width="3" height="1"/><rect x="5" y="3" width="4" height="1"/><rect x="4" y="4" width="5" height="1"/><rect x="5" y="5" width="4" height="1"/><rect x="6" y="6" width="3" height="1"/><rect x="7" y="7" width="2" height="1"/><rect x="8" y="8" width="1" height="1"/></svg>', TP_PLAY = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="1" height="1"/><rect x="1" y="1" width="2" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="1" y="3" width="4" height="1"/><rect x="1" y="4" width="5" height="1"/><rect x="1" y="5" width="4" height="1"/><rect x="1" y="6" width="3" height="1"/><rect x="1" y="7" width="2" height="1"/><rect x="1" y="8" width="1" height="1"/></svg>', TP_PAUSE = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="2" height="9"/><rect x="5" y="0" width="2" height="9"/></svg>';
+function fillTransportIcons(){ const t = document.getElementById('transport'); if (!t) return; t.querySelector('[data-act="rewind"]').innerHTML = TP_REW; t.querySelector('[data-act="play"]').innerHTML = TP_PLAY; t.querySelector('[data-act="pause"]').innerHTML = TP_PAUSE; }
 const DOT = '<svg viewBox="0 0 5 5" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="3" height="1"/><rect x="0" y="1" width="5" height="3"/><rect x="1" y="4" width="3" height="1"/></svg>';
 let curVideo = 0;
-function setTransport(vid){       // show the play / pause / rewind bar only while a self-playing video is on screen
-  const tp = document.getElementById('transport'); if (!tp) return;
-  tp.hidden = !vid; if (!vid) return;
+let tpRaf = 0, seeking = false;
+function placeControls(){         // buttons and slider sit in the middle bar; if that image isn't used, they float over the video instead
+  const tp = document.getElementById('transport'), sw = document.getElementById('seekwrap'), fl = document.querySelector('.floor[data-floor="middle"]'), wrap = document.getElementById('stagewrap');
+  if (!tp || !sw) return;
+  const inBar = !!(fl && fl.classList.contains('tabbed')), parent = inBar ? fl : wrap; if (!parent) return;
+  [tp, sw].forEach(el => { if (el.parentElement !== parent) parent.appendChild(el); });
+}
+function setTransport(vid){       // show the play / pause / rewind buttons and the seek slider only while a self-playing video is on screen
+  const tp = document.getElementById('transport'), sw = document.getElementById('seekwrap'), rng = document.getElementById('seek'); if (!tp) return;
+  cancelAnimationFrame(tpRaf);
+  tp.hidden = !vid; if (sw) sw.hidden = !vid; if (!vid) return;
   const sync = () => { tp.dataset.state = vid.paused ? 'paused' : 'playing'; tp.querySelector('[data-act="play"]').setAttribute('aria-pressed', !vid.paused); tp.querySelector('[data-act="pause"]').setAttribute('aria-pressed', vid.paused); };
   ['play', 'playing', 'pause', 'ended'].forEach(ev => vid.addEventListener(ev, sync));
-  vid.addEventListener('error', () => { tp.hidden = true; });
-  vid.addEventListener('animationend', () => {}); sync();
+  vid.addEventListener('error', () => { tp.hidden = true; if (sw) sw.hidden = true; });
+  const show = () => { if (!rng || seeking || !(vid.duration > 0)) return; const p = Math.min(1000, vid.currentTime / vid.duration * 1000); rng.value = p; rng.style.setProperty('--p', (p / 10) + '%'); rng.setAttribute('aria-valuetext', Math.round(p / 10) + '%'); };
+  const tick = () => { show(); tpRaf = requestAnimationFrame(tick); };
+  if (rng){ rng.value = 0; rng.style.setProperty('--p', '0%'); }
+  tick(); sync();
 }
+function bindSeek(){              // dragging or clicking the slider jumps the video to that moment (no time is shown, just the position)
+  const rng = document.getElementById('seek'); if (!rng || rng.dataset.bound) return; rng.dataset.bound = '1';
+  rng.addEventListener('pointerdown', () => { seeking = true; });
+  window.addEventListener('pointerup', () => { seeking = false; });
+  rng.addEventListener('input', () => {
+    const v = document.querySelector('#stage video'); rng.style.setProperty('--p', (rng.value / 10) + '%');
+    if (v && v.duration > 0) v.currentTime = rng.value / 1000 * v.duration;
+  });
+  rng.addEventListener('change', () => { seeking = false; });
+}
+
 function transportAct(act){
   const v = document.querySelector('#stage video'); if (!v) return;
   if (act === 'play') v.play().catch(() => {});
@@ -610,11 +657,6 @@ function showreelHTML(){        // the video, with soft arrows at the sides and 
   return `<div class="stagewrap" id="stagewrap"><div class="stage" id="stage"></div>
     ${many ? `<button class="vnav prev" data-vstep="-1" aria-label="Previous video">${CHEV}</button><button class="vnav next" data-vstep="1" aria-label="Next video">${CHEV}</button>
     <div class="dots" role="group" aria-label="Choose a video">${VLIST.map((v, i) => `<button class="dot" data-v="${i}" aria-label="Show video ${i + 1} of ${n}: ${esc(v.title)}" title="${esc(v.title)}">${DOT}</button>`).join('')}</div>` : ''}
-    <div class="transport" id="transport" role="group" aria-label="Video controls" data-state="playing" hidden>
-      <button type="button" data-act="rewind" aria-label="Rewind to the start" title="Rewind">${TP_REW}</button>
-      <button type="button" data-act="play" aria-label="Play" title="Play">${TP_PLAY}</button>
-      <button type="button" data-act="pause" aria-label="Pause" title="Pause">${TP_PAUSE}</button>
-    </div>
     <p class="sr" id="vlive" aria-live="polite"></p></div>`;
 }
 function stepVideo(d){ const n = VLIST.length; showVideo((curVideo + d + n) % n, true); }
@@ -784,12 +826,13 @@ async function initShowreel(){
   const found = VIDEOS.filter((v, i) => ok[i]);
   VLIST = found.length ? found : VIDEOS.slice(0, 1);
   $('#showreel').innerHTML = showreelHTML();
+  fillTransportIcons(); bindSeek(); placeControls();
   showVideo(0, false);
   if (/[?&]debug\b/.test(location.search)) videoReport(ok);
   if (VLIST.length > 1){
     document.addEventListener('keydown', e => {                                 // arrow keys switch videos while focus is on the video area
       const wrap = document.getElementById('showreel');
-      if (!wrap || !wrap.contains(document.activeElement)) return;
+      if (!wrap || !wrap.contains(document.activeElement) || (e.target && e.target.matches && e.target.matches('input[type="range"]'))) return;
       if (e.key === 'ArrowLeft'){ e.preventDefault(); stepVideo(-1); } else if (e.key === 'ArrowRight'){ e.preventDefault(); stepVideo(1); }
     });
     let x0 = null; const sw = document.getElementById('stagewrap');              // swipe on touch screens
@@ -884,6 +927,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * ks * dpr) / dpr) + 'px');
     document.querySelectorAll('.floor.show').forEach(el => {                  // each closing bar is as tall as its image, at the side frame's scale
       const fh = +el.dataset.fh; if (fh) el.style.setProperty('--flh', (Math.round(fh * ks * dpr) / dpr) + 'px');
+      if (el.dataset.ovr){ el.style.setProperty('--fov', (Math.round(el.dataset.ovr * ks * dpr) / dpr) + 'px'); el.style.setProperty('--fbh', (Math.round(el.dataset.bar * ks * dpr) / dpr) + 'px'); }
     });
   };
   setScale(); addEventListener('resize', setScale);
@@ -949,10 +993,14 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
         el.style.setProperty('--fbw', im.naturalWidth);
         el.style.setProperty('--fx', fx);
         el.dataset.fh = im.naturalHeight;
+        const mf = SITE.middleFrame;
+        if (which === 'middle' && src === SITE.middleImage && mf && mf.capLeft){      // the image with the tab: it rises over the video and holds the controls
+          el.style.setProperty('--capl', mf.capLeft); el.dataset.ovr = mf.overlapRows; el.dataset.bar = mf.barRows; el.classList.add('tabbed');
+        }
         el.classList.add('show');
       });
       setScale();
-      if (which === 'middle') body.classList.add('no-sill'); else body.classList.add('flr-end');
+      if (which === 'middle') { body.classList.add('no-sill'); placeControls(); } else body.classList.add('flr-end');
     };
     im.onerror = () => { if (which === 'middle' && SITE.bottomImage && src !== SITE.bottomImage) showFloor('middle', SITE.bottomImage, SITE.bottomFrame.fillAt); };   // no middle image: use the bottom one there
     im.src = src;
