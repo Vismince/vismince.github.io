@@ -212,22 +212,24 @@ body.frm-img .floor.show::before,body.frm-img .floor.show::after{content:'';posi
   background:var(--flr-img) 0 0 / calc(var(--ks) * var(--fbw) * 1px) 100% no-repeat}
 body.frm-img .floor.show::before{left:0}
 /* tabbed middle bar: the tab rises over the bottom of the video and holds the buttons; the bar holds the seek slider */
-body.frm-img .floor.show.tabbed{margin-top:calc(var(--fov, 0px) * -1)}
+body.frm-img .floor.show.tabbed{margin-top:calc(var(--fov, 0px) * -1);top:calc(var(--lift, 4px) * -1)}
 body.frm-img .floor.show.tabbed::before{width:calc(var(--ks) * var(--capl) * 1px)}
-body.frm-img .floor.show.tabbed{--th:calc(var(--fbh, 40px) - 4px);--bw:calc(var(--th) * 1.28)}      /* buttons and slider are as tall as the grey bar allows, with 2px to spare above and below */
+body.frm-img .floor.show.tabbed{--th:calc(var(--fbh, 24px) - 6px);--bw:calc(var(--th) * 1.35);--sh:calc(var(--fbh, 24px) - 8px)}      /* --th = button height (3px of space above and below), --sh = slider height (4px above and below), both centred in the grey bar */
 .floor .transport{--tw:calc(var(--bw, 46px) * 3 + 12px);z-index:2;left:calc((var(--ks) * var(--tabw, 1002) * 1px + var(--ks) * 19px - var(--tw)) / 2);top:calc(var(--fov, 13px) + (var(--fbh, 40px) - var(--th, 36px)) / 2);gap:6px;bottom:auto;padding:0;background:none;box-shadow:none;opacity:1}
-.floor .seekwrap{position:absolute;z-index:2;left:calc(var(--ks) * var(--tabw, 1002) * 1px + 18px);right:calc(var(--ks) * 43px + 14px);top:calc(var(--fov, 13px) + (var(--fbh, 40px) - var(--th, 36px)) / 2);height:var(--th, 36px)}
+.floor .seekwrap{position:absolute;z-index:2;left:calc(var(--ks) * var(--tabw, 1002) * 1px + 18px);right:calc(var(--ks) * 43px + 14px);top:calc(var(--fov, 13px) + (var(--fbh, 24px) - var(--sh, 16px)) / 2);height:var(--sh, 16px)}
 .seekwrap[hidden]{display:none}
 .floor .transport button{width:var(--bw, 46px);height:var(--th, 36px)}
 .floor .transport button svg{width:calc(var(--th, 36px) * .56);height:calc(var(--th, 36px) * .56)}
-.floor .vseek{--trk:max(12px, calc(var(--th, 27px) * .5));--thw:max(12px, calc(var(--th, 27px) * .6));height:var(--th, 27px)}
+.floor .vseek{--trk:max(8px, calc(var(--sh, 16px) * .6));--thw:max(10px, calc(var(--sh, 16px) * .62));height:var(--sh, 16px)}
 .floor .vseek::-webkit-slider-runnable-track{height:var(--trk)}
-.floor .vseek::-webkit-slider-thumb{width:var(--thw);height:var(--th, 27px);margin-top:calc((var(--trk) - var(--th, 27px)) / 2)}
+.floor .vseek::-webkit-slider-thumb{width:var(--thw);height:var(--sh, 16px);margin-top:calc((var(--trk) - var(--sh, 16px)) / 2)}
 .floor .vseek::-moz-range-track{height:var(--trk)}
-.floor .vseek::-moz-range-thumb{width:var(--thw);height:var(--th, 27px)}
-.floor .transport button,.floor .vseek::-webkit-slider-thumb,.floor .vseek::-moz-range-thumb{box-shadow:inset calc(var(--bv, 3px) * -1) calc(var(--bv, 3px) * -1) 0 #000, inset calc(var(--bv, 3px) * -2) calc(var(--bv, 3px) * -2) 0 #818181, inset var(--bv, 3px) var(--bv, 3px) 0 #fff}
+.floor .vseek::-moz-range-thumb{width:var(--thw);height:var(--sh, 16px)}
+.floor .transport button, .floor .vseek::-webkit-slider-thumb{box-shadow:inset calc(var(--bv, 3px) * -1) calc(var(--bv, 3px) * -1) 0 #000, inset calc(var(--bv, 3px) * -2) calc(var(--bv, 3px) * -2) 0 #818181, inset var(--bv, 3px) var(--bv, 3px) 0 #fff}
+.floor .vseek::-moz-range-thumb{box-shadow:inset calc(var(--bv, 3px) * -1) calc(var(--bv, 3px) * -1) 0 #000, inset calc(var(--bv, 3px) * -2) calc(var(--bv, 3px) * -2) 0 #818181, inset var(--bv, 3px) var(--bv, 3px) 0 #fff}
 .floor .transport button:active,.floor .transport[data-state="playing"] [data-act="play"],.floor .transport[data-state="paused"] [data-act="pause"]{box-shadow:inset var(--bv, 3px) var(--bv, 3px) 0 #000, inset calc(var(--bv, 3px) * 2) calc(var(--bv, 3px) * 2) 0 #818181}
-.floor .vseek::-webkit-slider-runnable-track,.floor .vseek::-moz-range-track{box-shadow:inset var(--bv, 3px) var(--bv, 3px) 0 #818181, inset calc(var(--bv, 3px) * 2) calc(var(--bv, 3px) * 2) 0 #000, inset calc(var(--bv, 3px) * -1) calc(var(--bv, 3px) * -1) 0 #fff}
+.floor .vseek::-webkit-slider-runnable-track{box-shadow:inset var(--tbv, 3px) var(--tbv, 3px) 0 #818181, inset calc(var(--tbv, 3px) * 2) calc(var(--tbv, 3px) * 2) 0 #000, inset calc(var(--tbv, 3px) * -1) calc(var(--tbv, 3px) * -1) 0 #fff}
+.floor .vseek::-moz-range-track{box-shadow:inset var(--tbv, 3px) var(--tbv, 3px) 0 #818181, inset calc(var(--tbv, 3px) * 2) calc(var(--tbv, 3px) * 2) 0 #000, inset calc(var(--tbv, 3px) * -1) calc(var(--tbv, 3px) * -1) 0 #fff}      /* groove edges: thin on a small bar so the blue progress stays visible */
 .stagewrap .seekwrap{position:absolute;left:28px;right:28px;bottom:76px;height:28px;z-index:3}
 .vseek{display:block;width:100%;height:28px;margin:0;padding:0;background:transparent;-webkit-appearance:none;appearance:none;--p:0%}
 .vseek:focus{outline:none}
@@ -238,8 +240,10 @@ body.frm-img .floor.show.tabbed{--th:calc(var(--fbh, 40px) - 4px);--bw:calc(var(
 .vseek:focus-visible::-webkit-slider-thumb{outline:2px dotted #000;outline-offset:-5px}
 .vseek:focus-visible::-moz-range-thumb{outline:2px dotted #000;outline-offset:-5px}
 @media (max-width:760px){
-  .floor .vseek::-webkit-slider-runnable-track,.floor .vseek::-moz-range-track{box-shadow:inset 2px 2px 0 #818181, inset 4px 4px 0 #000, inset -2px -2px 0 #fff}
-  .floor .vseek::-webkit-slider-thumb,.floor .vseek::-moz-range-thumb,.floor .transport button{box-shadow:inset -2px -2px 0 #000, inset -4px -4px 0 #818181, inset 2px 2px 0 #fff}
+  .floor .vseek::-webkit-slider-runnable-track{box-shadow:inset 2px 2px 0 #818181, inset 4px 4px 0 #000, inset -2px -2px 0 #fff}
+  .floor .vseek::-moz-range-track{box-shadow:inset 2px 2px 0 #818181, inset 4px 4px 0 #000, inset -2px -2px 0 #fff}
+  .floor .transport button, .floor .vseek::-webkit-slider-thumb{box-shadow:inset -2px -2px 0 #000, inset -4px -4px 0 #818181, inset 2px 2px 0 #fff}
+  .floor .vseek::-moz-range-thumb{box-shadow:inset -2px -2px 0 #000, inset -4px -4px 0 #818181, inset 2px 2px 0 #fff}
 }
 @media (max-width:760px){.floor .transport{gap:4px}.stagewrap .seekwrap{left:12px;right:12px;bottom:56px}}
 body.frm-img .floor.show::after{right:0;left:auto;background-position:right top}
@@ -462,6 +466,7 @@ const SITE = {
   titleImage: 'images/frame-title.png',            // solid title bar at the very top of the page (your name and role sit on it). Missing file = a plain blue bar
   headerImage: 'images/frame-top.png',             // the see-through menu bar over the video (its grey menu row). Missing file = a plain grey bar
   middleImage: 'images/frame-middle.png',          // bar under the video. Missing file = frame-bottom.png is used there instead
+  middleLift: 4,                                   // moves the bar under the video up by this many pixels (0 = where it was)
   middleFrame: { fillAt: 2000, capLeft: 830, tabWidth: 779, overlapRows: 60, barRows: 108 },   // fillAt = a flat spot to stretch. capLeft = how much of the left (the tab) is drawn as it is. tabWidth = where the tab ends (the slider starts after it). overlapRows = how many rows at the top are the tab that rises over the video. barRows = height of the grey bar. All in file pixels.                   // a flat spot of frame-middle.png (in file pixels) that gets stretched across the middle
   bottomImage: 'images/frame-bottom.png',          // bar that closes the frame at the very end of the page
   bottomFrame: { fillAt: 2000 },                   // a flat spot of frame-bottom.png (in file pixels) that gets stretched across the middle
@@ -922,6 +927,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
   root.style.setProperty('--vasp', SITE.showreelAspect || '16 / 9');
   root.style.setProperty('--vfit', SITE.showreelFit || 'cover');
   root.style.setProperty('--bar-op', SITE.barOpacity);
+  root.style.setProperty('--lift', (SITE.middleLift ?? 4) + 'px');
   root.style.setProperty('--home-op', SITE.topTabOpacity ?? 0.7);
   $('#top').classList.toggle('px', !!SITE.titlePortraitPixelated);
   $('#top').innerHTML = `${SITE.titlePortrait ? `<div class="badge" aria-hidden="true"><span class="pic"><img class="face" src="${esc(SITE.titlePortrait)}" alt="" onload="document.body.classList.add('has-face')" onerror="this.closest('.badge').remove()"></span></div>` : ''}<div class="ttl"><h1 class="nm">${esc(SITE.name)}</h1><span class="sep" aria-hidden="true"></span><p class="rl">${esc(SITE.role)}</p></div>`;
@@ -943,7 +949,7 @@ const FONTS = ['Pixelify Sans', 'Silkscreen', 'Press Start 2P', 'VT323', 'Jersey
     if (SITE._inset) root.style.setProperty('--frm-bw', (Math.round(SITE._inset * ks * dpr) / dpr) + 'px');
     document.querySelectorAll('.floor.show').forEach(el => {                  // each closing bar is as tall as its image, at the side frame's scale
       const fh = +el.dataset.fh; if (fh) el.style.setProperty('--flh', (Math.round(fh * ks * dpr) / dpr) + 'px');
-      if (el.dataset.ovr){ el.style.setProperty('--bv', (Math.round(el.dataset.bar * ks * dpr) / dpr - 4 < 28 ? 2 : 3) + 'px'); el.style.setProperty('--fov', (Math.round(el.dataset.ovr * ks * dpr) / dpr) + 'px'); el.style.setProperty('--fbh', (Math.round(el.dataset.bar * ks * dpr) / dpr) + 'px'); }
+      if (el.dataset.ovr){ { const small = Math.round(el.dataset.bar * ks * dpr) / dpr - 4 < 28; el.style.setProperty('--bv', (small ? 2 : 3) + 'px'); el.style.setProperty('--tbv', (small ? 1 : 3) + 'px'); } el.style.setProperty('--fov', (Math.round(el.dataset.ovr * ks * dpr) / dpr) + 'px'); el.style.setProperty('--fbh', (Math.round(el.dataset.bar * ks * dpr) / dpr) + 'px'); }
     });
   };
   setScale(); addEventListener('resize', setScale);
