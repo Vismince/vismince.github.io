@@ -373,6 +373,30 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .card .cb{font-size:14px}
 .card .cm{font-size:13px;color:var(--muted)}
 .card .badge{align-self:flex-start;font:700 13px var(--px);padding:1px 8px;background:var(--accent);border:1px solid var(--accent-line);margin-bottom:4px}
+.feat2{flex:0 0 100%;display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1.3fr);gap:var(--pgap);align-items:start}
+.f-head{grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.f-title{margin:0;font:700 34px/1.1 var(--px)}
+.f-media{position:relative;align-self:stretch;min-height:300px}
+.f-img{position:absolute;inset:0;padding:0;display:block;overflow:hidden;background:var(--chrome);border:3px solid #000;box-shadow:4px 4px 0 rgba(0,0,0,.3)}
+.f-img img,.f-img .ph{width:100%;height:100%;object-fit:cover;display:block}
+.f-sticker{position:absolute;left:-10px;bottom:-16px;max-width:78%;padding:9px 14px;transform:rotate(-5deg);background:var(--accent);border:2px solid var(--accent-line);box-shadow:3px 3px 0 rgba(0,0,0,.3);font:400 15px/1.35 var(--name-font);pointer-events:none}
+.f-facts{display:flex;flex-wrap:wrap;gap:8px 12px;margin:0 0 var(--pgap);padding:0;list-style:none}
+.f-facts li{display:inline-flex;align-items:center;gap:9px;padding:5px 14px 5px 7px;background:var(--chip-bg);border:1px solid var(--chip-line);font:400 16px/1.2 var(--name-font)}
+.f-facts svg,.f-facts .pxi{width:26px;height:26px;flex:none}
+.f-facts img{height:26px;width:auto;flex:none;object-fit:contain}
+.f-cards{display:grid;grid-template-columns:1fr 1fr;gap:var(--pgap)}
+.f-card{padding:16px 18px;background:var(--btn-bg);border:2px solid var(--paper-line);min-width:0}
+.f-card h4{margin:0 0 10px;font:700 19px/1.2 var(--px)}
+.f-card p{margin:0;font-size:15px;line-height:1.6}
+.f-list{margin:0;padding-left:20px;font-size:15px;line-height:1.55}
+.f-list li{margin:0 0 8px}
+.f-sublabel{margin:12px 0 6px !important;font:700 14px var(--px) !important;color:var(--muted)}
+.f-subs{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.f-subs li{padding:2px 10px;background:var(--accent);border:1px solid var(--accent-line);font:400 14px/1.3 var(--name-font)}
+.f-more{margin:var(--pgap) 0 0 !important}
+.vid{aspect-ratio:16/9;margin:14px 0;background:#000;border:2px solid var(--paper-line)}
+.vid iframe{display:block;width:100%;height:100%;border:0}
+@media (max-width:900px){.feat2{grid-template-columns:1fr}.f-media{min-height:0;aspect-ratio:16/10}.f-cards{grid-template-columns:1fr}}
 .card.feat{flex:0 0 100%;display:grid;grid-template-columns:1.6fr 1fr}
 .card.feat .thumb{border-bottom:0;border-right:2px solid var(--paper-line);aspect-ratio:16/10}
 .card.feat .info{justify-content:center;padding:22px 26px;gap:8px}
@@ -564,8 +588,19 @@ const PROJECTS = [
   // Template: replace the placeholder text, add your images, and delete or copy blocks as you need.
   // Fields: title, blurb (one short line), thumb (card picture), summary, optional role / team / time / engine,
   //         sections (heading, text and screenshots for the pop-up) and links (buttons in the pop-up).
-  { id: 'proj1', featured: true, title: 'Project 1', blurb: 'Short description', thumb: 'images/proj1-thumb.png',
-    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
+  { id: 'proj1', featured: true, title: 'Mind the Gap', blurb: 'Liminal horror game set in the London Underground', thumb: 'images/proj1-thumb.png',
+    facts: [{ icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Team of 12' }, { tool: 'Unreal', text: 'Unreal Engine' }, { icon: 'ghost', text: 'Liminal Horror' }],
+    details: 'Mind the Gap is a **liminal horror** game set in a version of the London Underground that lies beyond human understanding. Players explore strange stations, collect **drawings** that show the way forward and solve simple **puzzles** to escape. Developed in 8 weeks during Year 2, block D, and now in **early access** on itch.io.',
+    responsibilities: ['**Level designer**, one of four level designers on the team', 'Ran the game\'s **marketing** through social media'],
+    subRoles: ['Marketing & social media', 'Graphic design'],
+    trailer: 'lPg81Lnhv-g',
+    summary: 'A liminal horror game set in the London Underground, in a place called the Gap that lies beyond human understanding. To escape, you move through strange stations, collect drawings that point the way forward, and solve simple puzzles. Made by the student team ScareFactor at Breda University of Applied Sciences.',
+    role: 'Level designer (with marketing and graphic design)', team: 'Team of 12, plus a client', time: '8 weeks (Year 2, block D)', engine: 'Unreal Engine',
+    sections: [
+      { h: 'My role', t: 'My main role was level design, as one of four level designers on the team. Alongside it I handled the game\'s marketing through social media, and I am credited for graphic design too: a hybrid role across design and communication.', shots: [] },
+      { h: 'Where it stands', t: 'Mind the Gap is available on itch.io as an early-access build for Windows, and the game was submitted to the Dutch Game Awards 2026.', shots: [] }
+    ],
+    links: [{ label: 'Play on itch.io', url: 'https://buas.itch.io/mind-the-gap' }, { label: 'Dutch Games Industry page', url: 'https://www.dutchgamesindustry.nl/game/mind-the-gap' }, { label: 'Watch the trailer', url: 'https://youtu.be/lPg81Lnhv-g' }] },
   { id: 'proj2', title: 'Project 2', blurb: 'Short description', thumb: 'images/proj2-thumb.png',
     summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
   { id: 'proj3', title: 'Project 3', blurb: 'Short description', thumb: 'images/proj3-thumb.png',
@@ -635,6 +670,7 @@ function toolLogoFallback(img){   // .svg missing -> try .png -> then the built-
 }
 const TP_REW = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="0" y="0" width="2" height="9"/><rect x="8" y="0" width="1" height="1"/><rect x="7" y="1" width="2" height="1"/><rect x="6" y="2" width="3" height="1"/><rect x="5" y="3" width="4" height="1"/><rect x="4" y="4" width="5" height="1"/><rect x="5" y="5" width="4" height="1"/><rect x="6" y="6" width="3" height="1"/><rect x="7" y="7" width="2" height="1"/><rect x="8" y="8" width="1" height="1"/></svg>', TP_PLAY = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="1" height="1"/><rect x="1" y="1" width="2" height="1"/><rect x="1" y="2" width="3" height="1"/><rect x="1" y="3" width="4" height="1"/><rect x="1" y="4" width="5" height="1"/><rect x="1" y="5" width="4" height="1"/><rect x="1" y="6" width="3" height="1"/><rect x="1" y="7" width="2" height="1"/><rect x="1" y="8" width="1" height="1"/></svg>', TP_PAUSE = '<svg viewBox="0 0 9 9" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="2" height="9"/><rect x="5" y="0" width="2" height="9"/></svg>';
 function fillTransportIcons(){ const t = document.getElementById('transport'); if (!t) return; t.querySelector('[data-act="rewind"]').innerHTML = TP_REW; t.querySelector('[data-act="play"]').innerHTML = TP_PLAY; t.querySelector('[data-act="pause"]').innerHTML = TP_PAUSE; }
+const FACT_ICONS = { clock: '<svg viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true"><g fill="#222222"><rect x="4" y="0" width="4" height="1"/><rect x="2" y="1" width="2" height="1"/><rect x="8" y="1" width="2" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="6" y="6" width="3" height="1"/><rect x="11" y="6" width="1" height="1"/><rect x="0" y="7" width="1" height="1"/><rect x="11" y="7" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="10" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="10" y="9" width="1" height="1"/><rect x="2" y="10" width="2" height="1"/><rect x="8" y="10" width="2" height="1"/><rect x="4" y="11" width="4" height="1"/></g><g fill="#ffffff"><rect x="4" y="1" width="4" height="1"/><rect x="2" y="2" width="8" height="1"/><rect x="2" y="3" width="4" height="1"/><rect x="7" y="3" width="3" height="1"/><rect x="1" y="4" width="5" height="1"/><rect x="7" y="4" width="4" height="1"/><rect x="1" y="5" width="5" height="1"/><rect x="7" y="5" width="4" height="1"/><rect x="1" y="6" width="5" height="1"/><rect x="9" y="6" width="2" height="1"/><rect x="1" y="7" width="10" height="1"/><rect x="2" y="8" width="8" height="1"/><rect x="2" y="9" width="8" height="1"/><rect x="4" y="10" width="4" height="1"/></g></svg>', team: '<svg viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true"><g fill="#222222"><rect x="2" y="1" width="3" height="1"/><rect x="7" y="1" width="3" height="1"/><rect x="2" y="2" width="3" height="1"/><rect x="7" y="2" width="3" height="1"/><rect x="2" y="3" width="3" height="1"/><rect x="7" y="3" width="3" height="1"/><rect x="1" y="5" width="5" height="1"/><rect x="7" y="5" width="5" height="1"/><rect x="1" y="6" width="5" height="1"/><rect x="7" y="6" width="5" height="1"/><rect x="1" y="7" width="5" height="1"/><rect x="7" y="7" width="5" height="1"/><rect x="1" y="8" width="5" height="1"/><rect x="7" y="8" width="5" height="1"/><rect x="1" y="9" width="5" height="1"/><rect x="7" y="9" width="5" height="1"/></g></svg>', ghost: '<svg viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true"><g fill="#222222"><rect x="4" y="0" width="4" height="1"/><rect x="2" y="1" width="2" height="1"/><rect x="8" y="1" width="2" height="1"/><rect x="1" y="2" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="1" y="3" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="1" y="4" width="1" height="1"/><rect x="3" y="4" width="2" height="1"/><rect x="7" y="4" width="2" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/><rect x="3" y="5" width="2" height="1"/><rect x="7" y="5" width="2" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="1" y="7" width="1" height="1"/><rect x="5" y="7" width="2" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="10" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="10" y="9" width="1" height="1"/><rect x="1" y="10" width="1" height="1"/><rect x="3" y="10" width="1" height="1"/><rect x="8" y="10" width="1" height="1"/><rect x="10" y="10" width="1" height="1"/><rect x="1" y="11" width="2" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="9" y="11" width="2" height="1"/></g><g fill="#ffffff"><rect x="4" y="1" width="4" height="1"/><rect x="2" y="2" width="8" height="1"/><rect x="2" y="3" width="8" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="5" y="4" width="2" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="2" y="5" width="1" height="1"/><rect x="5" y="5" width="2" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="2" y="6" width="8" height="1"/><rect x="2" y="7" width="3" height="1"/><rect x="7" y="7" width="3" height="1"/><rect x="2" y="8" width="8" height="1"/><rect x="2" y="9" width="8" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="4" y="10" width="4" height="1"/><rect x="9" y="10" width="1" height="1"/><rect x="5" y="11" width="2" height="1"/></g></svg>' };
 const DOT = '<svg viewBox="0 0 5 5" shape-rendering="crispEdges" aria-hidden="true" fill="currentColor"><rect x="1" y="0" width="3" height="1"/><rect x="0" y="1" width="5" height="3"/><rect x="1" y="4" width="3" height="1"/></svg>';
 let curVideo = 0;
 let tpRaf = 0, seeking = false;
@@ -777,6 +813,23 @@ function aboutHTML(){
 }
 
 /* 3. projects */
+function md(t){ return esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }      // **bold** in the project texts
+function featHTML(p){            // the big featured block: picture, quick facts, details, responsibilities
+  const facts = (p.facts || []).map(f => `<li>${f.tool ? toolIcon(f.tool) : (FACT_ICONS[f.icon] || '')}<span>${esc(f.text)}</span></li>`).join('');
+  const sticker = (p.sticker || []).length ? `<div class="f-sticker">${p.sticker.map(esc).join('<br>')}</div>` : '';
+  const subs = (p.subRoles || []).map(x => `<li>${esc(x)}</li>`).join('');
+  return `<article class="feat2">
+    <header class="f-head"><span class="badge">★ Featured project</span><h3 class="f-title">${esc(p.title)}</h3></header>
+    <div class="f-media"><button class="f-img" data-open="${p.id}" aria-label="Open case study: ${esc(p.title)}"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></button>${sticker}</div>
+    <div class="f-side">
+      <ul class="f-facts">${facts}</ul>
+      <div class="f-cards">
+        <section class="f-card"><h4>Project details</h4><p>${md(p.details)}</p></section>
+        <section class="f-card"><h4>My responsibilities</h4><ul class="f-list">${(p.responsibilities || []).map(r => `<li>${md(r)}</li>`).join('')}</ul>${subs ? `<p class="f-sublabel">Sub-roles</p><ul class="f-subs">${subs}</ul>` : ''}</section>
+      </div>
+      <button class="btn f-more" data-open="${p.id}">Read more</button>
+    </div></article>`;
+}
 function cardHTML(p){
   return `<button class="card${p.featured ? ' feat' : ''}" data-p="${p.id}" aria-label="Open case study: ${esc(p.title)}">
     <span class="thumb"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></span>
@@ -786,7 +839,7 @@ function cardHTML(p){
 }
 function projectsHTML(){
   const feat = PROJECTS.filter(p => p.featured).slice(0, 1), rest = PROJECTS.filter(p => !feat.includes(p));
-  return w95HTML('projects', 'projects', 'folder', `<div class="pgrid">${[...feat, ...rest].map(cardHTML).join('')}</div>`);
+  return w95HTML('projects', 'projects', 'folder', `<div class="pgrid">${[...feat, ...rest].map(p => (p.featured && p.details) ? featHTML(p) : cardHTML(p)).join('')}</div>`);
 }
 function w95HTML(id, title, icon, inner){        // a window drawn in the same grey, bevelled style as your frame pieces
   return `<section class="w95" id="${id}" aria-labelledby="${id}-t">
@@ -799,6 +852,7 @@ function openCase(id, from){
   const p = PROJECTS.find(x => x.id === id), d = $('#case'); if (!p) return;
   d.innerHTML = `<div class="titlebar">${ic('cube')}<h2 class="t">${esc(p.title)}</h2><button class="tb x" data-close aria-label="Close">✕</button></div>
     <div class="body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
+      ${p.trailer ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.trailer)}" title="${esc(p.title)} trailer" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>` : ''}
       ${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].some(r => r[1]) ? `<dl class="meta">${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>` : ''}
       ${(p.links && p.links.length) ? `<p>${linkBtns(p.links)}</p>` : ''}
       ${p.sections.map(s => `<h3>${esc(s.h)}</h3><p>${esc(s.t)}</p>${(s.shots || []).map(sh => `
@@ -873,6 +927,7 @@ document.addEventListener('click', e => {
   const stp = t.closest('[data-vstep]'); if (stp){ stepVideo(+stp.dataset.vstep); return; }
   const v = t.closest('[data-v]'); if (v){ showVideo(+v.dataset.v, true); return; }
   if (t.closest('[data-play]')){ showVideo(vi(), true); return; }
+  const op = t.closest('[data-open]'); if (op){ openCase(op.dataset.open, op); return; }
   const card = t.closest('.card'); if (card){ openCase(card.dataset.p, card); return; }
   const mp = t.closest('[data-main]'); if (mp){ showPhoto({ src: SITE.portrait, caption: SITE.portraitCaption || SITE.name, alt: 'Portrait of ' + SITE.name }, mp); return; }
   const ph = t.closest('.photo'); if (ph){ openPhoto(+ph.dataset.photo); return; }
