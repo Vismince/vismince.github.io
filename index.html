@@ -422,6 +422,7 @@ dialog.win > .body{overflow:auto;flex:1}
 .meta dt{font-weight:bold}.meta dd{margin:0}
 .case h3{margin-top:20px}
 .shot{margin:10px 0 16px}
+.shot a{display:block;cursor:zoom-in}
 .shot img{display:block;max-width:100%;border:2px solid var(--paper-line)}
 .shot figcaption{font-size:13px;color:var(--muted);margin-top:4px}
 
@@ -606,8 +607,29 @@ const PROJECTS = [
       { h: 'Where it stands', t: 'Mind the Gap is available on itch.io as an early-access build for Windows, and the game was submitted to the Dutch Game Awards 2026.', shots: [] }
     ],
     links: [{ label: 'Play on itch.io', url: 'https://buas.itch.io/mind-the-gap' }, { label: 'Dutch Games Industry page', url: 'https://www.dutchgamesindustry.nl/game/mind-the-gap' }, { label: 'Watch the trailer', url: 'https://youtu.be/lPg81Lnhv-g' }] },
-  { id: 'proj2', title: 'Project 2', blurb: 'Short description', thumb: 'images/proj2-thumb.png',
-    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
+  { id: 'proj2', title: 'The Refinery of Rott', blurb: 'Quake-inspired labyrinth level in a decayed sewer', thumb: 'images/proj2-thumb.jpg',
+    summary: 'The Refinery of Rott (E1M1.2) is a Quake-inspired level for a first-person shooter, built in Unreal Engine 5 as a student project. It reimagines a decayed wastewater sewage system as a hazardous labyrinth that combines exploration, combat and puzzle elements, while keeping the pacing and atmosphere of old-school Quake.',
+    role: 'Level designer', time: '8 weeks (Year 2, block A)', engine: 'Unreal Engine 5',
+    sections: [
+      { h: 'The level proposal', t: 'The block started with a level proposal in the form of a one-pager. It sets out the objective, to cleanse the sewer of corrosion and make it out alive, together with a node map of how the rooms connect, an intensity curve based on the four-step KiShoTenKetsu design process, and the environmental storytelling of hostile, decayed spaces.',
+        shots: [{ src: 'images/proj2-onepager.jpg', cap: 'The level one-pager: node map, intensity curve and design pillars (click to enlarge)' }] },
+      { h: 'Design pillars', t: 'Three pillars guided the level: exploration, combat replayability and a hostile environment. Narrow rooms, passageways and drainage pipes turn the sewer itself into an obstacle, and explosive pipes act as cause and effect for the player.', shots: [] },
+      { h: 'Research and planning', t: 'I started with research into architecture in level design, using photo references and sketches to build the sewer\'s world. The Quake E4M1 map, imported into Unreal as a scale reference, helped set the proportions. The level layout and sketches followed from research into theming and the player persona, and the pieces of the modular toolkit were broken down with paint-overs and modular sketches.', shots: [] },
+      { h: 'Blockout and golden path', t: 'In Unreal Engine 5 I built the blockout with the engine\'s modeling tools, in a geometric shape language like Quake\'s. These annotated views show the golden path, the main route through each space; the optional paths that loop around it; and the directional lighting that pulls players towards the way forward, with fog and ambient light for atmosphere.',
+        shots: [
+          { src: 'images/proj2-shot-1.jpg', cap: 'The golden path through a chamber, with optional paths, directional lighting, ambience and an enemy position' },
+          { src: 'images/proj2-shot-3.jpg', cap: 'A bridge on the golden path, with optional paths and directional lighting' },
+          { src: 'images/proj2-shot-4.jpg', cap: 'The golden path crossing a bridge towards a gate, with optional paths on both sides' },
+          { src: 'images/proj2-shot-5.jpg', cap: 'Directional lighting draws the eye to the gate at the end of the golden path' },
+          { src: 'images/proj2-shot-6.jpg', cap: 'The same gate from another angle, with optional paths looping around the golden path' },
+          { src: 'images/proj2-shot-7.jpg', cap: 'A stairway on the golden path, with optional paths through the side alcoves' }] },
+      { h: 'Gameplay ingredients', t: 'My own ingredient, pitched in the proposal, grew into environmental hazards that players can shoot and set off: explosive pipes and barrels. Around them I built moving gates that can be shot, moving platforms, buttons and secret areas, all managed in Perforce.',
+        shots: [{ src: 'images/proj2-shot-2.jpg', cap: 'Environmental hazards, an exploding barrel and a pipe, beside the golden path and an optional path' }] },
+      { h: 'Landmarks and pacing', t: 'Players find their way by landmarks: pipe structures and passageways, bridges and ceiling lamps, with colour swatches that quietly hint at how each element works. The level is paced as a beginning, a middle and an end using the Ki-Sho-Ten-Ketsu structure, and the intensity curve builds to its peak at the sewage exit.', shots: [] },
+      { h: 'Playtesting', t: 'A playable build was ready every week, from the first prototype to a playable level, and I recorded gameplay videos of each one. Three playtest sessions checked the golden path, then the gameplay ingredients and flow, then the intended player experience of exploration, tension and alertness.', shots: [] },
+      { h: 'Sharing the work', t: 'I shared the level proposal on LinkedIn in September and a gameplay video with behind-the-scenes material in October for #Blocktober, and posted progress on the Design Den and the Quake Mapping Discord community, which brought feedback from people in the field.', shots: [] }
+    ],
+    links: [{ label: 'LinkedIn: level proposal', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7375508900487540736/' }, { label: 'LinkedIn: Blocktober update', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7389239754007035904/' }, { label: 'Gameplay video', url: 'https://lnkd.in/eErq3-wP' }] },
   { id: 'proj3', title: 'Project 3', blurb: 'Short description', thumb: 'images/proj3-thumb.png',
     summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
   { id: 'proj4', title: 'Project 4', blurb: 'Short description', thumb: 'images/proj4-thumb.png',
@@ -861,7 +883,7 @@ function openCase(id, from){
       ${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].some(r => r[1]) ? `<dl class="meta">${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>` : ''}
       ${(p.links && p.links.length) ? `<p>${linkBtns(p.links)}</p>` : ''}
       ${p.sections.map(s => `<h3>${esc(s.h)}</h3><p>${esc(s.t)}</p>${(s.shots || []).map(sh => `
-        <figure class="shot"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="imgFail(this)"><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}</div>`;
+        <figure class="shot"><a href="${esc(sh.src)}" target="_blank" rel="noopener" title="Open full size"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="imgFail(this)"></a><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}</div>`;
   d._from = from; d.showModal(); d.querySelector('.body').scrollTop = 0;
 }
 
