@@ -27,7 +27,7 @@
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
   --blue:#1760e5; --blue-dark:#0e3fa6; --k:.3333; --ks:.2222; --m0:210; --mrows:126; --mtr:117; --mh:calc(var(--k) * var(--mrows) * 1px); --mtext:calc(var(--k) * var(--mtr) * 1px); --sill-img:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAzCAIAAADZxfV4AAAAKUlEQVR4nGPYv38/EwMDAz7M8P//f0JqmA4cOEBQDS586NAhgm4gAgAAngsKEbsL5GIAAAAASUVORK5CYII="); --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
   --px:'Pixelify Clean','Pixelify Sans','Tahoma',monospace;
-  --ui:Tahoma,'Segoe UI',Verdana,sans-serif;
+  --ui:var(--name-font, var(--px));      /* every piece of text follows the pixel font (set by nameFont in the SITE block) */
 }
 *{box-sizing:border-box}
 @media (pointer:fine){ *,*::before,*::after,html,body{cursor:var(--cursor)!important} }   /* pixel arrow with pixel shadow */
@@ -51,7 +51,7 @@ html{scroll-behavior:smooth}
 ::-webkit-scrollbar-corner{background:#c0c0c0}
 @supports not selector(::-webkit-scrollbar){ html{scrollbar-color:#c0c0c0 #e4e4e4} }   /* Firefox: colours only */
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
-body{position:relative;margin:0;min-height:100vh;background:var(--desk);font:15px/1.6 var(--ui);color:var(--ink);padding-bottom:40px}
+body{position:relative;margin:0;min-height:100vh;background:var(--desk);font:16px/1.6 var(--ui);color:var(--ink);padding-bottom:40px}
 button{font:inherit;color:inherit}
 a{color:var(--link)}
 :focus-visible{outline:2px dotted var(--ink);outline-offset:2px}
@@ -370,8 +370,8 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .card .thumb .ph{height:100%;border:0}
 .card .info{display:flex;flex-direction:column;gap:3px;padding:12px 14px 14px}
 .card .ct{font:700 19px/1.2 var(--px)}
-.card .cb{font-size:14px}
-.card .cm{font-size:13px;color:var(--muted)}
+.card .cb{font-family:var(--name-font);font-weight:400;font-size:15px}      /* project descriptions use the same font as the hello box */
+.card .cm{font-family:var(--name-font);font-weight:400;font-size:14px;color:var(--muted)}
 .card .badge{align-self:flex-start;font:700 13px var(--px);padding:1px 8px;background:var(--accent);border:1px solid var(--accent-line);margin-bottom:4px}
 .feat2{flex:0 0 100%;display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1.3fr);gap:0;align-items:stretch;background:var(--btn-bg);border:2px solid var(--paper-line)}      /* its own card, like the smaller ones */
 .f-head{grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:18px 24px 16px;border-bottom:2px solid var(--paper-line)}      /* divider under the title */
@@ -388,8 +388,8 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .f-cards{display:grid;grid-template-columns:1fr 1fr;gap:var(--pgap)}
 .f-card{padding:16px 18px;background:#fff;border:2px solid var(--paper-line);min-width:0}
 .f-card h4{margin:0 0 10px;font:700 19px/1.2 var(--px)}
-.f-card p{margin:0;font-size:15px;line-height:1.6}
-.f-list{margin:0;padding-left:20px;font-size:15px;line-height:1.55}
+.f-card p{margin:0;font-family:var(--name-font);font-weight:400;font-size:16px;line-height:1.55}
+.f-list{margin:0;padding-left:20px;font-family:var(--name-font);font-weight:400;font-size:16px;line-height:1.5}
 .f-list li{margin:0 0 8px}
 .f-sublabel{margin:12px 0 6px !important;font:700 14px var(--px) !important;color:var(--muted)}
 .f-subs{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
