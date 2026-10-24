@@ -278,7 +278,7 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .btn:active{background:var(--btn-active)}
 .btn.big{padding:9px 26px;font-weight:bold;font-size:16px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px;padding:0;list-style:none}
-.chips li.tool{--ico:36px;display:inline-flex;align-items:center;gap:10px;padding:5px 16px 5px 8px;font:400 var(--fs-label)/1.2 var(--name-font)}      /* --ico = the logo height: 28 was small, 44 too big */
+.chips li.tool{--ico:28px;display:inline-flex;align-items:center;gap:10px;padding:5px 16px 5px 8px;font:400 var(--fs-label)/1.2 var(--name-font)}      /* --ico = the logo height (the bar height follows it) */
 .chips li.tool svg,.chips li.tool .pxi{width:var(--ico);height:var(--ico);flex:none}
 .chips li.tool .pxi{display:inline-flex}
 .chips li.tool img{height:var(--ico);width:auto;max-width:150px;flex:none;object-fit:contain}
@@ -607,7 +607,7 @@ const PROJECTS = [
   // Fields: title, blurb (one short line), thumb (card picture), summary, optional role / team / time / engine,
   //         sections (heading, text and screenshots for the pop-up) and links (buttons in the pop-up).
   { id: 'proj1', featured: true, title: 'Mind the Gap', blurb: 'Liminal horror game set in the London Underground', thumb: 'https://www.dutchgamesindustry.nl/images/uploaded/game-mind-the-gap.jpg',
-    facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Team of 12' }, { tool: 'Unreal', text: 'Unreal Engine' }, { icon: 'ghost', text: 'Liminal Horror' }],
+    facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Team of 12' }, { tool: 'Unreal', text: 'Unreal Engine' }],
     details: 'Mind the Gap is a **liminal horror** game set in a version of the London Underground that lies beyond human understanding. Players explore strange stations, collect **drawings** that show the way forward and solve simple **puzzles** to escape. Developed in 8 weeks during Year 2, block D, and now in **early access** on itch.io.',
     responsibilities: ['Designed two gameplay beats: a **looping corridor** and a **platform door puzzle**', 'Wrote the **Level Design Pillars** and **puzzle research** for every discipline', 'Scripted **gate, switch and pillar events** in Unreal with Blueprints and the Sequencer', 'Ran **playtests** with the client and at Night of the Nerds, then iterated on the results', 'Worked with **audio and environment art** through request forms, shared measurements and lighting'],
     subRoles: ['Marketing', 'Graphic design'],
@@ -627,7 +627,7 @@ const PROJECTS = [
     ],
     links: [{ label: 'Play on itch.io', url: 'https://buas.itch.io/mind-the-gap' }, { label: 'Dutch Games Industry page', url: 'https://www.dutchgamesindustry.nl/game/mind-the-gap' }, { label: 'Watch the trailer', url: 'https://youtu.be/lPg81Lnhv-g' }] },
   { id: 'proj2', title: 'The Refinery of Rott', blurb: 'Quake-inspired labyrinth level in a decayed sewer', thumb: 'images/proj2-thumb.jpg',
-    facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Solo Project' }, { tool: 'Unreal', text: 'Unreal Engine 5' }, { icon: 'ctrl', text: 'FPS Level' }],
+    facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Solo Project' }, { tool: 'Unreal', text: 'Unreal Engine 5' }],
     responsibilities: ['Designed and blocked out the whole level in Unreal, from one-pager to playable build', 'Built exploding pipes and shootable gates as my own level ingredient', 'Ran three playtests with weekly builds and a bug list'],
     summary: 'The Refinery of Rott (E1M1.2) is a Quake-inspired level for a first-person shooter, built in Unreal Engine 5 as a student project. It reimagines a decayed wastewater sewage system as a hazardous labyrinth that combines exploration, combat and puzzle elements, while keeping the pacing and atmosphere of old-school Quake.',
     role: 'Level designer', team: 'Solo project', time: '8 weeks (Year 2, block A)', engine: 'Unreal Engine 5',
@@ -652,7 +652,7 @@ const PROJECTS = [
     ],
     links: [{ label: 'LinkedIn: level proposal', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7375508900487540736/' }, { label: 'LinkedIn: Blocktober update', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7389239754007035904/' }, { label: 'Gameplay video', url: 'https://lnkd.in/eErq3-wP' }] },
   { id: 'proj3', title: 'Destroy-to-Respawn Toolkit', blurb: 'Toolkit for destructible, regrowing resources', thumb: 'images/proj3-thumb.jpg',
-    facts: [{ icon: 'flag', text: 'Technical Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Solo Project' }, { tool: 'Unreal', text: 'Unreal Engine 5' }, { icon: 'wrench', text: 'Toolkit' }],
+    facts: [{ icon: 'flag', text: 'Technical Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Solo Project' }, { tool: 'Unreal', text: 'Unreal Engine 5' }],
     responsibilities: ['Built a click-to-destroy resource system with timed respawn in Blueprints', 'Researched five reference games and wrote my own design pattern', 'Made the how-to document, a museum level and a demo level'],
     summary: 'Destroy-to-Respawn is a beginner-friendly toolkit for Unreal Engine 5. Level designers and environment artists can place resources such as bushes, rocks and trees that players click to destroy and that grow back after a set time, without writing any code. I built it on my own in eight weeks, from research and a pitch through to a packaged demo, a one-minute video and a how-to document.',
     role: 'Technical designer', team: 'Solo project', time: '8 weeks (Year 2, block B)', engine: 'Unreal Engine 5',
@@ -675,7 +675,7 @@ const PROJECTS = [
     ],
     links: [{ label: 'Watch the video', url: 'https://youtu.be/3zN0niFCW1k' }] },
   { id: 'proj4', title: 'Gone South', blurb: 'Bad North-inspired tower defence game', thumb: 'images/proj4-thumb.jpg',
-    facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Team of 13' }, { tool: 'Unreal', text: 'Unreal Engine' }, { icon: 'ctrl', text: 'Tower Defence' }],
+    facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Team of 13' }, { tool: 'Unreal', text: 'Unreal Engine' }],
     responsibilities: ['Co-created the level overview one-pager and iterated the map layout', 'Ran structured playtests and shared the results with the other teams', 'Produced the team: Scrum board, daily check-ins and risk log'],
     summary: 'Gone South is a tower defence game inspired by Bad North, made by Team Luminance in my first year. You protect your tents and position your troops to fight off waves of monsters while trying to keep everyone alive, and you aim for the highest score. I worked on it as level designer and producer.',
     role: 'Level designer and producer', team: 'Team of 13', time: '8 weeks (Year 1, block D)', engine: 'Unreal Engine',
