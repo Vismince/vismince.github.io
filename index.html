@@ -376,11 +376,13 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .card .c-fact{display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 5px;background:var(--chip-bg);border:1px solid var(--chip-line);font:400 13px/1.2 var(--name-font)}
 .card .c-fact svg,.card .c-fact .pxi{width:20px;height:20px;flex:none}
 .card .c-fact img{height:20px;width:auto;flex:none;object-fit:contain}
-.card .c-fact.role{background:var(--accent);border-color:var(--accent-line)}
-.f-facts li.role{background:var(--accent);border-color:var(--accent-line)}
+.card .c-fact.primary{background:var(--accent);border-color:var(--accent-line)}
+.f-facts li.primary{background:var(--accent);border-color:var(--accent-line)}
+.card .c-more{align-self:flex-start;margin:12px 0 0;pointer-events:none}      /* the whole card is the click target; this is the visible button */
+.card:hover .c-more,.card:focus-visible .c-more{background:var(--btn-hover)}
 .card .badge{align-self:flex-start;font:700 13px var(--px);padding:1px 8px;background:var(--accent);border:1px solid var(--accent-line);margin-bottom:4px}
 .feat2{flex:0 0 100%;display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1.3fr);gap:0;align-items:stretch;background:var(--btn-bg);border:2px solid var(--paper-line)}      /* its own card, like the smaller ones */
-.f-head{grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:18px 24px 16px;border-bottom:2px solid var(--paper-line)}      /* divider under the title */
+.f-head{grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:16px 24px 14px;border-bottom:2px solid var(--paper-line)}      /* divider under the title */
 .f-title{margin:0;font:700 34px/1.1 var(--px)}
 .f-media{position:relative;align-self:stretch;min-height:300px;border-right:2px solid var(--paper-line)}      /* divider between the picture and the text */
 .f-img{position:absolute;inset:0;padding:0;display:block;overflow:hidden;background:var(--chrome);border:0;box-shadow:none}
@@ -884,11 +886,11 @@ function aboutHTML(){
 /* 3. projects */
 function md(t){ return esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }      // **bold** in the project texts
 function featHTML(p){            // the big featured block: picture, quick facts, details, responsibilities
-  const facts = (p.facts || []).map(f => `<li${f.role ? ' class="role"' : ''}>${f.tool ? toolIcon(f.tool) : (FACT_ICONS[f.icon] || '')}<span>${esc(f.text)}</span></li>`).join('');
+  const facts = (p.facts || []).map(f => `<li${f.role ? ' class="primary"' : ''}>${f.tool ? toolIcon(f.tool) : (FACT_ICONS[f.icon] || '')}<span>${esc(f.text)}</span></li>`).join('');
   const sticker = (p.sticker || []).length ? `<div class="f-sticker">${p.sticker.map(esc).join('<br>')}</div>` : '';
   const subs = (p.subRoles || []).map(x => `<li>${esc(x)}</li>`).join('');
   return `<article class="feat2">
-    <header class="f-head"><span class="badge">★ Featured project</span><h3 class="f-title">${esc(p.title)}</h3></header>
+    <header class="f-head"><h3 class="f-title">${esc(p.title)}</h3></header>
     <div class="f-media"><button class="f-img" data-open="${p.id}" aria-label="Open case study: ${esc(p.title)}"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></button>${sticker}</div>
     <div class="f-side">
       <ul class="f-facts">${facts}</ul>
@@ -902,10 +904,11 @@ function featHTML(p){            // the big featured block: picture, quick facts
 function cardHTML(p){
   return `<button class="card${p.featured ? ' feat' : ''}" data-p="${p.id}" aria-label="Open case study: ${esc(p.title)}">
     <span class="thumb"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></span>
-    <span class="info">${p.featured ? '<span class="badge">★ Featured project</span>' : ''}
+    <span class="info">
       <span class="ct">${esc(p.title)}</span><span class="cb">${esc(p.blurb)}</span>
       ${((p.role || p.engine) && !(p.facts || []).length) ? `<span class="cm">${[p.role, p.engine].filter(Boolean).map(esc).join(' · ')}</span>` : ''}
-      ${(p.facts || []).length ? `<span class="c-facts">${p.facts.map(f => `<span class="c-fact${f.role ? ' role' : ''}">${f.tool ? toolIcon(f.tool) : (FACT_ICONS[f.icon] || '')}<span>${esc(f.text)}</span></span>`).join('')}</span>` : ''}</span></button>`;
+      ${(p.facts || []).length ? `<span class="c-facts">${p.facts.map(f => `<span class="c-fact${f.role ? ' primary' : ''}">${f.tool ? toolIcon(f.tool) : (FACT_ICONS[f.icon] || '')}<span>${esc(f.text)}</span></span>`).join('')}</span>` : ''}
+      <span class="btn c-more">Read more</span></span></button>`;
 }
 function projectsHTML(){
   const feat = PROJECTS.filter(p => p.featured).slice(0, 1), rest = PROJECTS.filter(p => !feat.includes(p));
