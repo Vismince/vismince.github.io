@@ -630,8 +630,27 @@ const PROJECTS = [
       { h: 'Sharing the work', t: 'I shared the level proposal on LinkedIn in September and a gameplay video with behind-the-scenes material in October for #Blocktober, and posted progress on the Design Den and the Quake Mapping Discord community, which brought feedback from people in the field.', shots: [] }
     ],
     links: [{ label: 'LinkedIn: level proposal', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7375508900487540736/' }, { label: 'LinkedIn: Blocktober update', url: 'https://www.linkedin.com/feed/update/urn:li:activity:7389239754007035904/' }, { label: 'Gameplay video', url: 'https://lnkd.in/eErq3-wP' }] },
-  { id: 'proj3', title: 'Project 3', blurb: 'Short description', thumb: 'images/proj3-thumb.png',
-    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] },
+  { id: 'proj3', title: 'Destroy-to-Respawn Toolkit', blurb: 'Beginner-friendly Unreal Engine 5 toolkit for destructible, regrowing resources', thumb: 'images/proj3-thumb.jpg',
+    summary: 'Destroy-to-Respawn is a beginner-friendly toolkit for Unreal Engine 5. Level designers and environment artists can place resources such as bushes, rocks and trees that players click to destroy and that grow back after a set time, without writing any code. I built it on my own in eight weeks, from research and a pitch through to a packaged demo, a one-minute video and a how-to document.',
+    role: 'Technical designer', team: 'Solo project', time: '8 weeks (Year 2, block B)', engine: 'Unreal Engine 5',
+    trailer: '3zN0niFCW1k',      // the one-minute benchmark video (YouTube id), shown inside the pop-up
+    sections: [
+      { h: 'The problem and the audience', t: 'I wrote a user persona in the first week: a level designer or environment artist with little technical experience. They need tools that are easy to understand and use, visual workflows instead of code, and clear step-by-step documentation. A look at the market showed few beginner-friendly destruction systems: existing ones are either too complex, with physics-based destruction, or too simple, with single-click scripts. That gap became the toolkit\'s target.',
+        shots: [{ src: 'images/proj3-persona.png', cap: 'The user persona and project brief that shaped every design decision' }] },
+      { h: 'Research', t: 'I played five reference games, Outpath, Forager, Animal Crossing, Stardew Valley and OneBit Adventure, to feel how respawn timing changes player behaviour, and I analysed them with a game design pattern method. It led to a pattern of my own, "Whack-a-Rock": how to keep resource gathering engaging without infinite world generation or punishing players who use up the resources nearby.',
+        shots: [{ src: 'images/proj3-pattern.png', cap: 'My personal pattern, "Whack-a-Rock", and the design problem it solves' }] },
+      { h: 'How it works', t: 'A player clicks a resource, its health goes down, its mesh swaps to a destroyed version, and after a timer it grows back. Under the hood, one parent blueprint holds the logic and a state enum (intact, destroyed, respawning), and each bush, rock or tree is a child blueprint configured entirely in the Details panel. Building it taught me that the mesh swap has to finish before the destruction event fires, and that respawn timers must be tied to the actor\'s lifecycle.',
+        shots: [{ src: 'images/proj3-core-loop.png', cap: 'The core loop: click, deplete health, wait, respawn' }] },
+      { h: 'Museum level and demo level', t: 'The museum level is an annotated walkthrough of the toolkit, with information panels and three interactive stands that show a fast, a medium and a slow respawn philosophy. A second demo level places the resources in a game-like landscape.',
+        shots: [
+          { src: 'images/proj3-museum-1.jpg', cap: 'The museum level introduces the toolkit on annotated panels' },
+          { src: 'images/proj3-museum-2.jpg', cap: 'Three interactive stands: fast, medium and slow respawn' },
+          { src: 'images/proj3-demo.jpg', cap: 'The demo level, with resources destroyed and growing back' }] },
+      { h: 'Documentation and pipeline', t: 'The how-to document is written around what users need to succeed, not how I built it. It has a quick setup of about two minutes (copy, configure, test), a folder structure, naming conventions, a colour-coded blueprint comment guide, and the toolkit\'s limitations. The pipeline splits the work across disciplines: a technical designer sets up the parent system once, environment artists make meshes to the documented specifications, and level designers place and balance resources without any code.',
+        shots: [{ src: 'images/proj3-howto.jpg', cap: 'The how-to document (version 2.0)' }] },
+      { h: 'Process', t: 'My one-pager was greenlit by my study group and lecturers after I iterated it down from three pages to one. From week four I checked the project against weekly Conditions of Satisfaction, submitted to Perforce every week, and took feedback from progress reviews: when my study group said "show, don\'t tell", I moved from researching approaches on paper to testing them in the engine. I also learned the Sequencer to cut a one-minute showcase video, and packaged a Windows build so that others can run the demo without the editor.', shots: [] }
+    ],
+    links: [{ label: 'Watch the video', url: 'https://youtu.be/3zN0niFCW1k' }] },
   { id: 'proj4', title: 'Project 4', blurb: 'Short description', thumb: 'images/proj4-thumb.png',
     summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] }
 ];
@@ -879,7 +898,7 @@ function openCase(id, from){
   const p = PROJECTS.find(x => x.id === id), d = $('#case'); if (!p) return;
   d.innerHTML = `<div class="titlebar">${ic('cube')}<h2 class="t">${esc(p.title)}</h2><button class="tb x" data-close aria-label="Close">✕</button></div>
     <div class="body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
-      ${p.trailer ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.trailer)}" title="${esc(p.title)} trailer" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>` : ''}
+      ${p.trailer ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.trailer)}" title="${esc(p.title)} video" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>` : ''}
       ${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].some(r => r[1]) ? `<dl class="meta">${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>` : ''}
       ${(p.links && p.links.length) ? `<p>${linkBtns(p.links)}</p>` : ''}
       ${p.sections.map(s => `<h3>${esc(s.h)}</h3><p>${esc(s.t)}</p>${(s.shots || []).map(sh => `
