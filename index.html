@@ -651,8 +651,17 @@ const PROJECTS = [
       { h: 'Process', t: 'My one-pager was greenlit by my study group and lecturers after I iterated it down from three pages to one. From week four I checked the project against weekly Conditions of Satisfaction, submitted to Perforce every week, and took feedback from progress reviews: when my study group said "show, don\'t tell", I moved from researching approaches on paper to testing them in the engine. I also learned the Sequencer to cut a one-minute showcase video, and packaged a Windows build so that others can run the demo without the editor.', shots: [] }
     ],
     links: [{ label: 'Watch the video', url: 'https://youtu.be/3zN0niFCW1k' }] },
-  { id: 'proj4', title: 'Project 4', blurb: 'Short description', thumb: 'images/proj4-thumb.png',
-    summary: 'Project summary.', sections: [{ h: 'Section title', t: 'Section text.', shots: [] }], links: [] }
+  { id: 'proj4', title: 'Bad North Redesign', blurb: 'Team rebuild of a tactical tower defence game', thumb: 'images/proj4-thumb.jpg',      // working title: tell me the real name of the game
+    summary: 'A team project from my first year: Team Luminance set out to redesign the core loop of the tactical tower defence game Bad North as a playable demo, built in Unreal Engine. I worked as the team\'s level designer and, in the first part of the block, as its producer.',
+    role: 'Level designer and producer', team: 'Team Luminance', time: '8 weeks (Year 1, block D)', engine: 'Unreal Engine',
+    sections: [
+      { h: 'The challenge', t: 'Our reference game, Bad North, combines tower defence with real-time strategy and has many systems that depend on each other. It proved more complex than we expected, so the team cut back its scope and focused on a playable demo that shows the core loop. The intended player experience was strategic thinking, empathy for your troops, and a feeling of anticipation.', shots: [] },
+      { h: 'Level design', t: 'I researched similar games, made concept sketches of the gameplay beats, and developed the map layout over several iterations. A level overview one-pager helped the art team understand the space, and I worked in Unreal Engine with Perforce for version control and the team\'s tile editor.',
+        shots: [{ src: 'images/proj4-build-v01.jpg', cap: 'The first playable build (v0.1): the level as tiles' }, { src: 'images/proj4-build-v05.jpg', cap: 'Build v0.5, with the level in place' }] },
+      { h: 'Playtesting and iteration', t: 'I organised structured playtests of the map layout on builds v0.3 and v0.5, recording the sessions with the players\' consent so I could ask questions during play and check my conclusions against what I had seen. After the first round I held a map layout meeting with the art and design team, and the action points became the next iteration of the build.', shots: [] },
+      { h: 'Producing the team', t: 'As producer I set up the way the team worked: daily check-ins, a Scrum board for sprint planning, scope breakdowns, a risk log, two versions of a team contract, an attendance sheet, and sprint reviews and retrospectives. Later in the block I stepped back from producing to focus on level design.', shots: [] }
+    ],
+    links: [] }
 ];
 
 /* =====================================================================
