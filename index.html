@@ -384,6 +384,9 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .card .c-resp-h{display:block;margin-bottom:2px;font:700 16px/1.2 var(--px)}
 .card .c-r{display:block;position:relative;padding-left:12px;font:400 var(--fs-label)/1.5 var(--name-font);margin-top:6px}
 .card .c-r::before{content:'';position:absolute;left:2px;top:.62em;width:4px;height:4px;background:var(--ink)}
+.card .c-sublabel{display:block;margin:12px 0 6px;font:700 var(--fs-label) var(--px);color:var(--muted)}
+.card .c-subs{display:flex;flex-wrap:wrap;gap:6px}
+.card .c-sub{padding:2px 10px;background:var(--accent);border:1px solid var(--accent-line);font:400 var(--fs-label)/1.3 var(--name-font)}
 .card .c-more{align-self:flex-start;margin:14px 0 0;pointer-events:none}      /* the whole card is the click target; this is the visible button */
 .card:hover .c-more,.card:focus-visible .c-more{background:var(--btn-hover)}
 .card .badge{align-self:flex-start;font:700 13px var(--px);padding:1px 8px;background:var(--accent);border:1px solid var(--accent-line);margin-bottom:4px}
@@ -609,7 +612,7 @@ const PROJECTS = [
   { id: 'proj1', featured: true, title: 'Mind the Gap', blurb: 'Liminal horror game set in the London Underground', thumb: 'https://www.dutchgamesindustry.nl/images/uploaded/game-mind-the-gap.jpg',
     facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Team of 12' }, { tool: 'Unreal', text: 'Unreal Engine' }],
     details: 'Mind the Gap is a **liminal horror** game set in a version of the London Underground that lies beyond human understanding. Players explore strange stations, collect **drawings** that show the way forward and solve simple **puzzles** to escape.',
-    responsibilities: ['Designed two gameplay beats: a **looping corridor** and a **platform door puzzle**', 'Wrote the **Level Design Pillars** and **puzzle research** for every discipline', 'Scripted **events** in Unreal Engine with Blueprints and the Sequencer tool', 'Ran **playtests** at Night of the Nerds, then iterated on the results', 'Worked with **environment art** through request forms, shared measurements and lighting'],
+    responsibilities: ['Designed two gameplay beats: a **looping corridor** and a **platform door puzzle**', 'Wrote the **Level Design Pillars** and **puzzle research** for every discipline', 'Scripted **events** in Unreal Engine with Blueprints and the Sequencer tool', 'Ran **playtests** at Night of the Nerds, then iterated on the results', 'Worked with **environment art** through shared measurements and lighting'],
     subRoles: ['Marketing', 'Graphic design'],
     trailer: 'lPg81Lnhv-g',
     summary: 'A liminal horror game set in the London Underground, in a place called the Gap that lies beyond human understanding. To escape, you move through strange stations, collect drawings that point the way forward, and solve simple puzzles. Made by the student team ScareFactor at Breda University of Applied Sciences.',
@@ -628,7 +631,7 @@ const PROJECTS = [
     links: [{ label: 'Play on itch.io', url: 'https://buas.itch.io/mind-the-gap' }, { label: 'Dutch Games Industry page', url: 'https://www.dutchgamesindustry.nl/game/mind-the-gap' }, { label: 'Watch the trailer', url: 'https://youtu.be/lPg81Lnhv-g' }] },
   { id: 'proj2', title: 'The Refinery of Rott', blurb: 'Quake-inspired labyrinth level in a decayed sewer', thumb: 'images/proj2-thumb.jpg',
     facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Solo Project' }, { tool: 'Unreal', text: 'Unreal Engine 5' }],
-    responsibilities: ['Designed and blocked out the whole level in Unreal, from one-pager to playable build', 'Built exploding pipes and shootable gates as my own level ingredient', 'Ran three playtests with weekly builds and a bug list'],
+    responsibilities: ['Designed and blocked out the whole level in Unreal, from one-pager to playable build', 'Built exploding pipes and shootable gates as my own level ingredient'],
     summary: 'The Refinery of Rott (E1M1.2) is a Quake-inspired level for a first-person shooter, built in Unreal Engine 5 as a student project. It reimagines a decayed wastewater sewage system as a hazardous labyrinth that combines exploration, combat and puzzle elements, while keeping the pacing and atmosphere of old-school Quake.',
     role: 'Level designer', team: 'Solo project', time: '8 weeks (Year 2, block A)', engine: 'Unreal Engine 5',
     sections: [
@@ -677,6 +680,7 @@ const PROJECTS = [
   { id: 'proj4', title: 'Gone South', blurb: 'Bad North-inspired tower defence game', thumb: 'images/proj4-thumb.jpg',
     facts: [{ icon: 'flag', text: 'Level Designer', role: true }, { icon: 'clock', text: '8 Weeks' }, { icon: 'team', text: 'Team of 13' }, { tool: 'Unreal', text: 'Unreal Engine' }],
     responsibilities: ['Co-created the level overview one-pager and iterated the map layout', 'Ran structured playtests and shared the results with the other teams', 'Produced the team: Scrum board, daily check-ins and risk log'],
+    subRoles: ['Producer'],
     summary: 'Gone South is a tower defence game inspired by Bad North, made by Team Luminance in my first year. You protect your tents and position your troops to fight off waves of monsters while trying to keep everyone alive, and you aim for the highest score. I worked on it as level designer and producer.',
     role: 'Level designer and producer', team: 'Team of 13', time: '8 weeks (Year 1, block D)', engine: 'Unreal Engine',
     trailer: '08qnBRYlUf8',
@@ -917,7 +921,7 @@ function cardHTML(p){
     <span class="info">
       <span class="ct">${esc(p.title)}</span><span class="cb">${esc(p.blurb)}</span>
       ${((p.role || p.engine) && !(p.facts || []).length) ? `<span class="cm">${[p.role, p.engine].filter(Boolean).map(esc).join(' · ')}</span>` : ''}
-      ${(p.responsibilities || []).length ? `<span class="c-resp"><span class="c-resp-h">My responsibilities</span>${p.responsibilities.map(r => `<span class="c-r">${md(r)}</span>`).join('')}</span>` : ''}
+      ${(p.responsibilities || []).length ? `<span class="c-resp"><span class="c-resp-h">My responsibilities</span>${p.responsibilities.map(r => `<span class="c-r">${md(r)}</span>`).join('')}${(p.subRoles || []).length ? `<span class="c-sublabel">Sub-roles</span><span class="c-subs">${p.subRoles.map(x => `<span class="c-sub">${esc(x)}</span>`).join('')}</span>` : ''}</span>` : ''}
       ${(p.facts || []).length ? `<span class="c-facts">${p.facts.map(f => `<span class="c-fact${f.role ? ' primary' : ''}">${f.tool ? toolIcon(f.tool) : (FACT_ICONS[f.icon] || '')}<span>${esc(f.text)}</span></span>`).join('')}</span>` : ''}
       <span class="btn c-more">Read more</span></span></button>`;
 }
