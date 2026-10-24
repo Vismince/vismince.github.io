@@ -27,6 +27,7 @@
   --cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='32' viewBox='0 0 11 16' shape-rendering='crispEdges'%3E%3Cg fill='%23000' fill-opacity='0.35'%3E%3Crect x='7' y='10' width='4' height='1'/%3E%3Crect x='3' y='11' width='1' height='1'/%3E%3Crect x='2' y='12' width='2' height='1'/%3E%3Crect x='8' y='12' width='1' height='1'/%3E%3Crect x='1' y='13' width='2' height='1'/%3E%3Crect x='1' y='14' width='1' height='1'/%3E%3Crect x='8' y='14' width='2' height='1'/%3E%3Crect x='7' y='15' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Crect x='1' y='2' width='1' height='1'/%3E%3Crect x='1' y='3' width='2' height='1'/%3E%3Crect x='1' y='4' width='3' height='1'/%3E%3Crect x='1' y='5' width='4' height='1'/%3E%3Crect x='1' y='6' width='5' height='1'/%3E%3Crect x='1' y='7' width='6' height='1'/%3E%3Crect x='1' y='8' width='7' height='1'/%3E%3Crect x='1' y='9' width='4' height='1'/%3E%3Crect x='1' y='10' width='2' height='1'/%3E%3Crect x='4' y='10' width='2' height='1'/%3E%3Crect x='1' y='11' width='1' height='1'/%3E%3Crect x='5' y='11' width='2' height='1'/%3E%3Crect x='5' y='12' width='2' height='1'/%3E%3Crect x='6' y='13' width='2' height='1'/%3E%3C/g%3E%3Cg fill='%23000'%3E%3Crect x='0' y='0' width='1' height='1'/%3E%3Crect x='0' y='1' width='2' height='1'/%3E%3Crect x='0' y='2' width='1' height='1'/%3E%3Crect x='2' y='2' width='1' height='1'/%3E%3Crect x='0' y='3' width='1' height='1'/%3E%3Crect x='3' y='3' width='1' height='1'/%3E%3Crect x='0' y='4' width='1' height='1'/%3E%3Crect x='4' y='4' width='1' height='1'/%3E%3Crect x='0' y='5' width='1' height='1'/%3E%3Crect x='5' y='5' width='1' height='1'/%3E%3Crect x='0' y='6' width='1' height='1'/%3E%3Crect x='6' y='6' width='1' height='1'/%3E%3Crect x='0' y='7' width='1' height='1'/%3E%3Crect x='7' y='7' width='1' height='1'/%3E%3Crect x='0' y='8' width='1' height='1'/%3E%3Crect x='8' y='8' width='1' height='1'/%3E%3Crect x='0' y='9' width='1' height='1'/%3E%3Crect x='5' y='9' width='5' height='1'/%3E%3Crect x='0' y='10' width='1' height='1'/%3E%3Crect x='3' y='10' width='1' height='1'/%3E%3Crect x='6' y='10' width='1' height='1'/%3E%3Crect x='0' y='11' width='1' height='1'/%3E%3Crect x='2' y='11' width='1' height='1'/%3E%3Crect x='4' y='11' width='1' height='1'/%3E%3Crect x='7' y='11' width='1' height='1'/%3E%3Crect x='0' y='12' width='2' height='1'/%3E%3Crect x='4' y='12' width='1' height='1'/%3E%3Crect x='7' y='12' width='1' height='1'/%3E%3Crect x='0' y='13' width='1' height='1'/%3E%3Crect x='5' y='13' width='1' height='1'/%3E%3Crect x='8' y='13' width='1' height='1'/%3E%3Crect x='6' y='14' width='2' height='1'/%3E%3C/g%3E%3C/svg%3E") 0 0, default;
   --blue:#1760e5; --blue-dark:#0e3fa6; --k:.3333; --ks:.2222; --m0:210; --mrows:126; --mtr:117; --mh:calc(var(--k) * var(--mrows) * 1px); --mtext:calc(var(--k) * var(--mtr) * 1px); --sill-img:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAAzCAIAAADZxfV4AAAAKUlEQVR4nGPYv38/EwMDAz7M8P//f0JqmA4cOEBQDS586NAhgm4gAgAAngsKEbsL5GIAAAAASUVORK5CYII="); --hdr-img:none; --hdr-ink:#fff; --name-font:'Pixelify Sans','Tahoma',monospace;
   --px:'Pixelify Clean','Pixelify Sans','Tahoma',monospace;
+  --fs-title:32px; --fs-sub:20px; --fs-text:18px; --fs-label:14px;      /* ONE size for every paragraph of text (hello box, About me, projects, pop-ups) and one for chips and labels */
   --ui:var(--name-font, var(--px));      /* every piece of text follows the pixel font (set by nameFont in the SITE block) */
 }
 *{box-sizing:border-box}
@@ -75,7 +76,7 @@ svg{shape-rendering:crispEdges}
 .title .ttl{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 24px;min-width:0}
 .title .nm{margin:0;font:700 clamp(28px,5vw,48px)/1.05 var(--name-font);text-shadow:2px 2px 0 rgba(0,0,0,.35)}
 .title .rl{margin:0;font:400 clamp(15px,2vw,21px)/1.3 var(--name-font);text-shadow:1px 1px 0 rgba(0,0,0,.4);max-width:none}
-.h1{font:700 34px/1.15 var(--px);margin:0 0 8px}
+.h1{font:700 var(--fs-title)/1.15 var(--px);margin:0 0 8px}
 /* frame-style window (Projects): same widths, colours and bevels as the frame pieces */
 #projwrap{padding:64px 24px 0}
 .w95{position:relative;max-width:1320px;margin:0 auto;padding:11px;background:#bfbfbf;scroll-margin-top:calc(var(--stick-h) + 20px);
@@ -106,10 +107,10 @@ svg{shape-rendering:crispEdges}
 .chat::before{right:-23px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 12px);border-width:12px 0 12px 20px;border-left-color:#000}    /* tail, outline */
 .chat::after{right:-17px;top:calc(var(--char-h) * .6 - var(--hang, 0px) - 9px);border-width:9px 0 9px 16px;border-left-color:#fff}      /* tail, fill */
 .chat .who{position:absolute;left:14px;top:-17px;padding:2px 12px;background:var(--blue);color:#fff;border:2px solid #000;font:400 16px/1.3 var(--name-font)}
-.chat .say{margin:0 0 10px;font-family:var(--name-font);font-weight:400;font-size:1.2em;line-height:1.55;max-width:none}
+.chat .say{margin:0 0 10px;font-family:var(--name-font);font-weight:400;font-size:var(--fs-text);line-height:1.5;max-width:none}
 .hello.ov .chat::before,.hello.ov .chat::after{display:none}      /* no speech tail while the mascot stands in front of the box */
 .hello.ov .chat{padding-right:calc(var(--overlap, 64px) + 26px)}
-.chat .say:first-of-type{font-size:1.5em}
+.chat .say:first-of-type{font-size:var(--fs-title);line-height:1.2}
 .chat .say:nth-of-type(2){margin-bottom:2px}      /* the third line sits right under this one */
 .vdebug{position:absolute;left:14px;top:92px;z-index:6;max-width:min(620px,92%);padding:10px 14px;background:rgba(0,0,0,.82);color:#fff;font:13px/1.55 Consolas,monospace;border:2px solid #fff}
 .vdebug b{color:#ffd84a}
@@ -267,7 +268,7 @@ button.tb:active{filter:brightness(.85)}
 .win > .body,.win > .inner{background:var(--paper);border:1px solid var(--paper-line);padding:20px 22px}
 .win.collapsed > .body{display:none}
 h1,h2,h3{font-family:var(--px);font-weight:700;line-height:1.15;margin:0 0 8px}
-h1{font-size:34px} h3{font-size:19px}
+h1{font-size:var(--fs-title)} h3{font-size:var(--fs-sub)}
 p{margin:0 0 12px;max-width:68ch}
 code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;border:1px solid var(--meta-line)}
 
@@ -369,47 +370,47 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .card .thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .card .thumb .ph{height:100%;border:0}
 .card .info{display:flex;flex-direction:column;flex:1;gap:3px;padding:12px 14px 14px}
-.card .ct{font:700 19px/1.2 var(--px)}
-.card .cb{font-family:var(--name-font);font-weight:400;font-size:15px;min-height:3.2em}      /* two lines of room, so the boxes below line up across the cards */      /* project descriptions use the same font as the hello box */
+.card .ct{font:700 var(--fs-sub)/1.2 var(--px)}
+.card .cb{font-family:var(--name-font);font-weight:400;font-size:var(--fs-text);line-height:1.4;min-height:2.8em}      /* two lines of room, so the boxes below line up across the cards */      /* project descriptions use the same font as the hello box */
 .card .cm{font-family:var(--name-font);font-weight:400;font-size:14px;color:var(--muted)}
 .card .c-facts{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:10px}      /* quick facts at the bottom of every small card */
-.card .c-fact{display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 5px;background:var(--chip-bg);border:1px solid var(--chip-line);font:400 13px/1.2 var(--name-font)}
+.card .c-fact{display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 5px;background:var(--chip-bg);border:1px solid var(--chip-line);font:400 var(--fs-label)/1.2 var(--name-font)}
 .card .c-fact svg,.card .c-fact .pxi{width:20px;height:20px;flex:none}
 .card .c-fact img{height:20px;width:auto;flex:none;object-fit:contain}
 .card .c-fact.primary{background:var(--accent);border-color:var(--accent-line)}
 .f-facts li.primary{background:var(--accent);border-color:var(--accent-line)}
 .card .c-resp{display:block;margin-top:8px;padding:8px 10px;background:#fff;border:1px solid var(--paper-line)}
-.card .c-resp-h{display:block;margin-bottom:4px;font:700 14px/1.2 var(--px)}
-.card .c-r{display:block;position:relative;padding-left:12px;font:400 14px/1.4 var(--name-font);margin-top:3px}
+.card .c-resp-h{display:block;margin-bottom:4px;font:700 var(--fs-text)/1.2 var(--px)}
+.card .c-r{display:block;position:relative;padding-left:12px;font:400 var(--fs-text)/1.4 var(--name-font);margin-top:3px}
 .card .c-r::before{content:'';position:absolute;left:2px;top:.6em;width:4px;height:4px;background:var(--ink)}
 .card .c-more{align-self:flex-start;margin:12px 0 0;pointer-events:none}      /* the whole card is the click target; this is the visible button */
 .card:hover .c-more,.card:focus-visible .c-more{background:var(--btn-hover)}
 .card .badge{align-self:flex-start;font:700 13px var(--px);padding:1px 8px;background:var(--accent);border:1px solid var(--accent-line);margin-bottom:4px}
-.feat2{flex:0 0 100%;display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1.3fr);gap:0;align-items:stretch;background:var(--btn-bg);border:2px solid var(--paper-line)}      /* its own card, like the smaller ones */
-.f-head{grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:16px 24px 14px;border-bottom:2px solid var(--paper-line)}      /* divider under the title */
-.f-title{margin:0;font:700 34px/1.1 var(--px)}
-.f-media{position:relative;align-self:stretch;min-height:300px;border-right:2px solid var(--paper-line)}      /* divider between the picture and the text */
-.f-img{position:absolute;inset:0;padding:0;display:block;overflow:hidden;background:var(--chrome);border:0;box-shadow:none}
-.f-img img,.f-img .ph{width:100%;height:100%;object-fit:cover;display:block}
-.f-sticker{position:absolute;left:-10px;bottom:-16px;max-width:78%;padding:9px 14px;transform:rotate(-5deg);background:var(--accent);border:2px solid var(--accent-line);box-shadow:3px 3px 0 rgba(0,0,0,.3);font:400 15px/1.35 var(--name-font);pointer-events:none}
-.f-side{padding:22px 20px;display:flex;flex-direction:column;gap:var(--pgap);min-width:0}
-.f-facts{display:flex;flex-wrap:wrap;gap:8px 8px;margin:0;padding:0;list-style:none}
-.f-facts li{display:inline-flex;align-items:center;gap:7px;padding:4px 10px 4px 6px;background:var(--chip-bg);border:1px solid var(--chip-line);font:400 15px/1.2 var(--name-font)}
-.f-facts svg,.f-facts .pxi{width:26px;height:26px;flex:none}
-.f-facts img{height:26px;width:auto;flex:none;object-fit:contain}
-.f-cards{display:grid;grid-template-columns:1fr 1fr;gap:var(--pgap)}
-.f-card{padding:16px 18px;background:#fff;border:2px solid var(--paper-line);min-width:0}
-.f-card h4{margin:0 0 10px;font:700 19px/1.2 var(--px)}
-.f-card p{margin:0;font-family:var(--name-font);font-weight:400;font-size:16px;line-height:1.55}
-.f-list{margin:0;padding-left:20px;font-family:var(--name-font);font-weight:400;font-size:16px;line-height:1.5}
-.f-list li{margin:0 0 8px}
-.f-sublabel{margin:12px 0 6px !important;font:700 14px var(--px) !important;color:var(--muted)}
+.feat2{flex:0 0 100%;display:grid;grid-template-columns:minmax(0, 1fr) minmax(0, 1.15fr);gap:0;align-items:stretch;background:var(--btn-bg);border:2px solid var(--paper-line)}      /* its own card, like the smaller ones */
+.f-head{grid-column:1 / -1;display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:16px 24px 14px;border-bottom:2px solid var(--paper-line)}
+.f-title{margin:0;font:700 var(--fs-title)/1.1 var(--px)}
+.f-media{display:flex;flex-direction:column;gap:14px;align-self:start;min-width:0}
+.f-img{display:block;width:100%;padding:0;border:0;background:none;box-shadow:none;overflow:hidden}      /* the picture keeps its own shape: full width, height follows */
+.f-img img{display:block;width:100%;height:auto}
+.f-img .ph{width:100%;height:auto;aspect-ratio:16 / 9;padding:0}
+.f-side{padding:20px 24px;display:flex;flex-direction:column;gap:14px;min-width:0;border-left:2px solid var(--paper-line)}      /* divider between picture and text */
+.f-facts{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0 18px 18px;list-style:none}
+.f-facts li{display:inline-flex;align-items:center;gap:6px;padding:3px 9px 3px 5px;background:var(--chip-bg);border:1px solid var(--chip-line);font:400 var(--fs-label)/1.2 var(--name-font)}
+.f-facts svg,.f-facts .pxi{width:20px;height:20px;flex:none}
+.f-facts img{height:20px;width:auto;flex:none;object-fit:contain}
+.f-facts li.primary{background:var(--accent);border-color:var(--accent-line)}
+.f-details{margin:0;font:400 var(--fs-text)/1.4 var(--name-font)}
+.f-resp{padding:8px 10px;background:#fff;border:1px solid var(--paper-line);min-width:0}      /* the white box is only for "My responsibilities", like the other projects */
+.f-resp h4{margin:0 0 4px;font:700 var(--fs-text)/1.2 var(--px)}
+.f-list{margin:0;padding-left:20px;font:400 var(--fs-text)/1.4 var(--name-font)}
+.f-list li{margin:3px 0 0}
+.f-sublabel{margin:10px 0 6px !important;font:700 var(--fs-label) var(--px) !important;color:var(--muted)}
 .f-subs{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
-.f-subs li{padding:2px 10px;background:var(--accent);border:1px solid var(--accent-line);font:400 14px/1.3 var(--name-font)}
+.f-subs li{padding:2px 10px;background:var(--accent);border:1px solid var(--accent-line);font:400 var(--fs-label)/1.3 var(--name-font)}
 .f-more{align-self:flex-start;margin:0 !important}
 .vid{aspect-ratio:16/9;margin:14px 0;background:#000;border:2px solid var(--paper-line)}
 .vid iframe{display:block;width:100%;height:100%;border:0}
-@media (max-width:900px){.feat2{grid-template-columns:1fr}.f-media{min-height:0;aspect-ratio:16/10;border-right:0;border-bottom:2px solid var(--paper-line)}.f-cards{grid-template-columns:1fr}.f-head{padding:16px 18px 14px}.f-side{padding:18px}}
+@media (max-width:900px){.feat2{grid-template-columns:1fr}.f-side{border-left:0;border-top:2px solid var(--paper-line)}.f-head{padding:16px 18px 14px}.f-side{padding:18px}}
 .card.feat{flex:0 0 100%;display:grid;grid-template-columns:1.6fr 1fr}
 .card.feat .thumb{border-bottom:0;border-right:2px solid var(--paper-line);aspect-ratio:16/10}
 .card.feat .info{justify-content:center;padding:22px 26px;gap:8px}
@@ -423,6 +424,7 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .skillsblock{margin-top:26px;padding-top:22px;border-top:2px dashed var(--paper-line)}
 .skillsblock > h3{margin:0 0 14px;font-size:20px}
 .w95-body .about p{max-width:80ch}
+.about p:not(.role){font-size:var(--fs-text);line-height:1.5}
 .links{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:4px 18px}
 
 /* ---------- case-study dialog ---------- */
@@ -433,6 +435,7 @@ dialog.win > .body{overflow:auto;flex:1}
 .meta{display:grid;grid-template-columns:max-content 1fr;gap:3px 16px;margin:10px 0 14px;padding:10px 12px;background:var(--meta-bg);border:1px solid var(--meta-line)}
 .meta dt{font-weight:bold}.meta dd{margin:0}
 .case h3{margin-top:20px}
+#case .case p,#case .case li{font-size:var(--fs-text);line-height:1.5}
 .shot{margin:10px 0 16px}
 .shot a{display:block;cursor:zoom-in}
 .shot img{display:block;max-width:100%;border:2px solid var(--paper-line)}
@@ -440,7 +443,7 @@ dialog.win > .body{overflow:auto;flex:1}
 
 @media (max-width:760px){
   body{font-size:16px}
-  h1,.h1{font-size:28px}
+  :root{--fs-title:28px}      /* titles are a little smaller on phones, all of them together */
   .win > .body,.win > .inner{padding:16px 14px}
   .about{grid-template-columns:1fr}
   .avatar{width:140px}
@@ -894,19 +897,18 @@ function aboutHTML(){
 
 /* 3. projects */
 function md(t){ return esc(t).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>'); }      // **bold** in the project texts
-function featHTML(p){            // the big featured block: picture, quick facts, details, responsibilities
+function featHTML(p){            // the wide project block: picture + quick facts on the left, text + responsibilities on the right (same look as the small cards)
   const facts = (p.facts || []).map(f => `<li${f.role ? ' class="primary"' : ''}>${f.tool ? toolIcon(f.tool) : (FACT_ICONS[f.icon] || '')}<span>${esc(f.text)}</span></li>`).join('');
-  const sticker = (p.sticker || []).length ? `<div class="f-sticker">${p.sticker.map(esc).join('<br>')}</div>` : '';
   const subs = (p.subRoles || []).map(x => `<li>${esc(x)}</li>`).join('');
   return `<article class="feat2">
     <header class="f-head"><h3 class="f-title">${esc(p.title)}</h3></header>
-    <div class="f-media"><button class="f-img" data-open="${p.id}" aria-label="Open case study: ${esc(p.title)}"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></button>${sticker}</div>
-    <div class="f-side">
+    <div class="f-media">
+      <button class="f-img" data-open="${p.id}" aria-label="Open case study: ${esc(p.title)}"><img src="${esc(p.thumb)}" alt="" loading="lazy" data-ph="cube" onerror="imgFail(this)"></button>
       <ul class="f-facts">${facts}</ul>
-      <div class="f-cards">
-        <section class="f-card"><h4>Project details</h4><p>${md(p.details)}</p></section>
-        <section class="f-card"><h4>My responsibilities</h4><ul class="f-list">${(p.responsibilities || []).map(r => `<li>${md(r)}</li>`).join('')}</ul>${subs ? `<p class="f-sublabel">Sub-roles</p><ul class="f-subs">${subs}</ul>` : ''}</section>
-      </div>
+    </div>
+    <div class="f-side">
+      <p class="f-details">${md(p.details)}</p>
+      <section class="f-resp"><h4>My responsibilities</h4><ul class="f-list">${(p.responsibilities || []).map(r => `<li>${md(r)}</li>`).join('')}</ul>${subs ? `<p class="f-sublabel">Sub-roles</p><ul class="f-subs">${subs}</ul>` : ''}</section>
       <button class="btn f-more" data-open="${p.id}">Read more</button>
     </div></article>`;
 }
