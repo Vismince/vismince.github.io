@@ -287,6 +287,7 @@ code{font:13px Consolas,monospace;background:var(--meta-bg);padding:1px 5px;bord
 .chips li{padding:2px 9px;background:var(--chip-bg);border:1px solid var(--chip-line);border-radius:3px;font-size:var(--fs-label)}
 .ph{display:grid;place-items:center;text-align:center;padding:22px 12px;color:var(--ph-ink);font-size:14px;border:2px dashed var(--chip-line);
   background:repeating-conic-gradient(var(--ph-bg) 0 25%, var(--chrome) 0 50%) 0 0/28px 28px}
+.ph{overflow-wrap:anywhere;min-width:0;max-width:100%}      /* a long picture address can no longer widen the page or the pop-up */
 .ph svg{width:44px;height:44px}
 
 /* ---------- 1. showreel ---------- */
@@ -439,7 +440,8 @@ dialog.win > .body{overflow:auto;flex:1}
 dialog.w95{position:fixed;inset:0;height:fit-content;overflow:hidden;margin:auto;width:min(820px,94vw);max-height:90vh;border:0;color:var(--ink)}      /* fixed to the screen and centred, wherever the page is scrolled */      /* the project pop-up: same frame as the Projects and About windows */
 dialog.w95[open]{display:flex;flex-direction:column}
 dialog.w95::backdrop{background:rgba(0,0,0,.5)}
-dialog.w95 > .w95-body{overflow:auto;flex:1;min-height:0}
+dialog.w95 > .w95-body{display:flex;flex-direction:column;flex:1;min-height:0;padding:6px;overflow:hidden}      /* the bevel stays still ... */
+dialog.w95 .case{overflow:auto;flex:1;min-height:0;padding:20px 22px}      /* ... and only this inner area scrolls, inside the bevel */
 .meta{display:grid;grid-template-columns:max-content 1fr;gap:3px 16px;margin:10px 0 14px;padding:10px 12px;background:var(--meta-bg);border:1px solid var(--meta-line)}
 .meta dt{font-weight:bold}.meta dd{margin:0}
 .case h3{margin-top:20px}
@@ -944,12 +946,12 @@ function openCase(id, from){
   const p = PROJECTS.find(x => x.id === id), d = $('#case'); if (!p) return;
   d.innerHTML = `<div class="w95-title">${ic('folder')}<h2 class="t">${esc(p.title)}</h2>
       <span class="tb" aria-hidden="true">_</span><span class="tb" aria-hidden="true">□</span><button class="tb" data-close aria-label="Close">✕</button></div>
-    <div class="w95-body body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
+    <div class="w95-body"><div class="body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
       ${p.trailer ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.trailer)}" title="${esc(p.title)} video" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>` : ''}
       ${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].some(r => r[1]) ? `<dl class="meta">${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>` : ''}
       ${(p.links && p.links.length) ? `<p>${linkBtns(p.links)}</p>` : ''}
       ${p.sections.map(s => `<h3>${esc(s.h)}</h3><p>${esc(s.t)}</p>${(s.shots || []).map(sh => `
-        <figure class="shot"><a href="${esc(sh.src)}" target="_blank" rel="noopener" title="Open full size"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="imgFail(this)"></a><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}</div>`;
+        <figure class="shot"><a href="${esc(sh.src)}" target="_blank" rel="noopener" title="Open full size"><img src="${esc(sh.src)}" alt="${esc(sh.cap)}" loading="lazy" onerror="imgFail(this)"></a><figcaption>${esc(sh.cap)}</figcaption></figure>`).join('')}`).join('')}</div></div>`;
   d._from = from; d.showModal(); d.querySelector('.body').scrollTop = 0;
 }
 
