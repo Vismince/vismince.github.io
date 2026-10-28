@@ -436,7 +436,7 @@ dialog.win{overflow:hidden;padding:0;margin:auto;width:min(780px,94vw);max-heigh
 dialog.win[open]{display:flex;flex-direction:column}
 dialog.win::backdrop{background:rgba(0,0,0,.5)}
 dialog.win > .body{overflow:auto;flex:1}
-dialog.w95{overflow:hidden;margin:auto;width:min(820px,94vw);max-height:90vh;border:0;color:var(--ink)}      /* the project pop-up: same frame as the Projects and About windows */
+dialog.w95{position:fixed;inset:0;height:fit-content;overflow:hidden;margin:auto;width:min(820px,94vw);max-height:90vh;border:0;color:var(--ink)}      /* fixed to the screen and centred, wherever the page is scrolled */      /* the project pop-up: same frame as the Projects and About windows */
 dialog.w95[open]{display:flex;flex-direction:column}
 dialog.w95::backdrop{background:rgba(0,0,0,.5)}
 dialog.w95 > .w95-body{overflow:auto;flex:1;min-height:0}
