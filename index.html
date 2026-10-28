@@ -436,6 +436,10 @@ dialog.win{overflow:hidden;padding:0;margin:auto;width:min(780px,94vw);max-heigh
 dialog.win[open]{display:flex;flex-direction:column}
 dialog.win::backdrop{background:rgba(0,0,0,.5)}
 dialog.win > .body{overflow:auto;flex:1}
+dialog.w95{overflow:hidden;margin:auto;width:min(820px,94vw);max-height:90vh;border:0;color:var(--ink)}      /* the project pop-up: same frame as the Projects and About windows */
+dialog.w95[open]{display:flex;flex-direction:column}
+dialog.w95::backdrop{background:rgba(0,0,0,.5)}
+dialog.w95 > .w95-body{overflow:auto;flex:1;min-height:0}
 .meta{display:grid;grid-template-columns:max-content 1fr;gap:3px 16px;margin:10px 0 14px;padding:10px 12px;background:var(--meta-bg);border:1px solid var(--meta-line)}
 .meta dt{font-weight:bold}.meta dd{margin:0}
 .case h3{margin-top:20px}
@@ -480,7 +484,7 @@ dialog.win > .body{overflow:auto;flex:1}
   <main id="page"></main>
   <div class="floor" data-floor="bottom" aria-hidden="true"></div>
 </div>
-<dialog id="case" class="win" aria-label="Project case study"></dialog>
+<dialog id="case" class="w95" aria-label="Project case study"></dialog>
 <dialog id="photo" class="win" aria-label="Photo"></dialog>
 
 <script>
@@ -938,8 +942,9 @@ function w95HTML(id, title, icon, inner){        // a window drawn in the same g
 }
 function openCase(id, from){
   const p = PROJECTS.find(x => x.id === id), d = $('#case'); if (!p) return;
-  d.innerHTML = `<div class="titlebar">${ic('cube')}<h2 class="t">${esc(p.title)}</h2><button class="tb x" data-close aria-label="Close">✕</button></div>
-    <div class="body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
+  d.innerHTML = `<div class="w95-title">${ic('folder')}<h2 class="t">${esc(p.title)}</h2>
+      <span class="tb" aria-hidden="true">_</span><span class="tb" aria-hidden="true">□</span><button class="tb" data-close aria-label="Close">✕</button></div>
+    <div class="w95-body body case"><h1>${esc(p.title)}</h1><p>${esc(p.summary)}</p>
       ${p.trailer ? `<div class="vid"><iframe src="https://www.youtube-nocookie.com/embed/${esc(p.trailer)}" title="${esc(p.title)} video" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>` : ''}
       ${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].some(r => r[1]) ? `<dl class="meta">${[['Role', p.role], ['Team', p.team], ['Time', p.time], ['Engine / tools', p.engine]].filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join('')}</dl>` : ''}
       ${(p.links && p.links.length) ? `<p>${linkBtns(p.links)}</p>` : ''}
