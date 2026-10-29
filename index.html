@@ -440,6 +440,8 @@ dialog.win > .body{overflow:auto;flex:1}
 dialog.w95{position:fixed;inset:0;height:fit-content;overflow:hidden;margin:auto;width:min(820px,94vw);max-height:90vh;border:0;color:var(--ink)}      /* fixed to the screen and centred, wherever the page is scrolled */      /* the project pop-up: same frame as the Projects and About windows */
 dialog.w95[open]{display:flex;flex-direction:column}
 dialog.w95::backdrop{background:rgba(0,0,0,.5)}
+dialog.w95 > .w95-title{flex:none;height:38px;padding:0 8px 0 10px}      /* the title bar keeps its full height (it was being squeezed) */
+dialog.w95 .w95-title .tb{width:22px;height:22px;font-size:12px}      /* smaller buttons with room above, below and to the right */
 dialog.w95 > .w95-body{display:flex;flex-direction:column;flex:1;min-height:0;padding:6px;overflow:hidden}      /* the bevel stays still ... */
 dialog.w95 .case{overflow:auto;flex:1;min-height:0;padding:20px 22px}      /* ... and only this inner area scrolls, inside the bevel */
 .meta{display:grid;grid-template-columns:max-content 1fr;gap:3px 16px;margin:10px 0 14px;padding:10px 12px;background:var(--meta-bg);border:1px solid var(--meta-line)}
